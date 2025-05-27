@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>CodeMirror Beispiel</title>
+
+    <!-- CodeMirror STYLES -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+
+    <!-- Optionales Theme -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+
+    <!-- Eigenes CSS für Layout -->
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #1e1e1e;
+        color: white;
+        padding: 20px;
+    }
+    .editor-wrapper {
+        border: 1px solid #444;
+        margin-top: 10px;
+    }
+    </style>
+</head>
+<body>
+
+    <h1>CodeMirror Editor Beispiel</h1>
+    <p>Hier kannst du HTML-Code bearbeiten:</p>
+
+    <form>
+        <textarea id="editor"><h1>Hallo Welt!</h1></textarea>
+    </form>
+
+    <div class="editor-wrapper" id="live-preview"></div>
+
+    <!-- CodeMirror SCRIPTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+
+    <!-- Optional: CodeMirror Addons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closetag.min.js"></script>
+
+    <!-- Editor-Aktivierung -->
+    <script>
+    const editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+        mode: "htmlmixed",
+        theme: "dracula",         // Alternativen: "default", "monokai", "eclipse", etc.
+        lineNumbers: true,
+        autoCloseTags: true
+    });
+
+    // Live-Vorschau
+    editor.on("change", () => {
+        const html = editor.getValue();
+        document.getElementById("live-preview").innerHTML = html;
+    });
+    </script>
+
+</body>
+</html>

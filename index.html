@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <!-- Bootstrap JS -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    defer
+  ></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mein Portfolio</title>
+  <!-- Benutzerdefinierte CSS-Datei -->
+  <link rel="stylesheet" href="stylesheet.css" />
+  <!-- Benutzerdefinierte JavaScript-Datei -->
+  <script defer src="script.js"></script>
+  <!-- Bootstrap Icons -->
+  <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" 
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <header>
+    <h1>Moritz Bertz</h1>
+    <p class="subtitle">Fachinformatiker • Kreativer Problemlöser • Tech Enthusiast</p>
+  </header>
+
+  <nav class="static-menu">
+    <div class="burger-menu" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <ul>
+      <li><a href="#about">Über mich</a></li>
+      <li><a href="#timeline">Berufserfahrung</a></li>
+      <li><a href="#projects">Projekte</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Kontakt</a></li>
+      <li><a href="javascript:void(0);" onclick="toggleDarkMode()">Dark Theme</a></li>
+    </ul>
+  </nav>
+  <section id="about">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-12">
+          <div class="about-wrapper">
+            <div class="profile-container">
+              <h2 class="profile-heading">Über Mich</h2>
+              <img src="images/profile-pic.jpg" alt="Profilbild" class="profile-img">
+            </div>
+            <div class="about-content">
+              <div id="paragraph-slider">
+                <p class="paragraph active">Ich bin Moritz Bertz, angehender Fachinformatiker für Systemintegration mit einer Leidenschaft für IT, Netzwerke und digitale Technologien. Seit meiner Kindheit begeistern mich technische Systeme – heute setze ich dieses Interesse gezielt in meiner Ausbildung und praktischen Projekten ein.</p>
+                <p class="paragraph">Ich verfüge über fundierte Kenntnisse in der Installation und Verwaltung von Betriebssystemen, Netzwerken und Servern sowie in IT-Sicherheit und Hardwareintegration. Durch meine Arbeit als Techniker und meine Ausbildung habe ich gelernt, komplexe Probleme effizient zu analysieren und nachhaltige Lösungen zu entwickeln.</p>
+                <p class="paragraph">Ich bin kommunikativ, kundenorientiert und arbeite gerne im Team. In bisherigen Projekten konnte ich meine Fähigkeit unter Beweis stellen, technische Themen verständlich zu erklären und eine positive Zusammenarbeit mit Kunden und Kollegen aufzubauen.</p>
+                <p class="paragraph">Ich strebe danach, mein Wissen kontinuierlich zu erweitern und in einem innovativen Unternehmen aktiv mitzuwirken. Mein Fokus liegt dabei auf praxisorientierter IT-Systemintegration und dem Aufbau zukunftsfähiger, sicherer Infrastrukturen.</p>
+              </div>
+              <!-- Pfeiltasten -->
+              <div class="text-center mt-3">
+                <button class="btn btn-arrow me-2" id="prev-btn" aria-label="Zurück">
+                  <div class="svg-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M15 8a.5.5 0 0 1-.5.5H3.707l4.147 4.146a.5.5 0 0 1-.708.708l-5-5a.5.5 0 0 1 0-.708l5-5a.5.5 0 0 1 .708.708L3.707 7.5H14.5A.5.5 0 0 1 15 8z"/>
+                    </svg>
+                  </div>
+                </button>
+                <button class="btn btn-arrow" id="next-btn" aria-label="Weiter">
+                  <div class="svg-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h10.793l-4.147-4.146a.5.5 0 0 1 .708-.708l5 5a.5.5 0 0 1 0 .708l-5 5a.5.5 0 0 1-.708-.708L12.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                    </svg>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="timeline" class="mt-5">
+    <h2 class="text-center mb-4">Berufserfahrung</h2>
+    <div class="timeline-container">
+  
+      <!-- Bereits vorhandene Meilensteine -->
+      <div class="timeline-item" data-year="2024 – heute" data-title="Ausbildung – GFN" data-description="Ausbildung zum Fachinformatiker für Systemintegration bei der GFN: Netzwerkadministration, IT-Sicherheit, Azure, Linux u.v.m.">
+        <div class="timeline-dot"></div>
+        <div class="timeline-label">2024 – heute<br><small>GFN – Fachinformatiker</small></div>
+      </div>
+  
+      <div class="timeline-item" data-year="2022 – 2023" data-title="Express Handy Reparatur" data-description="Reparaturen, Kundenberatung, Inventarverwaltung, IT-Service für Kleingeräte.">
+        <div class="timeline-dot"></div>
+        <div class="timeline-label">2022 – 2023<br><small>EDV Reparateur</small></div>
+      </div> 
+  
+      <!-- Hinzugefügte Meilensteine -->
+      <div class="timeline-item" data-year="2022" data-title="Servicekraft – Alex Ludwigshafen" data-description="Servicekraft, Kellner und Barkeeper im Alex Ludwigshafen.">
+        <div class="timeline-dot"></div>
+        <div class="timeline-label">2022<br><small>Alex Ludwigshafen</small></div>
+      </div>
+  
+      <div class="timeline-item" data-year="2021 – 2022" data-title="Servicekraft – O'Reilly's Irish Pub" data-description="Servicekraft, Kellner und Barkeeper im O'Reilly's Irish Pub.">
+        <div class="timeline-dot"></div>
+        <div class="timeline-label">2021 – 2022<br><small>O'Reilly's Irish Pub</small></div>
+      </div>
+
+      <div class="timeline-item" data-year="2017 – 2018" data-title="Game & Multimedia Design" data-description="SRH Heidelberg: Photoshop, Webentwicklung, Designgrundlagen, Teamprojekte.">
+        <div class="timeline-dot"></div>
+        <div class="timeline-label">2017 – 2018<br><small>SRH Heidelberg</small></div>
+      </div>
+
+      <div class="timeline-item" data-year="2017" data-title="Praktikum – Rechnerhaus GmbH" data-description="Praktikum als Webentwickler bei der Rechnerhaus GmbH in Lampertheim.">
+        <div class="timeline-dot"></div>
+        <div class="timeline-label">2017<br><small>Rechnerhaus GmbH</small></div>
+      </div>
+  
+      <div class="timeline-item" data-year="2016 – 2017" data-title="Berufsvorbereitende Bildungsmaßnahme" data-description="Teilnahme an einer berufsvorbereitenden Bildungsmaßnahme am Wichern Institut Ludwigshafen.">
+        <div class="timeline-dot"></div>
+        <div class="timeline-label">2016 – 2017<br><small>Wichern Institut</small></div>
+      </div>
+  
+      <div class="timeline-item" data-year="2007" data-title="Praktikum – Ciba/BASF Lampertheim" data-description="Praktikum als Chemikant bei Ciba/BASF in Lampertheim.">
+        <div class="timeline-dot"></div>
+        <div class="timeline-label">2007<br><small>Ciba/BASF Lampertheim</small></div>
+      </div>
+  
+    </div>
+  </section>
+  
+  <!-- Modal für Details -->
+  <div class="modal fade" id="timelineModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="timelineModalLabel"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+        </div>
+        <div class="modal-body" id="timelineModalBody"></div>
+      </div>
+    </div>
+  </div>
+  
+  <section id="projects" class="mt-5">
+    <h2 class="text-center mb-4">Projekte</h2>
+    <p class="text-center mb-4">Hier sind einige meiner Projekte, die ich während meiner Ausbildung und in meiner Freizeit umgesetzt habe.</p>
+    <div class="container">
+      <div class="row g-4 justify-content-center">
+        <!-- Project Card 1 -->
+        <h2 class="text-center mb-4">Portfolio Website</h2>
+        <div class="col-md-12">
+          <div class="card-container">
+            <div class="card">
+              <div class="card-face card-front">
+                <img src="images/infpic/website.png" alt="Portfolio Website" />
+              </div>
+              <div class="card-face card-back">
+                <div class="scroll-content" id="scrollBox1">
+                  <h3>Portfolio Website</h3>
+                  <p>Eine responsive Portfolio-Website, die meine Fähigkeiten und Projekte präsentiert.</p>
+                  <ul>
+                    <li>HTML5 & CSS3 für modernes, responsives Design</li>
+                    <li>JavaScript für interaktive Elemente</li>
+                    <li>Bootstrap für Grid-Layout und Komponenten</li>
+                    <li>Dark/Light Mode Toggle</li>
+                    <li>Animierte UI-Elemente</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Project Card 2 -->
+        <h2 class="text-center mb-4">DMZ-Netzwerk mit Cisco Packet Tracer</h2>
+        <div class="col-md-12">
+          <div class="card-container">
+            <div class="card">
+              <div class="card-face card-front">
+                <img src="images/infpic/DMZ.png" alt="Netzwerk Lab" />
+              </div>
+              <div class="card-face card-back">
+                <div class="scroll-content" id="scrollBox2">
+                  <h3>DMZ-Netzwerk mit Cisco Packet Tracer</h3>
+                  <p>Ein komplexes Netzwerk-Setup mit DMZ (Demilitarized Zone) zur sicheren Trennung von internen und externen Diensten.</p>
+                  <ul>
+                    <li>Netzwerksegmentierung in drei Zonen (Intern, DMZ, Extern)</li>
+                    <li>Konfiguration von zwei Routers (Edge & Internal) und einem Layer 3 Switch</li>
+                    <li>Implementierung von Access Control Lists (ACLs) für Sicherheit</li>
+                    <li>Statisches Routing zwischen den Netzwerkzonen</li>
+                    <li>IP-Adressierung und Subnetting (192.168.10.0/24, 192.168.20.0/24, 203.0.113.0/24)</li>
+                    <li>Testen der Netzwerkverbindungen und Sicherheitsregeln</li>
+                  </ul>
+                  <p><strong>Gelernte Fähigkeiten:</strong></p>
+                  <ul>
+                    <li>Netzwerksegmentierung und DMZ-Konzepte</li>
+                    <li>Router- und Switch-Konfiguration</li>
+                    <li>ACL-Implementierung für Zugriffskontrolle</li>
+                    <li>Netzwerksicherheit und Best Practices</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Project Card 3 -->
+        <h2 class="text-center mb-4">Active Directory mit Dokumentation</h2>
+        <div class="col-md-12">
+          <div class="card-container">
+            <div class="card">
+              <div class="card-face card-front">
+                <img src="images/infpic/ad.png" alt="Active Directory" />
+              </div>
+              <div class="card-face card-back">
+                <div class="scroll-content" id="scrollBox3">
+                  <h3>Zentrale Benutzer- und Rechteverwaltung mit Active Directory</h3>
+                  <p>Einrichtung und Konfiguration einer Active Directory Infrastruktur mit Gruppenrichtlinien.</p>
+                  <ul>
+                    <li>Einrichtung eines Domänencontrollers unter Windows Server 2022</li>
+                    <li>Strukturierte OU-Organisation für effiziente Verwaltung</li>
+                    <li>Implementierung von Gruppenrichtlinien (GPOs)</li>
+                    <li>Automatisierte Druckerzuweisung und Netzlaufwerke</li>
+                    <li>Passwortrichtlinien und Sicherheitseinstellungen</li>
+                  </ul>
+                  <p><strong>Verwendete Technologien:</strong></p>
+                  <ul>
+                    <li>Windows Server 2022</li>
+                    <li>Group Policy Management Console (GPMC)</li>
+                    <li>Remote Server Administration Tools (RSAT)</li>
+                  </ul>
+                  <button class="btn btn-primary" onclick="openModal()">Dokumentation Organisational Units / Groups</button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Project Card 4 -->
+        <h2 class="text-center mb-4">VLAN und Segmentierung</h2>
+        <div class="col-md-12">
+          <div class="card-container">
+            <div class="card">
+              <div class="card-face card-front">
+                <img src="images/infpic/vlan.png" alt="VLAN Network" />
+              </div>
+              <div class="card-face card-back">
+                <div class="scroll-content" id="scrollBox4">
+                  <h3>Segmentierung eines Netzwerks mit VLANs und Layer-3-Routing</h3>
+                  <p>Implementierung einer VLAN-basierten Netzwerksegmentierung mit Inter-VLAN-Routing.</p>
+                  <ul>
+                    <li>Entwicklung eines VLAN-Konzepts für verschiedene Abteilungen</li>
+                    <li>Konfiguration von Trunk-Ports und Access-Ports</li>
+                    <li>Einrichtung von Inter-VLAN-Routing</li>
+                    <li>Implementierung von Sicherheitsrichtlinien pro VLAN</li>
+                    <li>Netzwerksegmentierung für optimale Performance</li>
+                  </ul>
+                  <p><strong>Verwendete Technologien:</strong></p>
+                  <ul>
+                    <li>Cisco IOS / Packet Tracer</li>
+                    <li>pfSense Firewall</li>
+                    <li>Unifi Network Controller</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Project Card 5 -->
+        <h2 class="text-center mb-4">Windows Deployment Services</h2>
+        <div class="col-md-12">
+          <div class="card-container">
+            <div class="card">
+              <div class="card-face card-front">
+                <img src="images/infpic/wds.png" alt="Windows Deployment Services" />
+              </div>
+              <div class="card-face card-back">
+                <div class="scroll-content" id="scrollBox5">
+                  <h3>Automatisierte Windows-Installation via PXE und WDS</h3>
+                  <p>Einrichtung eines Windows Deployment Services Servers für automatisierte Systeminstallationen.</p>
+                  <ul>
+                    <li>Konfiguration eines WDS-Servers</li>
+                    <li>Erstellung und Anpassung von Bootimages</li>
+                    <li>Entwicklung von Antwortdateien (unattended.xml)</li>
+                    <li>Integration von Treibern und Updates</li>
+                    <li>PXE-Boot-Konfiguration</li>
+                  </ul>
+                  <p><strong>Verwendete Technologien:</strong></p>
+                  <ul>
+                    <li>Windows Server Core/GUI</li>
+                    <li>Deployment Image Servicing and Management (DISM)</li>
+                    <li>Windows Deployment Services (WDS)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Project Card 7 -->
+        <h2 class="text-center mb-4">Hyper-V Virtualisierung</h2>
+        <div class="col-md-12">
+          <div class="card-container">
+            <div class="card">
+              <div class="card-face card-front">
+                <img src="images/infpic/hyper-v-1.webp" alt="Hyper-V Virtualization" />
+              </div>
+              <div class="card-face card-back">
+                <div class="scroll-content" id="scrollBox7">
+                  <h3>Servervirtualisierung mit Hyper-V und VHDX-Snapshots</h3>
+                  <p>Implementierung einer Hyper-V-basierten Virtualisierungsinfrastruktur.</p>
+                  <ul>
+                    <li>Einrichtung eines Hyper-V Hosts</li>
+                    <li>Konfiguration virtueller Netzwerke</li>
+                    <li>Erstellung und Verwaltung von VMs</li>
+                    <li>Implementierung von VHDX-Snapshots</li>
+                    <li>Performance-Optimierung</li>
+                  </ul>
+                  <p><strong>Verwendete Technologien:</strong></p>
+                  <ul>
+                    <li>Microsoft Hyper-V</li>
+                    <li>PowerShell für Automatisierung</li>
+                    <li>VHDX-Dateisystem</li>
+                    <li>Windows Admin Center</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Project Card 8 -->
+        <h2 class="text-center mb-4">PowerShell-Skripte</h2>
+        <div class="col-md-12">
+          <div class="card-container">
+            <div class="card">
+              <div class="card-face card-front">
+                <img src="images/infpic/New_AD_Users_w_PS_5.png" alt="PowerShell Automation" />
+              </div>
+              <div class="card-face card-back">
+                <div class="scroll-content" id="scrollBox8">
+                  <h3>Automatisierung von Benutzeranlagen mit PowerShell-Skripten</h3>
+                  <p>Entwicklung von PowerShell-Skripten zur Automatisierung von Benutzeranlagen.</p>
+                  <ul>
+                    <li>Erstellung von Benutzerkonten in Active Directory</li>
+                    <li>Automatisierte Einrichtung von Homeverzeichnissen</li>
+                    <li>Verwaltung von Gruppenmitgliedschaften</li>
+                    <li>Passwort-Management und -Sicherheit</li>
+                    <li>CSV-basierte Massenverarbeitung</li>
+                  </ul>
+                  <p><strong>Verwendete Technologien:</strong></p>
+                  <ul>
+                    <li>PowerShell</li>
+                    <li>Active Directory Module</li>
+                    <li>CSV-Import/Export</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- Modal für das Tool -->
+<div id="iframeModal" class="modal-overlay">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal()">×</button>
+    <iframe id="ad-documentation-iframe" src="AD Documentation.html" frameborder="0"></iframe>
+  </div>
+</div>
+  </section>
+
+
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="skills-container">
+      <div class="skill">
+        <div class="mobile-tooltip">Klick mich</div>
+        <span>HTML/CSS</span>
+        <div class="bar" data-percent="83" data-skill="htmlcss">
+          <div>83%</div>
+        </div>
+        <div class="skill-details">
+          <ul>
+            <li>Responsive Web Design</li>
+            <li>CSS Grid & Flexbox</li>
+            <li>CSS Animations & Transitions</li>
+            <li>Semantic HTML5</li>
+            <li>Cross-browser Compatibility</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="skill">
+        <div class="mobile-tooltip">Klick mich</div>
+        <span>JavaScript</span>
+        <div class="bar" data-percent="45" data-skill="javascript">
+          <div>45%</div>
+        </div>
+        <div class="skill-details">
+          <ul>
+            <li>DOM Manipulation</li>
+            <li>Event Handling</li>
+            <li>ES6+ Features</li>
+            <li>Async Programming</li>
+            <li>Basic API Integration</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="skill">
+        <div class="mobile-tooltip">Klick mich</div>
+        <span>PHP</span>
+        <div class="bar" data-percent="60" data-skill="php">
+          <div>60%</div>
+        </div>
+        <div class="skill-details">
+          <ul>
+            <li>WordPress Development</li>
+            <li>Database Integration</li>
+            <li>Form Processing</li>
+            <li>Basic Security Practices</li>
+            <li>Template Systems</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="skill">
+        <div class="mobile-tooltip">Klick mich</div>
+        <span>Linux</span>
+        <div class="bar" data-percent="65" data-skill="linux">
+          <div>65%</div>
+        </div>
+        <div class="skill-details">
+          <ul>
+            <li>System Administration</li>
+            <li>Shell Scripting</li>
+            <li>Package Management</li>
+            <li>User Management</li>
+            <li>Network Configuration</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="skill">
+        <div class="mobile-tooltip">Klick mich</div>
+        <span>Netzwerktechnik</span>
+        <div class="bar" data-percent="80" data-skill="netzwerk">
+          <div>80%</div>
+        </div>
+        <div class="skill-details">
+          <ul>
+            <li>TCP/IP Protocols</li>
+            <li>Network Security</li>
+            <li>VLAN Configuration</li>
+            <li>Router & Switch Setup</li>
+            <li>Network Troubleshooting</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="skill">
+        <div class="mobile-tooltip">Klick mich</div>
+        <span>Diagnose & Reparatur</span>
+        <div class="bar" data-percent="70" data-skill="hardware">
+          <div>70%</div>
+        </div>
+        <div class="skill-details">
+          <ul>
+            <li>Component Testing</li>
+            <li>System Assembly</li>
+            <li>Hardware Upgrades</li>
+            <li>Performance Optimization</li>
+            <li>Diagnostic Tools</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="skill">
+        <div class="mobile-tooltip">Klick mich</div>
+        <span>Datenrettung</span>
+        <div class="bar" data-percent="60" data-skill="datenrettung">
+          <div>60%</div>
+        </div>
+        <div class="skill-details">
+          <ul>
+            <li>File Recovery</li>
+            <li>Partition Recovery</li>
+            <li>Data Backup Solutions</li>
+            <li>Recovery Software</li>
+            <li>Data Security</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="skill">
+        <div class="mobile-tooltip">Klick mich</div>
+        <span>Bildbearbeitung</span>
+        <div class="bar" data-percent="55" data-skill="photoshop">
+          <div>55%</div>
+        </div>
+        <div class="skill-details">
+          <ul>
+            <li>Image Retouching</li>
+            <li>Layer Management</li>
+            <li>Color Correction</li>
+            <li>Basic Design</li>
+            <li>Photo Manipulation</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="skill">
+        <div class="mobile-tooltip">Klick mich</div>
+        <span>Kundenkommunikation</span>
+        <div class="bar" data-percent="85" data-skill="kundenkommunikation">
+          <div>85%</div>
+        </div>
+        <div class="skill-details">
+          <ul>
+            <li>Technical Support</li>
+            <li>Problem Resolution</li>
+            <li>Documentation</li>
+            <li>Training & Guidance</li>
+            <li>Customer Service</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="skill">
+        <div class="mobile-tooltip">Klick mich</div>
+        <span>Englisch (verhandlungssicher)</span>
+        <div class="bar" data-percent="95" data-skill="englisch">
+          <div>95%</div>
+        </div>
+        <div class="skill-details">
+          <ul>
+            <li>Technical Documentation</li>
+            <li>International Communication</li>
+            <li>Business Negotiations</li>
+            <li>Project Management</li>
+            <li>Cross-cultural Collaboration</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tech-carousel" class="mt-5">
+    <div class="container">
+      <div class="row">
+        <!-- Linke Spalte: Liste der Technologien -->
+        <div class="col-md-6">
+          <ul class="tech-list">
+            <li data-tech="netzwerk">Netzwerktechnologie</li>
+            <li data-tech="programmierung">Programmierung</li>
+            <li data-tech="webentwicklung">Webentwicklung</li>
+            <li data-tech="datenbanken">Datenbanken</li>
+            <li data-tech="cloud">Cloud-Technologien</li>
+          </ul>
+        </div>
+        <!-- Rechte Spalte: Beschreibungsbereich -->
+        <div class="col-md-6">
+          <div class="tech-description">
+            <div class="tech-description-content">
+              <h3 id="tech-title">Technologie</h3>
+              <div class="tech-description-text">
+                <p id="tech-details">Klicken Sie auf eine Technologie, um mehr Informationen zu erhalten.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Kontakt</h2>
+    <form id="contact-form" action="https://formspree.io/f/xanoovvn" method="POST">
+      <input type="text" name="name" id="name" placeholder="Name" required />
+      <input type="email" name="email" id="email" placeholder="E-Mail" required />
+      <textarea name="message" id="message" placeholder="Nachricht..." required></textarea>
+      <button type="submit">Senden</button>
+      <p id="form-msg"></p>
+    </form>
+  </section>
+
+  <footer>
+    <div class="socials">
+      <a href="https://github.com/Error-404-UserNameNotFound"><img src="github.svg" alt="GitHub" /></a>
+      <a href="https://www.linkedin.com/in/moritz-bertz-6b0208141/"><img src="linkedin.svg" alt="LinkedIn" /></a>
+      <a href="mailto:moritzbertz@gmail.com"><img src="mail.svg" alt="E-Mail" /></a>
+    </div>
+    <p>&copy; 2025 Moritz Bertz</p>
+  </footer>
+</body>
+</html>

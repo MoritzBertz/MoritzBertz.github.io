@@ -1,0 +1,2041 @@
+/* ========================= */
+/* Farbvariablen (Dark/Light Mode) */
+/* ========================= */
+:root {
+  --bg: #ffffff; /* Hintergrundfarbe */
+  --text: #000000; /* Textfarbe */
+  --accent: hsl(29, 89%, 43%); /* Akzentfarbe */
+  --accent-rgb: 255, 140, 0; /* RGB-Werte für die Light Mode Akzentfarbe */
+}
+
+body.dark {
+  --bg: #111; /* Dunkler Hintergrund */
+  --text: #fff; /* Helle Textfarbe */
+  --accent: #00bcd4; /* Akzentfarbe im Dark Mode */
+  --accent-rgb: 0, 188, 212; /* RGB-Werte für die Dark Mode Akzentfarbe */
+}
+
+/* ========================= */
+/* Allgemeine Stile */
+/* ========================= */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  transition: background 0.3s, color 0.3s; /* Weicher Übergang bei Farbwechsel */
+  cursor: default; /* Standard-Cursor für die gesamte Seite */
+  caret-color: transparent; /* Versteckt den blinkenden Text-Cursor */
+}
+
+/* ========================= */
+/* Header-Bereich */
+/* ========================= */
+header {
+  position: relative;
+  text-align: center;
+  padding: 3rem 1rem;
+  background: var(--accent); /* Fallback-Farbe */
+  background-image: url('images/Header-small.jpg'); /* Hintergrundbild */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: rgb(255, 242, 242);
+}
+
+/* Overlay für den Header */
+header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Schwarzes Overlay mit Transparenz */
+  z-index: -1; /* Overlay hinter den Text legen */
+}
+
+/* Untertitel im Header */
+.subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+/* ========================= */
+/* Button-Styles */
+/* ========================= */
+button {
+  padding: 0.7rem 1.2rem;
+  border: none;
+  color: var(--accent);
+  font-weight: bold;
+  cursor: pointer;
+  margin: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover-Effekt für Buttons im Light Mode */
+button:hover {
+  background-color: hsl(29, 89%, 53%); /* Leicht hellere Akzentfarbe */
+}
+
+/* Hover-Effekt für Buttons im Dark Mode */
+body.dark button:hover {
+  background-color: hsl(192, 100%, 45%); /* Leicht hellere Akzentfarbe im Dark Mode */
+}
+
+/* ========================= */
+/* Sektions-Styles */
+/* ========================= */
+section {
+  padding: 2rem 1rem;
+  max-width: 900px;
+  margin: auto;
+}
+
+/* ========================= */
+/* Profilbild-Styles */
+/* ========================= */
+.profile-container {
+  position: relative;
+  transform: perspective(1000px) rotateY(20deg);
+  margin: 1rem 0;
+}
+
+.profile-heading {
+  background: var(--bg);
+  padding: 1rem;
+  margin: 0;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--text);
+}
+
+.profile-img {
+  width: 250px;
+  height: 350px;
+  border-radius: 0;
+  object-fit: fill;
+  object-position: center;
+  margin: 0;
+  filter: grayscale(100%); /* Schwarz-Weiß Filter */
+  outline: 1px solid black; /* Schwarzer Umriss */
+}
+
+/* Dark Mode Anpassungen */
+body.dark .profile-heading {
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.2);
+}
+
+body.dark .profile-img {
+  outline: 1px solid white;
+}
+
+/* ========================= */
+/* Skills-Bereich */
+/* ========================= */
+#skills {
+  padding: 2rem;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* Überschrift im Skills-Bereich */
+#skills h2 {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
+  text-align: left;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+/* Container für die Skills-Balken */
+.skills-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* Einzelner Skill-Bereich */
+.skill {
+  margin-top: 5px;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Ensure the parent container of skill-details has relative positioning */
+.skill {
+  position: relative;
+}
+
+/* Skills-Balken */
+#skills .bar {
+  position: relative;
+  background: rgba(255, 253, 253, 0.1);
+  height: 25px !important;
+  min-height: 25px !important;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
+  color: white;
+}
+
+/* Mobile Tooltip */
+.skill .mobile-tooltip {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: -25px;
+  background: var(--accent);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.skill .mobile-tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px 5px 0;
+  border-style: solid;
+  border-color: var(--accent) transparent transparent;
+}
+
+/* Responsive Anpassungen für Skills */
+@media (max-width: 768px) {
+  /* Nur die erste Skill-Bar zeigt den Tooltip */
+  .skill:first-child .mobile-tooltip {
+    display: block;
+  }
+
+  .skill .mobile-tooltip.hidden {
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+  }
+
+  #skills .bar {
+    cursor: pointer;
+  }
+
+  #skills .bar:hover {
+    transform: scale(1.02);
+  }
+}
+
+/* Dark mode adjustments */
+body.dark #skills .bar {
+  background: #333;
+}
+
+body.dark .skill .mobile-tooltip {
+  background: var(--accent);
+  color: white;
+}
+
+/* Erweiterter Skill-Bereich (wenn Details angezeigt werden) */
+.skill.expanded {
+  margin-bottom: 200px;
+}
+
+/* Skills-Balken im Dark Mode */
+body.dark #skills .bar {
+  background: #333;
+}
+
+/* Hover-Effekt für Skills-Balken */
+#skills .bar:hover {
+  transform: scale(1.02);
+}
+
+/* Füllstand des Skills-Balkens */
+#skills .bar div {
+  position: relative;
+  background: var(--accent);
+  height: 100% !important;
+  min-height: 25px !important;
+  width: 0;
+  border-radius: 5px;
+  transition: width 1.5s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Align text to the right */
+  padding-right: 15px;
+  padding-left: 0; /* Remove left padding */
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1;
+  box-sizing: border-box;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); /* Dark outline for text */
+}
+
+/* Details-Container für Skills */
+.skill-details {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: transparent;
+  border-radius: 0 0 8px 8px;
+  padding: 1rem;
+  display: none;
+  z-index: 1; /* Raise the stacking context */
+  transform: translateY(-20px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  box-shadow: none; /* Remove any shadow */
+  pointer-events: none; /* Prevent interaction */
+  margin-bottom: 2.5rem; /* Add more space below the skill-details */
+}
+
+.skill-details.active {
+  display: block;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Liste der Skill-Details */
+.skill-details ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Einzelne Skill-Detail-Einträge */
+.skill-details li {
+  padding: 0.5rem 0;
+  color: var(--text);
+  font-size: 0.9rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+/* Aktive Skill-Detail-Einträge */
+.skill-details.active li {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Letzter Skill-Detail-Eintrag */
+.skill-details li:last-child {
+  border-bottom: none;
+}
+
+/* Aufzählungspunkte für Skill-Details */
+.skill-details li::before {
+  content: "•";
+  color: var(--accent);
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+/* Verzögerung für die Animation der Detail-Einträge */
+.skill-details li:nth-child(1) { transition-delay: 0.1s; }
+.skill-details li:nth-child(2) { transition-delay: 0.2s; }
+.skill-details li:nth-child(3) { transition-delay: 0.3s; }
+.skill-details li:nth-child(4) { transition-delay: 0.4s; }
+.skill-details li:nth-child(5) { transition-delay: 0.5s; }
+
+/* Responsive Anpassungen für mobile Geräte */
+@media (max-width: 768px) {
+  .skills-container {
+    padding: 1rem;
+  }
+  
+  .skill {
+    margin-bottom: 1rem;
+  }
+  
+  .skill.expanded {
+    margin-bottom: 250px; /* Angepasster Abstand für mobile Geräte */
+  }
+}
+
+/* Animation für die Fortschrittsbalken */
+@keyframes fillBar {
+  from {
+    width: 0;
+  }
+  to {
+    width: var(--target-width);
+  }
+}
+
+/* Animationsklasse für die Balken */
+.bar div.animate {
+  animation: fillBar 1.5s ease-in-out forwards;
+}
+
+/* Remove the old tooltip styles */
+.bar::after,
+.bar::before {
+  display: none;
+}
+
+/* Dark mode adjustments */
+body.dark .bar {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+body.dark .skill-details {
+  background: var(--bg);
+}
+
+/* Add a hover effect with an animated breathing box shadow for skill bars */
+.skill .bar:hover {
+  animation: breathing-shadow 1.5s infinite ease-in-out;
+}
+
+/* Adjust the breathing glow animation to match the active theme */
+@keyframes breathing-shadow {
+  0%, 100% {
+    box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+  }
+  50% {
+    box-shadow: 0 0 20px var(--accent), 0 0 30px var(--accent);
+  }
+}
+
+/* Ensure the skill-details section does not cut off the hover breathing animation */
+.skill .bar {
+  position: relative;
+  z-index: 2; /* Ensure the bar is above the skill-details */
+}
+
+/* Ensure the breathing effect continues for the active skill bar */
+.skill.expanded .bar {
+  animation: none;
+}
+
+/* Ensure the breathing effect continues for the currently active skill bar */
+.skill.expanded .bar {
+  animation: breathing-shadow 1.5s infinite ease-in-out;
+}
+
+/* ========================= */
+/* Projekt-Karten */
+/* ========================= */
+.card-container {
+  perspective: 1000px;
+  width: 100%;
+  height: 500px;
+  margin-bottom: 2rem;
+  position: relative;
+  max-width: 1200px; /* Set a maximum width */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.card:hover {
+  z-index: 9999;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+  z-index: 9999;
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background: var(--bg);
+  border: 2px solid rgba(var(--accent-rgb), 0.8);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card-front {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.card-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-color: var(--bg);
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.scroll-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  font-size: 14px;
+  color: var(--text);
+}
+
+/* Custom Scrollbar für Projekt-Karten */
+.scroll-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scroll-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-content::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.scroll-content::-webkit-scrollbar-thumb:hover {
+  background: hsl(29, 89%, 53%);
+}
+
+/* Dark Mode Anpassungen für Scrollbar */
+body.dark .scroll-content::-webkit-scrollbar-thumb {
+  background: var(--accent);
+}
+
+body.dark .scroll-content::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+.scroll-content h3 {
+  color: var(--accent);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.scroll-content p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.scroll-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.scroll-content li {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.scroll-content li::before {
+  content: "•";
+  color: var(--accent);
+  position: absolute;
+  left: 0;
+}
+
+.scroll-content .btn {
+  margin-top: 1rem;
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.scroll-content .btn:hover {
+  background-color: var(--accent);
+  filter: brightness(1.2);
+}
+
+/* Dark mode adjustments */
+body.dark .card-face {
+  background: var(--bg);
+  border-color: var(--accent);
+}
+
+body.dark .scroll-content {
+  color: var(--text);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card-container {
+    height: 350px;
+  }
+  
+  .scroll-content {
+    font-size: 13px;
+  }
+  
+  .scroll-content h3 {
+    font-size: 1.3rem;
+  }
+}
+
+/* ========================= */
+/* Timeline-Styles */
+/* ========================= */
+.timeline {
+  list-style: none;
+  padding: 0;
+}
+
+.timeline li {
+  margin-bottom: 0.8rem;
+}
+
+.timeline span {
+  font-weight: bold;
+  color: var(--accent);
+}
+
+/* ========================= */
+/* Formular-Styles */
+/* ========================= */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Eingabefelder und Textbereiche */
+input, textarea {
+  padding: 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  cursor: text;
+  caret-color: var(--text);
+}
+
+/* ========================= */
+/* Footer-Styles */
+/* ========================= */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: var(--accent);
+  color: white;
+}
+
+/* Social Media Icons */
+.socials img {
+  width: 24px;
+  margin: 0 0.5rem;
+  filter: brightness(0); /* Makes icons black in light mode */
+  transition: filter 0.3s ease;
+}
+
+/* Dark mode adjustments for social icons */
+body.dark .socials img {
+  filter: brightness(0) invert(1) sepia(1) saturate(1000%) hue-rotate(170deg); /* Makes icons cyan in dark mode */
+}
+
+/* ========================= */
+/* Statisches Menü */
+/* ========================= */
+.static-menu {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: var(--bg);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 0.5rem 1rem;
+}
+
+/* Menü-Liste */
+.static-menu ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+/* Menü-Einträge */
+.static-menu li {
+  margin: 0 1rem;
+}
+
+/* Menü-Links */
+.static-menu a {
+  position: relative;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+/* Unterstrich-Effekt für Menü-Links */
+.static-menu a::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent);
+  transition: width 0.3s ease;
+}
+
+/* Hover-Effekt für Menü-Links */
+.static-menu a:hover {
+  color: var(--accent);
+}
+
+.static-menu a:hover::after {
+  width: 100%;
+}
+
+/* ========================= */
+/* Technologie-Karten */
+/* ========================= */
+.tech-card {
+  background-color: var(--bg);
+  color: var(--text);
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.3s;
+  max-width: 300px;
+  margin: auto;
+  cursor: pointer;
+  height: 500px;
+  overflow-y: auto;
+}
+
+.tech-card h3 {
+  background-color: var(--accent);
+  color: white;
+  padding: 0.5rem 1rem;
+  margin: -2rem -2rem 1rem -2rem;
+}
+
+.detail-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.detail-list li {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  margin: 0.5rem 0;
+}
+
+.detail-list li.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========================= */
+/* Animationen */
+/* ========================= */
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px); /* Start von oben */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* Endposition */
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px); /* Start von unten */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* Endposition */
+  }
+}
+
+#tech-carousel .col-md-6 p {
+  opacity: 0;
+  transform: translateY(-50px); /* Startposition */
+}
+
+#tech-carousel .col-md-6 p.visible {
+  animation: slideInDown 1s ease-out; /* Animation anwenden */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animation für den Paragraphen (von oben nach unten) */
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px); /* Start weiter oben */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* Endposition */
+  }
+}
+
+/* Animation für die Details (von unten nach oben) */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px); /* Start weiter unten */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* Endposition */
+  }
+}
+
+/* Paragraph im Tech-Carousel */
+#tech-carousel .col-md-6 p {
+  opacity: 0; /* Startzustand */
+  transform: translateY(-50px); /* Startposition */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* Weicher Übergang */
+}
+
+#tech-carousel .col-md-6 p.visible {
+  animation: slideInDown 1s ease-out; /* Animation anwenden */
+  opacity: 1; /* Sichtbar machen */
+  transform: translateY(0); /* Endposition */
+}
+
+/* Details in den Technologie-Karten */
+.detail-list li {
+  opacity: 0;
+  transform: translateY(20px); /* Startposition */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* Weicher Übergang */
+}
+
+.detail-list li.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========================= */
+/* Footer */
+/* ========================= */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: var(--accent);
+  color: white;
+}
+
+body.dark {
+  background-color: #111;
+  color: #fff;
+}
+
+body.dark a {
+  color: #00bcd4;
+}
+
+body.dark .static-menu {
+  background-color: #222;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+body.dark .project-card {
+  background-color: #222;
+  border-color: #00bcd4;
+}
+
+body.dark footer {
+  background-color: #222;
+}
+
+body.dark .timeline-item:hover .timeline-dot {
+  background: #00bcd4; /* Correct accent color for dark mode */
+}
+
+body.dark .timeline-item:hover .timeline-label {
+  color: #00bcd4; /* Correct accent color for dark mode */
+}
+
+body.dark .timeline-item:hover .timeline-dot {
+  background: var(--accent); /* Ensure correct accent color in dark mode */
+}
+
+body.dark .timeline-item:hover .timeline-label {
+  color: var(--accent); /* Ensure correct accent color in dark mode */
+}
+
+body.dark .timeline-container::-webkit-scrollbar-thumb:hover {
+  background: #00bcd4; /* Correct hover color for scrollbar in dark mode */
+}
+
+button {
+  padding: 0.7rem 1.2rem;
+  border: none;
+  color: var(--accent);
+  font-weight: bold;
+  cursor: pointer;
+  margin: 0.5rem;
+  border-radius: 4px;
+}
+
+section {
+  padding: 2rem 1rem;
+  max-width: 900px;
+  margin: auto;
+}
+
+.skill {
+  margin-top: 5px;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.skill.expanded {
+  margin-bottom: 200px;
+}
+
+.skill-details {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: transparent;
+  border-radius: 0 0 8px 8px;
+  padding: 1rem;
+  display: none;
+  z-index: 1; /* Raise the stacking context */
+  transform: translateY(-20px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  box-shadow: none; /* Remove any shadow */
+  pointer-events: none; /* Prevent interaction */
+}
+
+.skill-details.active {
+  display: block;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.skill-details li {
+  padding: 0.5rem 0;
+  color: var(--text);
+  font-size: 0.9rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.skill-details.active li {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Verzögerung für die Animation der Detail-Einträge */
+.skill-details li:nth-child(1) { transition-delay: 0.1s; }
+.skill-details li:nth-child(2) { transition-delay: 0.2s; }
+.skill-details li:nth-child(3) { transition-delay: 0.3s; }
+.skill-details li:nth-child(4) { transition-delay: 0.4s; }
+.skill-details li:nth-child(5) { transition-delay: 0.5s; }
+
+/* Tooltip styling */
+.bar {
+  position: relative;
+  background: #ccc;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.bar::after {
+  content: attr(data-percent); /* Use the data-percent attribute as content */
+  position: absolute;
+  top: -25px; /* Position the tooltip above the bar */
+  left: 50%;
+  transform: translateX(-50%) translateY(10px); /* Start slightly below */
+  background: var(--accent);
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.bar:hover::after {
+  opacity: 1; /* Show the tooltip on hover */
+  transform: translateX(-50%) translateY(0); /* Slide into position */
+}
+
+.bar div {
+  background: var(--accent);
+  height: 100%;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.project-card {
+  background: var(--bg);
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  padding: 1rem;
+  transition: transform 0.3s;
+}
+
+.project-card:hover {
+  transform: scale(1.03);
+}
+
+.timeline {
+  list-style: none;
+  padding: 0;
+}
+
+.timeline li {
+  margin-bottom: 0.8rem;
+}
+
+.timeline span {
+  font-weight: bold;
+  color: var(--accent);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+input, textarea {
+  padding: 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  cursor: text;
+  caret-color: var(--text);
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: var(--accent);
+  color: white;
+}
+
+socials img {
+  width: 24px;
+  margin: 0 0.5rem;
+  filter: brightness(0); /* Makes icons black in light mode */
+  transition: filter 0.3s ease;
+}
+
+/* Dark mode adjustments for social icons */
+body.dark .socials img {
+  filter: brightness(0) invert(1) sepia(1) saturate(1000%) hue-rotate(170deg); /* Makes icons cyan in dark mode */
+}
+
+/* Static Menu Styles */
+.static-menu {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: var(--bg);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 0.5rem 1rem;
+}
+
+.static-menu ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.static-menu li {
+  margin: 0 1rem;
+}
+
+.static-menu a {
+  position: relative; /* Required for the pseudo-element */
+  text-decoration: none;
+  color: var(--text);
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.static-menu a::after {
+  content: "";
+  position: absolute;
+  bottom: -3px; /* Position the underline slightly below the text */
+  left: 0;
+  width: 0;
+  height: 2px; /* Thickness of the underline */
+  background-color: var(--accent);
+  transition: width 0.3s ease; /* Smooth sliding effect */
+}
+
+.static-menu a:hover {
+  color: var(--accent); /* Change text color on hover */
+}
+
+.static-menu a:hover::after {
+  width: 100%; /* Expand the underline to full width */
+}
+
+/* Remove old menu styles */
+.menu,
+.menu-toggle,
+.menu-items {
+  display: none;
+}
+
+/* ========================= */
+/* Burger-Menü */
+/* ========================= */
+.burger-menu {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Burger-Menü Linien */
+.burger-menu div {
+  width: 25px;
+  height: 3px;
+  background: var(--text);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center;
+}
+
+/* Animation für das Burger-Menü */
+.burger-menu.active div:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.burger-menu.active div:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-menu.active div:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* ========================= */
+/* Responsive Anpassungen */
+/* ========================= */
+@media (max-width: 768px) {
+  /* Anpassungen für das statische Menü */
+  .static-menu {
+    width: auto;
+    padding: 0.5rem;
+  }
+
+  /* Mobile Menü-Liste */
+  .static-menu ul {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    background: var(--bg);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Aktive mobile Menü-Liste */
+  .static-menu ul.active {
+    display: flex;
+  }
+
+  /* Burger-Menü anzeigen */
+  .burger-menu {
+    display: flex;
+  }
+}
+
+/* ========================= */
+/* Slideshow-Styles */
+/* ========================= */
+#slideshow {
+  padding: 2rem 1rem;
+}
+
+/* Slideshow-Bilder */
+.carousel img {
+  max-height: 500px;
+  object-fit: cover;
+}
+
+/* Beschreibungsbox-Animation */
+.carousel-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Aktive Beschreibungsbox */
+.carousel-item.active .carousel-caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Zoom-Effekt für Slideshow-Bilder */
+.carousel-item img {
+  transition: transform 0.3s ease-in-out;
+}
+
+.carousel-item:hover img {
+  transform: scale(1.05);
+}
+
+/* Fortschrittsbalken für die Slideshow */
+.carousel-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.carousel-progress-bar {
+  width: 0;
+  height: 100%;
+  background: var(--accent);
+  transition: width 2s linear;
+}
+
+/* Timeline Table styling*/
+.timeline-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.timeline-table td {
+  padding: 0.5rem 1rem;
+  vertical-align: top;
+}
+
+.timeline-table .date {
+  color: var(--accent); /* Verwende die Akzentfarbe */
+  font-weight: bold;
+  white-space: nowrap;
+  width: 150px; /* Fester Platz für Datumswerte */
+}
+
+/* Styling für die Paragraphen im Slider */
+#paragraph-slider .paragraph {
+  display: none;
+}
+
+#paragraph-slider .paragraph.active {
+  display: block;
+}
+
+/*About me Button Styles*/
+#about button {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+#about button:hover {
+  background-color: hsl(29, 89%, 53%); /* Slightly lighter than the accent color */
+}
+
+/* Smaller button styles for arrows */
+ .btn-arrow {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  font-size: 1.5rem; /* Adjust size for the SVG */
+  cursor: pointer;
+  border-radius: 50%; /* Circular buttons */
+  transition: background-color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#about .btn-arrow:hover,
+#tech-carousel .btn-arrow:hover {
+  background-color: hsl(29, 89%, 53%); /* Slightly lighter than the light mode accent color */
+}
+
+body.dark #about .btn-arrow:hover,
+body.dark #tech-carousel .btn-arrow:hover {
+  background-color: hsl(192, 88%, 68%); /* Slightly lighter than the dark mode accent color */
+}
+
+/* Technologie-Fokus-Karten */
+.tech-card {
+  background-color: var(--bg); /* Hintergrundfarbe der Karte */
+  color: var(--text); /* Textfarbe */
+  padding: 2rem;
+  border: none; /* Entfernt alle Rahmen */
+  text-align: center; /* Zentriert den Text */
+  transition: transform 0.3s;
+  max-width: 600px;
+  margin: auto;
+  cursor: pointer;
+  height: 500px; /* Feste Höhe basierend auf der größten Karte */
+  overflow-y: auto; /* Scrollbar hinzufügen, falls der Inhalt zu groß ist */
+  max-width: 300px;
+}
+
+/* Überschrift innerhalb der Technologie-Fokus-Karten */
+.tech-card h3 {
+  background-color: var(--accent); /* Hintergrundfarbe der Überschrift */
+  color: white; /* Textfarbe der Überschrift */
+  padding: 0.5rem 1rem;
+  margin: -2rem -2rem 1rem -2rem; /* Überschrift über den Kartenrand hinausziehen */
+}
+
+.detail-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.detail-list li {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  margin: 0.5rem 0;
+}
+
+detail-list li.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#tech-carousel .row {
+  display: flex;
+  align-items: center; /* Align items vertically in the center */
+}
+
+#tech-carousel .col-md-6 p {
+  margin-top: 0; /* Remove unnecessary margin */
+}
+
+#tech-carousel .col-md-6 p {
+  margin-top: 1.5rem; /* Adjust margin to align with the h2 header */
+}
+
+#tech-carousel .col-md-6 {
+  padding: 1rem;
+}
+
+#tech-carousel p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px); /* Start weiter oben */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* Endposition */
+  }
+}
+
+#tech-carousel .col-md-6 p {
+  opacity: 1;
+  transform: none;
+}
+
+#tech-carousel .col-md-6 p.visible {
+  animation: none;
+  opacity: 1;
+  transform: none;
+}
+
+#tech-carousel .col-md-6 p {
+  animation: slideInDown 1s ease-out; /* Dauer der Animation verlängert */
+  opacity: 0; /* Startzustand */
+  transform: translateY(-50px); /* Startposition */
+}
+
+#tech-carousel .col-md-6 p.visible {
+  animation: slideInDown 1s ease-out; /* Animation anwenden */
+  opacity: 1; /* Sichtbar machen */
+  transform: translateY(0); /* Endposition */
+}
+
+/* Timeline Styles */
+
+.timeline-container {
+  display: flex;
+  overflow-x: auto;
+  position: relative;
+  padding: 2rem 0;
+  border-top: 3px solid var(--accent);
+  gap: 3rem;
+  scroll-snap-type: x mandatory;
+  white-space: nowrap; /* Verhindert den Umbruch der Elemente */
+}
+
+.timeline-item {
+  flex: 0 0 auto;
+  position: relative;
+  text-align: center;
+  scroll-snap-align: center;
+  cursor: pointer;
+  display: inline-block; /* Stellt sicher, dass die Elemente in einer Reihe bleiben */
+}
+
+.timeline-dot {
+  width: 20px;
+  height: 20px;
+  background: var(--accent);
+  border-radius: 50%;
+  margin: 0 auto;
+  position: relative;
+  top: -10px;
+  z-index: 2;
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transition for transform and background */
+}
+
+.timeline-item:hover .timeline-dot {
+  transform: scale(2); /* Smooth scaling effect */
+}
+
+.timeline-item:hover .timeline-label {
+  color: var(--accent); /* Ensure hover color matches the theme */
+}
+
+body.dark .timeline-item:hover .timeline-dot {
+  background: var(--accent); /* Ensure correct accent color in dark mode */
+}
+
+body.dark .timeline-item:hover .timeline-label {
+  color: var(--accent); /* Ensure correct accent color in dark mode */
+}
+
+.modal-content {
+  background-color: var(--bg); /* Match modal background to theme */
+  color: var(--text); /* Match modal text color to theme */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+.timeline-label {
+  margin-top: 1rem;
+  font-weight: bold;
+  max-width: 120px;
+  margin-inline: auto;
+}
+
+.timeline-item:hover .timeline-label {
+  color: var(--accent);
+}
+
+.timeline-container::-webkit-scrollbar {
+  height: 8px; /* Height of the scrollbar */
+}
+
+.timeline-container::-webkit-scrollbar-thumb {
+  background: var(--accent); /* Default color of the scrollbar thumb */
+  border-radius: 4px; /* Rounded corners */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.timeline-container::-webkit-scrollbar-thumb:hover {
+  background: hsl(29, 89%, 53%); /* Slightly lighter color on hover */
+}
+
+.timeline-container::-webkit-scrollbar-track {
+  background: transparent; /* Keeps the track background transparent */
+}
+
+.timeline-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.timeline-container::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+.timeline-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body.dark .timeline-item:hover .timeline-dot {
+  background: var(--accent) !important; /* Ensure correct accent color in dark mode */
+}
+
+body.dark .timeline-item:hover .timeline-label {
+  color: var(--accent) !important; /* Ensure correct accent color in dark mode */
+}
+
+body.dark .timeline-container::-webkit-scrollbar-thumb:hover {
+  background: var(--accent) !important; /* Ensure correct hover color for scrollbar in dark mode */
+}
+
+#about .btn-arrow {
+  width: 40px; /* Smaller button size */
+  height: 40px;
+  border-radius: 50%; /* Perfect circle */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-weight: bold;
+  font-size: 2rem; /* Bigger arrow size */
+}
+
+#about .btn-arrow:hover {
+  background-color: hsl(29, 89%, 53%); /* Slightly lighter than the accent color */
+  transform: scale(1.1); /* Slight zoom effect */
+}
+
+#about .btn-arrow svg,
+#tech-carousel .btn-arrow svg {
+  width: 100%; /* Ensure SVG scales properly */
+  height: 100%;
+  fill: currentColor; /* Inherit the button's text color */
+}
+
+#about .btn-arrow svg,
+#tech-carousel .btn-arrow svg {
+  width: 20px; /* Adjust SVG size */
+  height: 20px;
+  fill: white; /* Match the button text color */
+}
+
+#about .btn-arrow svg {
+  width: 24px; /* Explicitly set SVG width */
+  height: 24px; /* Explicitly set SVG height */
+  fill: currentColor; /* Inherit the button's text color */
+}
+
+/* SVG Container Styles */
+.svg-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; /* Explicitly set container width */
+  height: 24px; /* Explicitly set container height */
+}
+
+.svg-container svg {
+  width: 100%; /* Ensure SVG scales to container */
+  height: 100%;
+}
+
+/* Reverting the changes made to center the profile image */
+#about {
+  display: block; /* Revert to default block layout */
+  text-align: left; /* Revert text alignment */
+}
+
+/* Tech List Styles */
+.tech-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tech-list li {
+  font-size: 1.2rem;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  background-color: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.tech-list li:hover {
+  transform: translateX(10px);
+  box-shadow: 0 0 15px var(--accent);
+}
+
+.tech-list li.active {
+  background-color: var(--accent);
+  color: white;
+  transform: translateX(10px);
+  box-shadow: 0 0 15px var(--accent);
+}
+
+/* Remove the internal effect */
+.tech-list li::before {
+  display: none;
+}
+
+/* Tech Description Styles */
+.tech-description {
+  background-color: var(--bg);
+  color: var(--text);
+  border-radius: 15px;
+  border: 1px solid var(--accent);
+  box-shadow: 0 0 20px var(--accent);
+  transition: box-shadow 0.3s ease;
+  height: 100%;
+  min-height: 500px;
+}
+
+.tech-description-content {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.tech-description h3 {
+  margin: 0 0 1.5rem 0;
+  color: var(--accent);
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+.tech-description-text {
+  flex-grow: 1;
+}
+
+.tech-description p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0;
+  color: var(--text);
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+.tech-description:hover {
+  box-shadow: 0 0 35px var(--accent);
+}
+
+/* Dark mode adjustments */
+body.dark .tech-description {
+  box-shadow: 0 0 20px var(--accent);
+}
+
+body.dark .tech-description:hover {
+  box-shadow: 0 0 35px var(--accent);
+}
+
+/* Ensure the tech-carousel section has proper stacking context */
+#tech-carousel {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure the container has proper stacking context */
+#tech-carousel .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Skills and Tech Sections Container */
+.skills-tech-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Align section headings */
+#skills h2,
+#tech-carousel h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  line-height: 1.2;
+}
+
+/* Adjust individual section styles */
+#skills {
+  padding: 0;
+}
+
+#tech-carousel {
+  padding: 0;
+  grid-column: 1 / -1; /* Make tech section span full width */
+}
+
+#tech-carousel .container {
+  padding: 0;
+}
+
+#tech-carousel .row {
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .skills-tech-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  #skills, #tech-carousel {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+}
+
+#tech-carousel h2 {
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+/* Remove the text-center class from the h2 */
+#tech-carousel h2.text-center {
+  text-align: left;
+}
+
+/* Skill Details Styles */
+.skill-details {
+  margin-left: 2rem;
+  padding: 1rem;
+  min-height: 100px;
+}
+
+.skill-detail-item {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.skill-detail-item.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.skill-detail-item::before {
+  content: "🔹";
+  margin-right: 0.5rem;
+}
+
+/* ========================= */
+/* About Section Styles */
+/* ========================= */
+.about-wrapper {
+  display: flex;
+  align-items: stretch;
+  margin: 1rem 0;
+}
+
+.profile-container {
+  position: relative;
+  transform: perspective(1000px) rotateY(20deg);
+  margin: 0;
+  flex: 0 0 auto; /* Verhindert das Schrumpfen des Containers */
+}
+
+.about-content {
+  position: relative;
+  background: var(--bg);
+  padding: 2rem;
+  margin: 0;
+  margin-top: 4.8rem;
+  height: 334px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transform: perspective(1000px) rotateY(0deg);
+  transform-origin: left center;
+  outline: 1px solid black;
+  flex-grow: 1;
+}
+
+.about-content p {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* Dark Mode Anpassungen */
+body.dark .about-content {
+  outline: 1px solid white;
+}
+
+/* Responsive Anpassungen für About Section */
+@media (max-width: 768px) {
+  .about-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-container {
+    transform: none; /* Entfernt die 3D-Rotation auf mobilen Geräten */
+    margin-bottom: 2rem;
+    width: 100%;
+    max-width: 300px; /* Begrenzt die Breite des Profilbildes */
+  }
+
+  .profile-img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+  }
+
+  .about-content {
+    margin-top: 0;
+    height: auto;
+    min-height: 300px;
+    transform: none; /* Entfernt die 3D-Rotation auf mobilen Geräten */
+    outline: 1px solid var(--text);
+    width: 100%;
+  }
+
+  .about-content p {
+    font-size: 1rem;
+  }
+
+  /* Anpassung der Pfeiltasten für mobile Geräte */
+  .btn-arrow {
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
+  }
+}
+
+/* Zusätzliche Anpassungen für sehr kleine Bildschirme */
+@media (max-width: 480px) {
+  .profile-container {
+    max-width: 250px;
+  }
+
+  .about-content {
+    padding: 1.5rem;
+  }
+
+  .about-content p {
+    font-size: 0.95rem;
+  }
+}
+
+/* Form Styles */
+#contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#contact-form input,
+#contact-form textarea {
+  padding: 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+#contact-form input:focus,
+#contact-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+#contact-form textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+#contact-form button {
+  background-color: var(--accent);
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#contact-form button:hover {
+  background-color: var(--accent);
+  filter: brightness(1.2);
+}
+
+#contact-form button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Dark Mode Adjustments */
+body.dark #contact-form input,
+body.dark #contact-form textarea {
+  background-color: #222;
+  border-color: #444;
+  color: white;
+}
+
+body.dark #contact-form input:focus,
+body.dark #contact-form textarea:focus {
+  border-color: var(--accent);
+}
+
+body.dark #contact-form button {
+  background-color: var(--accent);
+}
+
+body.dark #contact-form button:hover {
+  background-color: var(--accent);
+  filter: brightness(1.2);
+}
+
+#contact h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.card:hover .card-face {
+  box-shadow: 0 0 20px rgba(255, 140, 0, 0.6); /* Orange Glow für Light Mode */
+}
+
+/* Dark Mode Anpassungen für den Glow-Effekt */
+body.dark .card:hover .card-face {
+  box-shadow: 0 0 25px rgba(0, 188, 212, 0.8); /* Cyan Glow für Dark Mode */
+}
+
+/* Adjust the projects section for better spacing */
+#projects .container {
+  max-width: 1400px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.75);
+  display: none; /* Versteckt standardmäßig */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  position: relative;
+  width: 90%;
+  height: 90%;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.modal-content iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  text-align: center;
+  background-color: var(--accent);
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* Style for the iframe content */
+iframe {
+  border: none; /* Remove iframe border */
+  width: 100%; /* Ensure it spans the container */
+  height: 100%; /* Adjust height as needed */
+}
