@@ -55,13 +55,30 @@ header::before {
   background: rgba(0, 0, 0, 0.5); /* Schwarzes Overlay mit Transparenz */
   z-index: -1; /* Overlay hinter den Text legen */
 }
-
+/*Umschulungs Sektion*/
+.umschulung h3 {
+  text-align: center;
+}
 /* Untertitel im Header */
 .subtitle {
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   margin-bottom: 1rem;
+  text-shadow: black;
+  font-weight: bold;
+  text-shadow: 
+    -1px -1px 1px black, 
+    1px -1px 1px black, 
+    -1px  1px 1px black, 
+    1px  1px 1px black;
 }
-
+.mainheader {
+  text-shadow: 
+    -1px -1px 1px black, 
+    1px -1px 1px black, 
+    -1px  1px 1px black, 
+    1px  1px 1px black;
+  font-weight: bold;
+}
 /* ========================= */
 /* Button-Styles */
 /* ========================= */
@@ -126,7 +143,7 @@ section {
 
 /* Dark Mode Anpassungen */
 body.dark .profile-heading {
-  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.2);
+  text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.2);
 }
 
 body.dark .profile-img {
@@ -293,7 +310,7 @@ body.dark #skills .bar {
   font-size: 1rem;
   line-height: 1;
   box-sizing: border-box;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); /* Dark outline for text */
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8); /* Dark outline for text */
 }
 
 /* Details-Container für Skills */
@@ -481,7 +498,7 @@ body.dark .skill-details {
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   background: var(--bg);
-  border: 2px solid rgba(var(--accent-rgb), 0.8);
+  border: 1px solid rgba(var(--accent-rgb), 0.8);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
@@ -715,7 +732,7 @@ body.dark .socials img {
   bottom: -3px;
   left: 0;
   width: 0;
-  height: 2px;
+  height: 1px;
   background-color: var(--accent);
   transition: width 0.3s ease;
 }
@@ -1118,7 +1135,7 @@ body.dark .socials img {
   bottom: -3px; /* Position the underline slightly below the text */
   left: 0;
   width: 0;
-  height: 2px; /* Thickness of the underline */
+  height: 1px; /* Thickness of the underline */
   background-color: var(--accent);
   transition: width 0.3s ease; /* Smooth sliding effect */
 }

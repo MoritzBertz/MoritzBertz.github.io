@@ -60,7 +60,7 @@ function initializeTechList() {
 
   // Beschreibungen für die Technologien
   const techDescriptions = {
-    netzwerk: "Fundiertes Wissen in der Planung, Konfiguration und Administration von Netzwerkinfrastrukturen (LAN, VLAN, DHCP, DNS). Erfahrung im Umgang mit Cisco-Geräten, Firewall-Systemen sowie Netzwerküberwachung und -sicherheit.",
+    netzwerk: "<strong>Netzwerktechnologie</strong><br> Tiefgreifende Erfahrung im Aufbau, der Absicherung und Wartung moderner Netzwerkarchitekturen (LAN, VLAN, WAN). Fundierte Kenntnisse in IP-Adressierung, Subnetting, DHCP/DNS-Konfiguration sowie Routing und Switching (z. B. mit Cisco IOS). Routiniert im Einsatz von Netzwerkmonitoring-Tools wie Wireshark oder PRTG zur Fehleranalyse und Optimierung. Sicherheitstechnisches Know-how zu Firewall-Konzepten (z. B. mit pfSense), NAC (802.1X) und Segmentierung durch ACLs runden das Profil ab. ",
     programmierung: "Erfahrung in objektorientierter und skriptbasierter Programmierung, insbesondere mit Python, PowerShell und JavaScript. Entwicklung automatisierter Abläufe und kleiner Tools zur Effizienzsteigerung im Systembetrieb.",
     webentwicklung: "Kompetenz in der Umsetzung responsiver Webanwendungen mit HTML5, CSS3, JavaScript und Frameworks wie React oder Vue. Berücksichtigung von Usability, Barrierefreiheit und Performance-Optimierung.",
     datenbanken: "Sicherer Umgang mit relationalen Datenbanksystemen wie MySQL und Microsoft SQL Server. Kenntnisse in Datenmodellierung, Abfrageoptimierung (SQL) sowie Backup- und Recovery-Konzepten.",
