@@ -55,10 +55,6 @@ header::before {
   background: rgba(0, 0, 0, 0.5); /* Schwarzes Overlay mit Transparenz */
   z-index: -1; /* Overlay hinter den Text legen */
 }
-/*Umschulungs Sektion*/
-.umschulung h3 {
-  text-align: center;
-}
 /* Untertitel im Header */
 .subtitle {
   font-size: 1.6rem;
