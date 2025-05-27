@@ -185,7 +185,7 @@ body.dark .profile-img {
 /* Skills-Balken */
 #skills .bar {
   position: relative;
-  background: rgba(255, 253, 253, 0.1);
+  background: rgba(61, 57, 57, 0.082);
   height: 25px !important;
   min-height: 25px !important;
   border-radius: 5px;
