@@ -14,7 +14,9 @@ body.dark {
   --accent: #00bcd4; /* Akzentfarbe im Dark Mode */
   --accent-rgb: 0, 188, 212; /* RGB-Werte für die Dark Mode Akzentfarbe */
 }
-
+h3 {
+  font-weight: bold;
+}
 /* ========================= */
 /* Allgemeine Stile */
 /* ========================= */
