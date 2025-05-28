@@ -1,62 +1,105 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>CodeMirror Beispiel</title>
+<meta charset="UTF-8" />
+<title>Code Editor</title>
+<style>
+html, body {
+    margin: 0;
+    height: 100%;
+    background: #1e1e1e;
+    color: #ccc;
+    font-family: monospace;
+}
 
-    <!-- CodeMirror STYLES -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+/* Container – nimmt gesamten Platz ein */
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden; /* verhindert Scrollbalken */
+}
 
-    <!-- Optionales Theme -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+.toolbar {
+    background: #333;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
 
-    <!-- Eigenes CSS für Layout -->
-    <style>
-    body {
-        font-family: Arial, sans-serif;
-        background: #1e1e1e;
-        color: white;
-        padding: 20px;
-    }
-    .editor-wrapper {
-        border: 1px solid #444;
-        margin-top: 10px;
-    }
-    </style>
+.editor-wrapper {
+    flex: 1;
+    overflow: auto; /* vertikal UND horizontal */
+}
+
+pre {
+    margin: 0;
+    height: auto;
+}
+
+pre code {
+    display: block;
+    white-space: pre-wrap;       /* Zeilenumbrüche sichtbar */
+    word-break: break-word;      /* lange Wörter umbrechen */
+    padding: 1em;
+    background: #1e1e1e;
+    color: #ccc;
+    font-family: monospace;
+    font-size: 14px;
+    box-sizing: border-box;
+    overflow: visible;           /* keine Scrollbalken im <code> */
+}
+
+
+button {
+    background: #444;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+</style>
+
+<!-- Prism.js -->
+<link href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-html.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-css.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-javascript.min.js"></script>
 </head>
 <body>
+<div class="container">
+<div class="toolbar">
+    <div>
+    <button onclick="loadFile('index.html', 'html')">HTML</button>
+    <button onclick="loadFile('stylesheet.css', 'css')">CSS</button>
+    <button onclick="loadFile('script.js', 'javascript')">JS</button>
+    </div>
+    <button onclick="window.open('index.html', '_blank')">Open Site</button>
+</div>
 
-    <h1>CodeMirror Editor Beispiel</h1>
-    <p>Hier kannst du HTML-Code bearbeiten:</p>
+<div class="editor-wrapper">
+    <pre><code id="codeBlock" class="language-html" contenteditable="true" spellcheck="false"></code></pre>
+</div>
+</div>
 
-    <form>
-        <textarea id="editor"><h1>Hallo Welt!</h1></textarea>
-    </form>
+<script>
+    async function loadFile(filename, language) {
+        const res = await fetch(filename);
+        const text = await res.text();
 
-    <div class="editor-wrapper" id="live-preview"></div>
+        const code = document.getElementById('codeBlock');
+        code.className = 'language-' + language;
 
-    <!-- CodeMirror SCRIPTS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+        // Verwende textContent, damit Zeilenumbrüche beibehalten werden
+        code.textContent = text;
 
-    <!-- Optional: CodeMirror Addons -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closetag.min.js"></script>
+        // Highlight aktualisieren
+        Prism.highlightElement(code);
+    }
 
-    <!-- Editor-Aktivierung -->
-    <script>
-    const editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
-        mode: "htmlmixed",
-        theme: "dracula",         // Alternativen: "default", "monokai", "eclipse", etc.
-        lineNumbers: true,
-        autoCloseTags: true
-    });
-
-    // Live-Vorschau
-    editor.on("change", () => {
-        const html = editor.getValue();
-        document.getElementById("live-preview").innerHTML = html;
-    });
-    </script>
-
+    window.onload = () => loadFile('index.html', 'html');
+</script>
 </body>
 </html>
