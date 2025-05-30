@@ -4,6 +4,15 @@
 <meta charset="UTF-8" />
 <title>Code Editor</title>
 <style>
+
+
+
+body.dark {
+  --bg: #111; /* Dunkler Hintergrund */
+  --text: #fff; /* Helle Textfarbe */
+  --accent: #00bcd4; /* Akzentfarbe im Dark Mode */
+  --accent-rgb: 0, 188, 212; /* RGB-Werte für die Dark Mode Akzentfarbe */
+}
 html, body {
     margin: 0;
     height: 100%;
@@ -58,6 +67,11 @@ button {
     padding: 8px 12px;
     cursor: pointer;
     margin-right: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+    background-color: #00bcd4;;
 }
 </style>
 

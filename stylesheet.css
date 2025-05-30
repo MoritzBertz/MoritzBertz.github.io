@@ -167,7 +167,7 @@ body.dark .profile-img {
   width: 100%;
   max-width: 800px;
   margin: 0 auto 2rem auto;
-  text-align: left;
+  text-align: center;
   padding: 0 1rem;
   box-sizing: border-box;
 }
@@ -629,11 +629,7 @@ body.dark .scroll-content {
   }
 }
 
-.modal-content {
-  background-color: var(--bg); /* Match modal background to theme */
-  color: var(--text); /* Match modal text color to theme */
-  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
-}
+
 
 /* ========================= */
 /* Timeline-Styles */
@@ -650,6 +646,40 @@ body.dark .scroll-content {
 .timeline span {
   font-weight: bold;
   color: var(--accent);
+}
+.modal-content {
+  background-color: var(--bg); /* Match modal background to theme */
+  color: var(--text); /* Match modal text color to theme */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+.theme-close-button {
+  background-color: transparent;
+  color: var(--text);
+  border: none;
+  font-size: 1.25rem;
+  opacity: 0.8;
+  transition: opacity 0.2s ease, color 0.3s ease;
+}
+.theme-close-button:hover {
+  opacity: 1;
+  
+}
+/* Grundstil des Close-Buttons im Modal */
+.modal-content .btn-close {
+  background: none !important;         /* Entfernt alle Backgrounds */
+  border: none;
+  box-shadow: none;
+  padding: 0.5rem;
+  filter: var(--btn-close-filter, invert(0));
+  opacity: 0.7;
+  transition: filter 0.3s ease, opacity 0.2s ease;
+}
+
+/* Hover-Effekt: Nur das X-Icon wird heller */
+.modal-content .btn-close:hover {
+  background: none !important;         /* Sicherstellen, dass auch Hover nix setzt */
+  filter: var(--btn-close-filter-hover, invert(0.2));
+  opacity: 1;
 }
 
 /* ========================= */
@@ -676,7 +706,7 @@ input, textarea {
 footer {
   text-align: center;
   padding: 1rem;
-  background: var(--accent);
+  background: rgb(65, 64, 64);
   color: white;
 }
 
@@ -705,7 +735,9 @@ body.dark .socials img {
   z-index: 1000;
   padding: 0.5rem 1rem;
 }
-
+body.dark .static-menu {
+  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+}
 /* Menü-Liste */
 .static-menu ul {
   list-style: none;
@@ -749,6 +781,125 @@ body.dark .socials img {
 .static-menu a:hover::after {
   width: 100%;
 }
+/* ====================== */
+/* Burger-Menü-Button */
+/* ====================== */
+.burger-menu {
+  display: none; /* wird nur bei kleinen Screens angezeigt */
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 20px;
+  cursor: pointer;
+  z-index: 1100;
+  position: sticky;
+}
+
+.burger-menu div {
+  height: 3px;
+  background-color: var(--text);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Animation beim Aktivieren */
+.burger-menu.active div:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.burger-menu.active div:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-menu.active div:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* ====================== */
+/* Burger-Menü-Liste mobil */
+/* ====================== */
+@media (max-width: 768px) {
+.burger-menu {
+  background-color: rgba(var(--accent-rgb), 0.8);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  z-index: 1100;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 36px;  /* größer als vorher */
+  height: 30px; /* größer als vorher */
+  padding: 5px;   /* kein padding */
+  
+}
+
+
+  .burger-menu div {
+    height: 3px;
+    background-color: var(--text);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    border-color: var(--accent);
+  }
+
+.burger-menu.active div:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.burger-menu.active div:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-menu.active div:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+  .static-menu {
+    position: relative;
+  }
+
+  .static-menu ul {
+    flex-direction: column;
+    position: fixed; /* fixiert unter dem Burger-Button */
+    top: 3.5rem; /* Abstand unter dem Burger-Button */
+    left: 1rem;
+    background: var(--bg);
+    border-radius: 10px;
+    box-shadow: 0 0 10px 2px var(--accent);
+    padding: 1rem;
+    display: none;
+    text-align: left;
+    min-width: 200px;
+    z-index: 1000;
+  }
+body.dark .static-menu ul {
+  box-shadow: 0 0 10px 2px var(--accent);
+}
+  .static-menu ul.active {
+    display: flex;
+  }
+
+  .static-menu li {
+    margin: 0.5rem 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .static-menu {
+    box-shadow: none !important;
+  }
+
+  body.dark .static-menu {
+    box-shadow: none !important;
+  }
+}
+
+
+
 
 /* ========================= */
 /* Technologie-Karten */
@@ -1468,11 +1619,84 @@ body.dark .close-btn {
   color: #fff !important;
   background: var(--accent) !important;
   border: none !important;
-  border-radius: 50%;
   transition: background 0.3s, color 0.3s;
 }
 
 body.dark .close-btn:hover {
   color: #fff !important;
   background: hsl(192, 100%, 55%) !important;
+}
+.ausbildung-section {
+  padding: 3rem 1rem;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.ausbildung-section h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  color: var(--accent);
+}
+
+.ausbildungsverlauf {
+  position: relative;
+  margin: 0 auto;
+  padding-left: 2rem;
+  border-left: 2px solid var(--accent);
+  max-width: 700px;
+}
+
+.ausbildungs-item {
+  position: relative;
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+}
+
+.ausbildungs-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ausbildungs-punkt {
+  position: absolute;
+  left: -9px;
+  top: 0.4rem;
+  width: 16px;
+  height: 16px;
+  background: var(--accent);
+  border-radius: 50%;
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.ausbildungs-content {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1rem;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+  border: 1px solid var(--accent);
+}
+.ausbildung-section h3 {
+  position: relative;
+  display: inline-block;
+  cursor: default;
+  color: var(--text);
+}
+
+.ausbildung-section h3::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent);
+  transition: width 0.4s ease-in-out;
+}
+
+.ausbildung-section h3:hover::after {
+  width: 100%;
 }

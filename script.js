@@ -59,13 +59,19 @@ function initializeTechList() {
   const techDetails = document.getElementById('tech-details');
 
   // Beschreibungen für die Technologien
-  const techDescriptions = {
-    netzwerk: "<strong>Netzwerktechnologie</strong><br> Tiefgreifende Erfahrung im Aufbau, der Absicherung und Wartung moderner Netzwerkarchitekturen (LAN, VLAN, WAN). Fundierte Kenntnisse in IP-Adressierung, Subnetting, DHCP/DNS-Konfiguration sowie Routing und Switching (z. B. mit Cisco IOS). Routiniert im Einsatz von Netzwerkmonitoring-Tools wie Wireshark oder PRTG zur Fehleranalyse und Optimierung. Sicherheitstechnisches Know-how zu Firewall-Konzepten (z. B. mit pfSense), NAC (802.1X) und Segmentierung durch ACLs runden das Profil ab. ",
-    programmierung: "Erfahrung in objektorientierter und skriptbasierter Programmierung, insbesondere mit Python, PowerShell und JavaScript. Entwicklung automatisierter Abläufe und kleiner Tools zur Effizienzsteigerung im Systembetrieb.",
-    webentwicklung: "Kompetenz in der Umsetzung responsiver Webanwendungen mit HTML5, CSS3, JavaScript und Frameworks wie React oder Vue. Berücksichtigung von Usability, Barrierefreiheit und Performance-Optimierung.",
-    datenbanken: "Sicherer Umgang mit relationalen Datenbanksystemen wie MySQL und Microsoft SQL Server. Kenntnisse in Datenmodellierung, Abfrageoptimierung (SQL) sowie Backup- und Recovery-Konzepten.",
-    cloud: "Praxiswissen in der Nutzung und Verwaltung von Cloud-Diensten wie Microsoft Azure oder AWS. Erfahrung mit virtuellen Maschinen, Speicherlösungen, IAM (Identity and Access Management) und Automatisierung über IaC-Tools wie Terraform oder ARM-Templates."
-  };
+const techDescriptions = {
+  itGrundlagen: `Ich habe ein solides Fundament in den IT-Basics aufgebaut. Dazu gehörten Themen wie die Funktionsweise von Betriebssystemen (Windows 10/11, Windows Server 2022, Linux Ubuntu), Dateisysteme (NTFS, FAT32), Virtualisierung mit Hyper-V, sowie der Aufbau von Client-Server-Strukturen. Besonders hilfreich war der Umgang mit PowerShell zur grundlegenden Systemsteuerung sowie das Verständnis der ITIL-Grundlagen zur Strukturierung von IT-Diensten.`,
+
+  netzwerk: `Ich habe Netzwerke geplant, eingerichtet und erste Fehleranalysen durchgeführt. In Übungen habe ich IP-Adressierung, Subnetting und VLAN-Konzepte mit Switches und Routern simuliert, u. a. mit Packet Tracer. Auch DHCP- und DNS-Dienste habe ich mit Windows Server 2022 eingerichtet. Mit Tools wie Wireshark konnte ich den Netzwerkverkehr analysieren. Die praktische Umsetzung des OSI-Modells und die Konfiguration kleiner LAN-Strukturen gehören jetzt zu meinem Repertoire.`,
+
+  sicherheit: `Mein Einstieg in die IT-Sicherheit erfolgte über Benutzerrechte, Gruppenrichtlinien (GPOs) und das Prinzip der minimalen Berechtigungen. Ich habe gelernt, wie man mit Windows Defender, BitLocker und Firewall-Regeln grundlegende Schutzmaßnahmen etabliert. Auch Themen wie Zwei-Faktor-Authentifizierung, Verschlüsselung (TLS/SSL) und Datenschutz nach DSGVO habe ich behandelt. Tools wie SecPol.msc und AD-Gruppenrichtlinien kamen regelmäßig zum Einsatz.`,
+
+  programmieren: `Ich habe erste Automatisierungsskripte mit PowerShell geschrieben, z. B. für das Anlegen von Benutzerkonten oder das Erstellen von Backup-Routinen. In Python konnte ich kleinere Programme mit if-Bedingungen, Schleifen und Funktionen schreiben. Auch JavaScript habe ich verwendet – zunächst im Kontext einfacher Webseiteninteraktion (DOM-Manipulation). Visual Studio Code war dabei meine zentrale Entwicklungsumgebung. Git habe ich für Versionskontrolle in kleinen Projekten ausprobiert.`,
+
+  datenbanken: `Ich habe relationale Datenbanken wie MySQL und Microsoft SQL Server kennengelernt. Erste Erfahrungen sammelte ich mit dem Anlegen von Tabellen, dem Setzen von Primär- und Fremdschlüsseln sowie dem Schreiben einfacher SQL-Abfragen (SELECT, JOIN, INSERT). Mit phpMyAdmin und SSMS konnte ich Datenbanken grafisch verwalten. Zusätzlich habe ich gelernt, wie man Backups erstellt, Benutzerrechte verwaltet und Datenbankmodelle dokumentiert – z. B. mit MySQL Workbench.`
+};
+
+
 
   // Event-Listener für Klicks auf die Liste
   techListItems.forEach(item => {
@@ -685,6 +691,22 @@ function closeModal() {
   document.getElementById("iframeModal").style.display = "none";
 }
 
+// Intersection Observer for Ausbildung items
+  document.addEventListener("DOMContentLoaded", () => {
+    const items = document.querySelectorAll('.ausbildungs-item');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    items.forEach(item => observer.observe(item));
+  });
+// Starte das Tech-Carousel nach dem Laden der Seite
+document.addEventListener('DOMContentLoaded', initializeTechList);
 
 
 
