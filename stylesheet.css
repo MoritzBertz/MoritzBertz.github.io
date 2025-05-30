@@ -1119,7 +1119,7 @@ body.dark .timeline-container::-webkit-scrollbar-thumb:hover {
 }
 body.dark #about .btn-arrow:hover {
   background-color: #5fecff; /* Slightly lighter than the accent color */
-  transform: scale(1.1); /* Slight zoom effect */+
+  transform: scale(1.1); /* Slight zoom effect */
 }
 #about .btn-arrow svg,
 #tech-carousel .btn-arrow svg {
