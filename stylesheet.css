@@ -167,11 +167,13 @@ button:active {
 /* Hover-Effekt für Buttons im Light Mode */
 button:hover {
   background-color: hsl(29, 89%, 53%); /* Leicht hellere Akzentfarbe */
+  color: #fff; /* Weißer Text für Kontrast, da Hintergrund sonst dieselbe Farbfamilie wie der Standard-Textcolor hat */
 }
 
 /* Hover-Effekt für Buttons im Dark Mode */
 body.dark button:hover {
   background-color: hsl(192, 100%, 45%); /* Leicht hellere Akzentfarbe im Dark Mode */
+  color: #fff;
 }
 
 /* ========================= */
@@ -215,10 +217,6 @@ section {
 /* Dark Mode Anpassungen */
 body.dark .profile-heading {
   text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.2);
-}
-
-body.dark .profile-img {
-  outline: 1px solid white;
 }
 
 /* ========================= */
@@ -1398,14 +1396,39 @@ body.dark .tech-description:hover {
 
 .profile-container {
   position: relative;
-  transform: perspective(1000px) rotateY(20deg);
   margin: 0;
+  margin-top: 2.6rem;
   flex: 0 0 auto; /* Verhindert das Schrumpfen des Containers */
+}
+
+.profile-heading {
+  position: absolute;
+  top: -2.2rem;
+  left: 0;
+  background: rgba(var(--bg-rgb), 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 2px solid var(--accent);
+  border-radius: 6px;
+  padding: 0.5rem 0.9rem;
+  margin: 0;
+  font-family: 'Press Start 2P', 'Sora', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.profile-img {
+  border: 3px solid var(--accent) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 4px rgba(var(--bg-rgb), 0.85), 0 0 22px rgba(var(--accent-rgb), 0.35);
+  filter: grayscale(85%) contrast(1.08) sepia(12%) hue-rotate(210deg) !important;
 }
 
 .about-content {
   position: relative;
-  background: var(--bg);
+  background: rgba(var(--bg-rgb), 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   padding: 2rem;
   margin: 0;
   margin-top: 4.8rem;
@@ -1413,9 +1436,14 @@ body.dark .tech-description:hover {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  transform: perspective(1000px) rotateY(0deg);
-  transform-origin: left center;
-  outline: 1px solid black;
+  border: 2px solid var(--accent);
+  border-radius: 8px;
+  clip-path: polygon(
+    12px 0, calc(100% - 12px) 0, 100% 12px,
+    100% calc(100% - 12px), calc(100% - 12px) 100%,
+    12px 100%, 0 calc(100% - 12px), 0 12px
+  );
+  outline: none;
   flex-grow: 1;
 }
 
@@ -1426,11 +1454,6 @@ body.dark .tech-description:hover {
   color: var(--text);
 }
 
-/* Dark Mode Anpassungen */
-body.dark .about-content {
-  outline: 1px solid white;
-}
-
 /* Responsive Anpassungen für About Section */
 @media (max-width: 768px) {
   .about-wrapper {
@@ -1439,7 +1462,7 @@ body.dark .about-content {
   }
 
   .profile-container {
-    transform: none; /* Entfernt die 3D-Rotation auf mobilen Geräten */
+    margin-top: 2.2rem;
     margin-bottom: 2rem;
     width: 100%;
     max-width: 300px; /* Begrenzt die Breite des Profilbildes */
@@ -1456,8 +1479,6 @@ body.dark .about-content {
     margin-top: 0;
     height: auto;
     min-height: 300px;
-    transform: none; /* Entfernt die 3D-Rotation auf mobilen Geräten */
-    outline: 1px solid var(--text);
     width: 100%;
   }
 
@@ -1803,6 +1824,23 @@ body.dark .close-btn:hover {
 .featured-actions button,
 .featured-actions .btn-download {
   margin: 0;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.7rem 1.2rem;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.featured-actions button:hover,
+.featured-actions .btn-download:hover {
+  background: var(--accent);
+  color: #fff;
 }
 
 .btn-download {

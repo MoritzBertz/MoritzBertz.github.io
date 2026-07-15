@@ -29,15 +29,6 @@ function toggleDarkMode() {
     modalContent.style.backgroundColor = isDarkMode ? '#111' : '#ffffff';
     modalContent.style.color = isDarkMode ? '#fff' : '#000';
   }
-
-  const styleSheet = document.styleSheets[0];
-  const hoverRuleIndex = Array.from(styleSheet.cssRules).findIndex(rule =>
-    rule.selectorText === 'button:hover' || rule.selectorText === '#about .btn-arrow:hover'
-  );
-  if (hoverRuleIndex !== -1) {
-    const hoverRule = styleSheet.cssRules[hoverRuleIndex];
-    hoverRule.style.backgroundColor = isDarkMode ? 'hsl(192, 100%, 45%)' : 'hsl(29, 89%, 53%)';
-  }
 }
 
 function resetAnimation(element) {
