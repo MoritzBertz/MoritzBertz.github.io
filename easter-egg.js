@@ -201,13 +201,15 @@
     overlay = document.createElement('div');
     overlay.className = 'eg-overlay hidden';
     overlay.innerHTML = `
+      <div class="eg-topbar">
+        <button class="eg-exit-btn" type="button" aria-label="Spiel verlassen">× Verlassen</button>
+      </div>
       <div class="eg-screen-wrap">
         <canvas id="eg-canvas" width="${CANVAS_W}" height="${CANVAS_H}"></canvas>
         <div class="eg-hud">
           <div class="eg-hearts" id="eg-hearts"></div>
           <div class="eg-inventory" id="eg-inventory"></div>
         </div>
-        <button class="eg-exit-btn" type="button" aria-label="Spiel verlassen">×</button>
         <div class="eg-toast" id="eg-toast"></div>
         <div class="eg-rotate-hint" id="eg-rotate-hint">🔄 Für optimales Spielerlebnis: Gerät ins Querformat drehen!</div>
 
@@ -240,16 +242,16 @@
             <button type="button" data-action="exit">Verlassen</button>
           </div>
         </div>
+      </div>
 
-        <div class="eg-touch-controls" id="eg-touch-controls">
-          <div class="eg-dpad">
-            <button type="button" class="eg-dpad-btn eg-dpad-up" data-dir="up" aria-label="Hoch">▲</button>
-            <button type="button" class="eg-dpad-btn eg-dpad-left" data-dir="left" aria-label="Links">◀</button>
-            <button type="button" class="eg-dpad-btn eg-dpad-right" data-dir="right" aria-label="Rechts">▶</button>
-            <button type="button" class="eg-dpad-btn eg-dpad-down" data-dir="down" aria-label="Runter">▼</button>
-          </div>
-          <button type="button" class="eg-attack-btn" id="eg-attack-btn" aria-label="Angriff">⚔</button>
+      <div class="eg-touch-controls" id="eg-touch-controls">
+        <div class="eg-dpad">
+          <button type="button" class="eg-dpad-btn eg-dpad-up" data-dir="up" aria-label="Hoch">▲</button>
+          <button type="button" class="eg-dpad-btn eg-dpad-left" data-dir="left" aria-label="Links">◀</button>
+          <button type="button" class="eg-dpad-btn eg-dpad-right" data-dir="right" aria-label="Rechts">▶</button>
+          <button type="button" class="eg-dpad-btn eg-dpad-down" data-dir="down" aria-label="Runter">▼</button>
         </div>
+        <button type="button" class="eg-attack-btn" id="eg-attack-btn" aria-label="Angriff">⚔</button>
       </div>
     `;
     document.body.appendChild(overlay);
@@ -369,9 +371,16 @@
     return x >= r.x && x <= r.x + r.w && y >= r.y && y <= r.y + r.h;
   }
 
+  // Eigene Fahrspur je Richtung: von links (dir=1) auf der vorderen (näheren),
+  // von rechts (dir=-1) auf der hinteren (ferneren) Spur — wie echter Gegenverkehr.
+  function laneY(v, layout) {
+    const frac = v.dir === 1 ? 0.78 : 0.3;
+    return layout.roadY + layout.roadH * frac;
+  }
+
   function vehicleRect(v, layout) {
-    const y = layout.roadY + layout.roadH * 0.55;
-    if (v.type === 'carriage') return { x: v.x - 18, y: y - 20, w: 46, h: 24 };
+    const y = laneY(v, layout);
+    if (v.type === 'carriage') return { x: v.x - 18, y: y - 24, w: 46, h: 28 };
     return { x: v.x - 12, y: y - 15, w: 24, h: 18 };
   }
 
@@ -541,7 +550,7 @@
   }
 
   function drawVehicle(ctx, v, layout, isNight) {
-    const y = layout.roadY + layout.roadH * 0.55;
+    const y = laneY(v, layout);
     const facingRight = v.dir === 1;
     ctx.save();
     ctx.translate(v.x, 0);
@@ -585,6 +594,13 @@
       ctx.fillStyle = '#2a1c14';
       ctx.fillRect(21, y - 4, 3, 6);
       ctx.fillRect(28, y - 4, 3, 6);
+
+      // Offene Ladefläche hinten mit sichtbarer Schatztruhe
+      ctx.fillStyle = '#4a3018';
+      ctx.fillRect(-27, y - 10, 12, 9);
+      ctx.fillStyle = '#2a1c10';
+      ctx.fillRect(-27, y - 2, 12, 2);
+      drawChestSprite(ctx, -26, y - 19, 10, 10, false);
 
       ctx.fillStyle = '#6b4118';
       ctx.fillRect(-16, y - 17, 28, 13);
@@ -1234,6 +1250,7 @@
 
     const isCoarse = window.matchMedia('(pointer: coarse)').matches;
     touchControlsEl.classList.toggle('active', isCoarse);
+    overlay.classList.toggle('has-touch-controls', isCoarse);
 
     startGameLoop();
     showIntro(() => {
