@@ -1256,6 +1256,16 @@
     const isCoarse = window.matchMedia('(pointer: coarse)').matches;
     touchControlsEl.classList.toggle('active', isCoarse);
     overlay.classList.toggle('has-touch-controls', isCoarse);
+    if (isCoarse) {
+      // Exakte Höhe messen (statt zu schätzen), da safe-area-inset-bottom
+      // je nach Gerät (Home-Indicator etc.) stark variiert.
+      requestAnimationFrame(() => {
+        const h = touchControlsEl.getBoundingClientRect().height;
+        if (h) overlay.style.setProperty('--eg-controls-h', h + 'px');
+      });
+    } else {
+      overlay.style.removeProperty('--eg-controls-h');
+    }
 
     startGameLoop();
     showIntro(() => {

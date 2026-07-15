@@ -1435,7 +1435,6 @@ body.dark .tech-description:hover {
   height: 334px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   border: 2px solid var(--accent);
   border-radius: 8px;
   clip-path: polygon(
@@ -1445,6 +1444,16 @@ body.dark .tech-description:hover {
   );
   outline: none;
   flex-grow: 1;
+}
+
+/* Wächst, um den verbleibenden Platz zu füllen, und zentriert den Absatztext darin
+   vertikal — dadurch bleiben Pfeiltasten/Punkte darunter unabhängig von der
+   Textlänge immer an derselben Position, statt mit der ganzen Gruppe zu wandern. */
+#paragraph-slider {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-height: 0;
 }
 
 .about-content p {
@@ -1477,8 +1486,8 @@ body.dark .tech-description:hover {
 
   .about-content {
     margin-top: 0;
-    height: auto;
-    min-height: 300px;
+    height: 390px;
+    overflow-y: auto;
     width: 100%;
   }
 
