@@ -1,8 +1,17 @@
 /* ========================= */
 /* Farbvariablen (Dark/Light Mode) */
 /* ========================= */
+html {
+  color-scheme: light; /* Verhindert, dass Browser (Edge/Chrome "Force Dark") die Seite automatisch grau einfärben */
+}
+
+html:has(body.dark) {
+  color-scheme: dark;
+}
+
 :root {
   --bg: #ffffff; /* Hintergrundfarbe */
+  --bg-rgb: 255, 255, 255; /* RGB-Werte der Hintergrundfarbe (für Transparenz/Blur) */
   --text: #000000; /* Textfarbe */
   --accent: hsl(29, 89%, 43%); /* Akzentfarbe */
   --accent-rgb: 255, 140, 0; /* RGB-Werte für die Light Mode Akzentfarbe */
@@ -10,6 +19,7 @@
 
 body.dark {
   --bg: #111; /* Dunkler Hintergrund */
+  --bg-rgb: 17, 17, 17; /* RGB-Werte der Hintergrundfarbe (für Transparenz/Blur) */
   --text: #fff; /* Helle Textfarbe */
   --accent: #00bcd4; /* Akzentfarbe im Dark Mode */
   --accent-rgb: 0, 188, 212; /* RGB-Werte für die Dark Mode Akzentfarbe */
@@ -21,7 +31,7 @@ h3 {
 /* Allgemeine Stile */
 /* ========================= */
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
   background-color: var(--bg);
   color: var(--text);
   margin: 0;
@@ -31,22 +41,37 @@ body {
   caret-color: transparent; /* Versteckt den blinkenden Text-Cursor */
 }
 
+h1, h2, h3, .mainheader, .profile-heading, .tech-description h3 {
+  font-family: 'Sora', 'Segoe UI', sans-serif;
+  letter-spacing: -0.01em;
+}
+
+section > h2, .ausbildung-section h2 {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
 /* ========================= */
 /* Header-Bereich */
 /* ========================= */
 header {
   position: relative;
   text-align: center;
-  padding: 3rem 1rem;
+  padding: 5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
   background: var(--accent); /* Fallback-Farbe */
   background-image: url('images/Header-small.jpg'); /* Hintergrundbild */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   color: rgb(255, 242, 242);
+  overflow: hidden;
 }
 
-/* Overlay für den Header */
+/* Gradient-Overlay für den Header (statt flacher schwarzer Fläche) */
 header::before {
   content: "";
   position: absolute;
@@ -54,28 +79,72 @@ header::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Schwarzes Overlay mit Transparenz */
-  z-index: -1; /* Overlay hinter den Text legen */
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.55) 55%, rgba(0, 0, 0, 0.8) 100%),
+    linear-gradient(120deg, rgba(var(--accent-rgb), 0.35) 0%, rgba(0, 0, 0, 0) 60%);
+  z-index: 0;
 }
+
+/* Glass-Panel hinter Name & Untertitel statt harter Text-Outlines */
+.header-content {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 2.25rem 3rem;
+  border-radius: 20px;
+  background: rgba(17, 17, 17, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+.header-badge {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(var(--accent-rgb), 0.9);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
 /* Untertitel im Header */
 .subtitle {
-  font-size: 1.6rem;
-  margin-bottom: 1rem;
-  text-shadow: black;
-  font-weight: bold;
-  text-shadow: 
-    -1px -1px 1px black, 
-    1px -1px 1px black, 
-    -1px  1px 1px black, 
-    1px  1px 1px black;
+  font-size: 1.4rem;
+  margin: 0;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
 }
+
 .mainheader {
-  text-shadow: 
-    -1px -1px 1px black, 
-    1px -1px 1px black, 
-    -1px  1px 1px black, 
-    1px  1px 1px black;
-  font-weight: bold;
+  margin: 0;
+  font-size: 3rem;
+  font-weight: 800;
+}
+
+@media (max-width: 768px) {
+  header {
+    min-height: 45vh;
+    padding: 3rem 1rem;
+  }
+
+  .header-content {
+    padding: 1.5rem 1.75rem;
+  }
+
+  .mainheader {
+    font-size: 2.1rem;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+  }
 }
 /* ========================= */
 /* Button-Styles */
@@ -87,8 +156,12 @@ button {
   font-weight: bold;
   cursor: pointer;
   margin: 0.5rem;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.15s ease;
+}
+
+button:active {
+  transform: scale(0.97);
 }
 
 /* Hover-Effekt für Buttons im Light Mode */
@@ -186,10 +259,16 @@ body.dark .profile-img {
 /* Einzelner Skill-Bereich */
 .skill {
   margin-top: 5px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.4rem; /* Im Ruhezustand eng gestapelt */
   width: 100%;
   box-sizing: border-box;
   position: relative;
+  transition: margin-bottom 0.4s ease;
+}
+
+/* Nur bei aufgeklappten Details mehr Luft zum nächsten Skill lassen */
+.skill.expanded {
+  margin-bottom: 1rem;
 }
 
 /* Ensure the parent container of skill-details has relative positioning */
@@ -258,10 +337,6 @@ body.dark .profile-img {
   #skills .bar {
     cursor: pointer;
   }
-
-  #skills .bar:hover {
-    transform: scale(1.02);
-  }
 }
 
 /* Dark mode adjustments */
@@ -274,19 +349,9 @@ body.dark .skill .mobile-tooltip {
   color: white;
 }
 
-/* Erweiterter Skill-Bereich (wenn Details angezeigt werden) */
-.skill.expanded {
-  margin-bottom: 200px;
-}
-
 /* Skills-Balken im Dark Mode */
 body.dark #skills .bar {
   background: #333;
-}
-
-/* Hover-Effekt für Skills-Balken */
-#skills .bar:hover {
-  transform: scale(1.02);
 }
 
 /* Füllstand des Skills-Balkens */
@@ -312,28 +377,33 @@ body.dark #skills .bar {
 }
 
 /* Details-Container für Skills */
+/* Fließt im normalen Dokumentfluss (statt position:absolute) und wächst per max-height,
+   damit der Skill-Slider darunter automatisch Platz macht statt überlappt zu werden. */
 .skill-details {
-  position: absolute;
-  top: 100%;
-  left: 0;
+  position: relative;
   width: 100%;
   background: transparent;
   border-radius: 0 0 8px 8px;
-  padding: 1rem;
-  display: none;
-  z-index: 1; /* Raise the stacking context */
-  transform: translateY(-20px);
+  padding: 0 1rem;
+  max-height: 0;
+  overflow: hidden;
+  transform: translateY(-10px);
   opacity: 0;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  box-shadow: none; /* Remove any shadow */
-  pointer-events: none; /* Prevent interaction */
-  margin-bottom: 2.5rem; /* Add more space below the skill-details */
+  transition: max-height 0.4s ease, opacity 0.3s ease, transform 0.3s ease, padding 0.4s ease, margin 0.4s ease;
+  box-shadow: none;
+  pointer-events: none;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .skill-details.active {
-  display: block;
+  max-height: 420px;
+  padding: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
   transform: translateY(0);
   opacity: 1;
+  pointer-events: auto;
 }
 
 /* Liste der Skill-Details */
@@ -386,11 +456,11 @@ body.dark #skills .bar {
   }
   
   .skill {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
   }
-  
+
   .skill.expanded {
-    margin-bottom: 250px; /* Angepasster Abstand für mobile Geräte */
+    margin-bottom: 1rem;
   }
 }
 
@@ -424,35 +494,17 @@ body.dark .skill-details {
   background: var(--bg);
 }
 
-/* Add a hover effect with an animated breathing box shadow for skill bars */
-.skill .bar:hover {
-  animation: breathing-shadow 1.5s infinite ease-in-out;
-}
-
-/* Adjust the breathing glow animation to match the active theme */
-@keyframes breathing-shadow {
-  0%, 100% {
-    box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
-  }
-  50% {
-    box-shadow: 0 0 20px var(--accent), 0 0 30px var(--accent);
-  }
+/* Statischer Glow für Skill-Bars (Hover & aktiv/expanded) — bewusst ohne Animation, um Flackern auszuschließen */
+.skill .bar:hover,
+.skill.expanded .bar {
+  box-shadow: 0 0 14px var(--accent), 0 0 22px var(--accent);
+  transition: box-shadow 0.25s ease;
 }
 
 /* Ensure the skill-details section does not cut off the hover breathing animation */
 .skill .bar {
   position: relative;
   z-index: 2; /* Ensure the bar is above the skill-details */
-}
-
-/* Ensure the breathing effect continues for the active skill bar */
-.skill.expanded .bar {
-  animation: none;
-}
-
-/* Ensure the breathing effect continues for the currently active skill bar */
-.skill.expanded .bar {
-  animation: breathing-shadow 1.5s infinite ease-in-out;
 }
 
 /* ========================= */
@@ -489,6 +541,7 @@ body.dark .skill-details {
 }
 
 .card-face {
+  border-radius: 14px;
   position: absolute;
   width: 100%;
   height: 100%;
@@ -1328,26 +1381,6 @@ body.dark .tech-description:hover {
   text-align: left;
 }
 
-/* Skill Details Styles */
-.skill-details {
-  margin-left: 2rem;
-  padding: 1rem;
-  min-height: 100px;
-}
-
-.skill-detail-item {
-  opacity: 0;
-  transform: translateX(-50px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  margin-bottom: 0.8rem;
-  font-size: 1rem;
-  color: var(--text);
-}
-
-.skill-detail-item.visible {
-  opacity: 1;
-  transform: translateX(0);
-}
 
 .skill-detail-item::before {
   content: "🔹";
@@ -1586,6 +1619,34 @@ body.dark .card:hover .card-face {
   cursor: pointer;
 }
 
+/* Slider-Indikator-Punkte (Über mich) */
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.slider-dots .dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background: rgba(var(--accent-rgb), 0.3);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.slider-dots .dot:hover {
+  background: rgba(var(--accent-rgb), 0.6);
+}
+
+.slider-dots .dot.active {
+  background: var(--accent);
+  transform: scale(1.3);
+}
+
 /* Paragraph slider visibility */
 #paragraph-slider .paragraph {
   display: none;
@@ -1689,4 +1750,104 @@ body.dark .close-btn:hover {
 
 .ausbildung-section h3:hover::after {
   width: 100%;
+}
+
+/* ========================= */
+/* Ausbildungs-Status Badge   */
+/* ========================= */
+.ausbildung-status {
+  text-align: center;
+  max-width: 700px;
+  margin: -1rem auto 2.5rem auto;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  color: var(--accent);
+  border: 1px solid rgba(var(--accent-rgb), 0.4);
+  border-radius: 999px;
+  background: rgba(var(--accent-rgb), 0.08);
+}
+
+/* ========================= */
+/* Featured Project (Abschlussprojekt) */
+/* ========================= */
+.featured-project-heading {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.featured-badge {
+  display: inline-block;
+  padding: 0.35rem 1rem;
+  margin-bottom: 0.75rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: white;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.featured-card-container .card-face {
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 25px rgba(var(--accent-rgb), 0.35);
+}
+
+.featured-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.featured-actions button,
+.featured-actions .btn-download {
+  margin: 0;
+}
+
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.7rem 1.2rem;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-download:hover {
+  background: var(--accent);
+  color: white;
+}
+
+/* ========================= */
+/* Bild-Modal (Architektur & Timeline) */
+/* ========================= */
+.image-modal-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.image-modal-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.image-modal-scroll h3 {
+  color: var(--accent);
+  margin: 0 0 1rem 0;
+}
+
+.image-modal-scroll img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }

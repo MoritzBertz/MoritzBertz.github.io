@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <!-- Bootstrap CSS -->
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
@@ -15,6 +19,7 @@
   ></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
   <title>Mein Portfolio</title>
   <!-- Benutzerdefinierte CSS-Datei -->
   <link rel="stylesheet" href="stylesheet.css" />
@@ -27,9 +32,18 @@
   />
 </head>
 <body>
+  <script>
+    // Dark Mode ist Standard: Klasse so früh wie möglich setzen, um ein kurzes Aufblitzen des Light Themes zu vermeiden
+    if (localStorage.getItem('darkMode') !== 'disabled') {
+      document.body.classList.add('dark');
+    }
+  </script>
   <header>
-    <h1 class="mainheader">Moritz Bertz</h1>
-    <p class="subtitle">Umschüler zum Fachinformatiker • Kreativer Problemlöser • Tech Enthusiast</p>
+    <div class="header-content">
+      <span class="header-badge">IHK-zertifiziert · Fachinformatiker Systemintegration</span>
+      <h1 class="mainheader">Moritz Bertz</h1>
+      <p class="subtitle">Kreativer Problemlöser • Tech Enthusiast</p>
+    </div>
   </header>
 
   <nav class="static-menu">
@@ -82,6 +96,7 @@
                   </div>
                 </button>
               </div>
+              <div class="slider-dots" id="slider-dots"></div>
             </div>
           </div>
         </div>
@@ -93,15 +108,25 @@
     <div class="timeline-container">
   
       <!-- Bereits vorhandene Meilensteine -->
-      <div class="timeline-item" data-year="2024 – heute" data-title="Ausbildung – GFN" data-description="Umschulung zum Fachinformatiker für Systemintegration bei der GFN: Netzwerkadministration, IT-Sicherheit, Azure, Linux u.v.m.">
+      <div class="timeline-item" data-year="09.02.2026 – 07.07.2026" data-title="Praktikum – WIIT AG Limburgerhof" data-description="Praktikum im Rahmen der IHK-Umschulung: Applikationsmanagement & Vendor-Koordination, 1st-/2nd-Level-Support mit Eskalationsmanagement, Active-Directory-Administration – hier entstand auch das IHK-Abschlussprojekt zur automatisierten IaC-Bereitstellungspipeline.">
         <div class="timeline-dot"></div>
-        <div class="timeline-label">2024 – heute<br><small>GFN – Umschulung</small></div>
+        <div class="timeline-label">02 – 07/2026<br><small>Praktikum – WIIT AG</small></div>
       </div>
-  
+
+      <div class="timeline-item" data-year="08.10.2025 – 12.01.2026" data-title="Praktikum – Mindnet Speyer" data-description="Praktikum im Rahmen der IHK-Umschulung: Planung und Durchführung vollständiger Client-Rollouts und Hardware-Migrationen (medizinisches Umfeld), Aufbau und Netzwerkintegration einer On-Premises-Infrastruktur (Server, NAS-Storage, Backup-Lösungen).">
+        <div class="timeline-dot"></div>
+        <div class="timeline-label">10/2025 – 01/2026<br><small>Praktikum – Mindnet</small></div>
+      </div>
+
+      <div class="timeline-item" data-year="2024 – 2026" data-title="Umschulung – GFN Mannheim" data-description="Umschulung zum Fachinformatiker für Systemintegration bei der GFN (Standort Mannheim): Netzwerkadministration, IT-Sicherheit, Azure, Linux u.v.m. Am 07.07.2026 erfolgreich abgeschlossen (IHK-Abschluss bestanden).">
+        <div class="timeline-dot"></div>
+        <div class="timeline-label">2024 – 2026<br><small>GFN – Umschulung</small></div>
+      </div>
+
       <div class="timeline-item" data-year="2022 – 2023" data-title="Express Handy Reparatur" data-description="Reparaturen, Kundenberatung, Inventarverwaltung, IT-Service für Kleingeräte.">
         <div class="timeline-dot"></div>
         <div class="timeline-label">2022 – 2023<br><small>EDV Reparateur</small></div>
-      </div> 
+      </div>
   
       <!-- Hinzugefügte Meilensteine -->
       <div class="timeline-item" data-year="2022" data-title="Servicekraft – Alex Ludwigshafen" data-description="Servicekraft, Kellner und Barkeeper im Alex Ludwigshafen.">
@@ -231,15 +256,49 @@
         </div>
         <div class="skill-details">
           <ul>
-            <li>TCP/IP Protocols</li>
-            <li>Network Security</li>
-            <li>VLAN Configuration</li>
+            <li>TCP/IP & OSI-Modell</li>
+            <li>VLAN-Konfiguration (Cisco / PfSense / OPNsense)</li>
             <li>Router & Switch Setup</li>
+            <li>Monitoring & Analyse (PRTG, Wireshark, Syslog)</li>
             <li>Network Troubleshooting</li>
           </ul>
         </div>
       </div>
-      
+
+      <div class="skill">
+        <div class="mobile-tooltip">Klick mich</div>
+        <span>Automatisierung & IaC</span>
+        <div class="bar" data-percent="80" data-skill="iac">
+          <div>80%</div>
+        </div>
+        <div class="skill-details">
+          <ul>
+            <li>Infrastructure as Code mit OpenTofu/Terraform</li>
+            <li>PowerShell-Skripting & Automatisierung</li>
+            <li>GitLab CI/CD-Pipelines (GitOps)</li>
+            <li>Cloudbase-Init / Zero-Touch-Deployment</li>
+            <li>Versionskontrolle & Rollback-Strategien</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="skill">
+        <div class="mobile-tooltip">Klick mich</div>
+        <span>Cloud & Virtualisierung</span>
+        <div class="bar" data-percent="75" data-skill="cloud">
+          <div>75%</div>
+        </div>
+        <div class="skill-details">
+          <ul>
+            <li>Proxmox VE, Hyper-V, VMware</li>
+            <li>Microsoft Azure Administrator (AZ-104)</li>
+            <li>Golden Images & Template-Verwaltung</li>
+            <li>ITIL v4 Foundation</li>
+            <li>Linux Essentials</li>
+          </ul>
+        </div>
+      </div>
+
       <div class="skill">
         <div class="mobile-tooltip">Klick mich</div>
         <span>Diagnose & Reparatur</span>
@@ -328,6 +387,7 @@
   </section>
 <section id="ausbildung" class="ausbildung-section">
   <h2>Umschulungsverlauf & Meilensteine</h2>
+  <p class="ausbildung-status">✅ Abgeschlossen am 07.07.2026 – Fachinformatiker für Systemintegration (IHK), bestanden.</p>
   <div class="ausbildungsverlauf">
     <div class="ausbildungs-item">
       <div class="ausbildungs-punkt"></div>
@@ -354,7 +414,7 @@
       <div class="ausbildungs-punkt"></div>
       <div class="ausbildungs-content">
         <h3>4. Halbjahr – Abschlussprojekt & Prüfungsvorbereitung</h3>
-        <p>Eigenständige Planung und Durchführung eines Abschlussprojekts. Vertiefung im Projektmanagement, Kundenkommunikation und Präsentationstechniken. Intensive Prüfungsvorbereitung (AP Teil 1 & 2).</p>
+        <p>Eigenständige Planung und Durchführung meines IHK-Abschlussprojekts bei der WIIT AG: eine automatisierte IaC-Bereitstellungspipeline für Windows-Server-Instanzen (Proxmox, OpenTofu, Cloudbase-Init, GitLab CI/CD). Vertiefung im Projektmanagement, Kundenkommunikation und Präsentationstechniken. Intensive Prüfungsvorbereitung (AP Teil 1 & 2) – <a href="#projects">Details zum Projekt siehe unten</a>.</p>
       </div>
     </div>
   </div>
@@ -393,6 +453,51 @@
     <p class="text-center mb-4">Hier sind einige meiner Projekte, die ich während meiner Ausbildung und in meiner Freizeit umgesetzt habe.</p>
     <div class="container">
       <div class="row g-4 justify-content-center">
+        <!-- Featured Project Card: IHK-Abschlussprojekt -->
+        <div class="featured-project-heading">
+          <span class="featured-badge">IHK-Abschlussprojekt</span>
+          <h2 class="text-center mb-4">Automatisierte Bereitstellungspipeline für Windows-Server-Instanzen</h2>
+        </div>
+        <div class="col-md-12">
+          <div class="card-container featured-card-container">
+            <div class="card">
+              <div class="card-face card-front">
+                <img src="images/infpic/Abschlussprojekt-cover.png" alt="Automatisierte Bereitstellungspipeline für Windows-Server – Übersichtsgrafik" />
+              </div>
+              <div class="card-face card-back">
+                <div class="scroll-content" id="scrollBoxFeatured">
+                  <h3>Automatisierte Bereitstellungspipeline (IaC & Cloud-Init)</h3>
+                  <p>Abschlussprüfung Teil 2 bei der WIIT AG: Realisierung einer vollständig automatisierten Zero-Touch-Bereitstellung für Windows-Server-Instanzen mittels Infrastructure as Code, statt der bisherigen manuellen Vorlagen-Duplizierung (~3h pro Server).</p>
+                  <ul>
+                    <li>Proxmox VE als Virtualisierungsplattform, netzwerkseitig isoliert über dediziertes VLAN</li>
+                    <li>Golden Image via Sysprep, Zero-Touch-Bootstrapping mit Cloudbase-Init</li>
+                    <li>Deklarative Infrastruktur mit OpenTofu/Terraform (bpg/proxmox-Provider)</li>
+                    <li>GitLab CI/CD-Pipeline mit versionskontrollierten Skripten (GitOps)</li>
+                    <li>Automatisierter Active-Directory-Domänenbeitritt per PowerShell</li>
+                  </ul>
+                  <p><strong>Ergebnisse:</strong></p>
+                  <ul>
+                    <li>Zero-Touch-Deployment in 145 Sekunden bis zur Netzwerkerreichbarkeit</li>
+                    <li>Alle Projektziele zu 100 % erreicht, Zeitbudget exakt eingehalten (40 h)</li>
+                    <li>Break-Even bereits nach 15 Bereitstellungen (~1,5 Monate Betrieb)</li>
+                    <li>Vollständiger Git-Rollback bei Fehlkonfiguration in unter 2 Minuten</li>
+                  </ul>
+                  <p><strong>Verwendete Technologien:</strong></p>
+                  <ul>
+                    <li>Proxmox VE, OpenTofu/Terraform, Cloudbase-Init</li>
+                    <li>GitLab CI/CD, PowerShell, Active Directory</li>
+                  </ul>
+                  <div class="featured-actions">
+                    <button onclick="openAbschlussModal(event)">Architektur & Projekt-Timeline ansehen</button>
+                    <button onclick="openDokuModal(event)">Projektdokumentation ansehen</button>
+                    <a class="btn-download" href="assets/abschlussprojekt/Praesentation.pptx" download onclick="event.stopPropagation()">Präsentation herunterladen</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Project Card 1 -->
         <h2 class="text-center mb-4">Portfolio Website</h2>
         <div class="col-md-12">
@@ -609,6 +714,27 @@
         </div>
       </div>
     </div>
+  <!-- Modal für Architektur & Timeline des Abschlussprojekts -->
+  <div id="abschlussprojektModal" class="modal-overlay">
+    <div class="modal-content image-modal-content">
+      <button class="close-btn" onclick="closeAbschlussModal()">×</button>
+      <div class="image-modal-scroll">
+        <h3>Architekturdiagramm</h3>
+        <img src="images/infpic/Architekturdiagramm.png" alt="Architekturdiagramm der IaC-Bereitstellungspipeline" />
+        <h3>Projekt-Timeline</h3>
+        <img src="images/infpic/Abschlussprojekt-timeline.png" alt="Projekt-Timeline des Abschlussprojekts" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal für die IHK-Projektdokumentation (PDF) -->
+  <div id="dokuModal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeDokuModal()">×</button>
+      <iframe id="doku-iframe" src="assets/abschlussprojekt/Projektdokumentation.pdf" frameborder="0"></iframe>
+    </div>
+  </div>
+
   <!-- Modal für das Tool -->
 <div id="iframeModal" class="modal-overlay">
   <div class="modal-content">
