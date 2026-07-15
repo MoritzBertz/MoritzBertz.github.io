@@ -168,7 +168,7 @@
   // ------------------------------------------------------------------
   let bgCanvas, bgCtx;
   let overlay, gameCanvas, gameCtx;
-  let heartsEl, inventoryEl, toastEl;
+  let heartsEl, inventoryEl, toastEl, rotateHintEl;
   let introScreen, gameOverScreen, winScreen;
   let touchControlsEl;
 
@@ -209,6 +209,7 @@
         </div>
         <button class="eg-exit-btn" type="button" aria-label="Spiel verlassen">×</button>
         <div class="eg-toast" id="eg-toast"></div>
+        <div class="eg-rotate-hint" id="eg-rotate-hint">🔄 Für optimales Spielerlebnis: Gerät ins Querformat drehen!</div>
 
         <div class="eg-screen hidden" id="eg-screen-intro">
           <h2>Dungeon-Modus!</h2>
@@ -258,6 +259,7 @@
     heartsEl = overlay.querySelector('#eg-hearts');
     inventoryEl = overlay.querySelector('#eg-inventory');
     toastEl = overlay.querySelector('#eg-toast');
+    rotateHintEl = overlay.querySelector('#eg-rotate-hint');
     introScreen = overlay.querySelector('#eg-screen-intro');
     gameOverScreen = overlay.querySelector('#eg-screen-gameover');
     winScreen = overlay.querySelector('#eg-screen-win');
@@ -1238,6 +1240,29 @@
       window.addEventListener('keydown', onKeyDown);
       window.addEventListener('keyup', onKeyUp);
     });
+
+    updateRotateHint(isCoarse);
+    window.addEventListener('orientationchange', onOrientationChange);
+    screen.orientation?.addEventListener?.('change', onOrientationChange);
+  }
+
+  function isPortrait() {
+    return window.matchMedia('(orientation: portrait)').matches;
+  }
+
+  function updateRotateHint(isCoarse) {
+    if (!rotateHintEl) return;
+    const show = isCoarse && isPortrait();
+    rotateHintEl.classList.toggle('show', show);
+    if (show) {
+      clearTimeout(updateRotateHint._t);
+      updateRotateHint._t = setTimeout(() => rotateHintEl.classList.remove('show'), 4500);
+    }
+  }
+
+  function onOrientationChange() {
+    const isCoarse = window.matchMedia('(pointer: coarse)').matches;
+    updateRotateHint(isCoarse);
   }
 
   function closeGame() {
@@ -1248,11 +1273,14 @@
 
     window.removeEventListener('keydown', onKeyDown);
     window.removeEventListener('keyup', onKeyUp);
+    window.removeEventListener('orientationchange', onOrientationChange);
+    screen.orientation?.removeEventListener?.('change', onOrientationChange);
     if (introDismissKeyHandler) {
       window.removeEventListener('keydown', introDismissKeyHandler);
       introDismissKeyHandler = null;
     }
     introScreen.classList.add('hidden');
+    if (rotateHintEl) rotateHintEl.classList.remove('show');
     Object.keys(keys).forEach((k) => { keys[k] = false; });
 
     overlay.classList.add('hidden');

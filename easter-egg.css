@@ -50,9 +50,52 @@
 
 .eg-screen-wrap {
   position: relative;
-  width: min(94vw, 960px);
   aspect-ratio: 16 / 9;
+  width: min(94vw, 960px, 94dvh * 16 / 9);
+  height: auto;
   font-family: 'Press Start 2P', 'Sora', monospace;
+}
+
+/* Auf Mobile nimmt das Spiel den kompletten Bildschirm ein (kein Rand/Backdrop sichtbar) */
+@media (max-width: 700px), (max-height: 500px) {
+  .eg-overlay {
+    padding: 0;
+  }
+
+  .eg-screen-wrap {
+    width: min(100vw, 100dvh * 16 / 9);
+  }
+
+  #eg-canvas {
+    border-radius: 0;
+    border-width: 2px;
+  }
+}
+
+.eg-rotate-hint {
+  position: absolute;
+  top: 0.6rem;
+  left: 50%;
+  transform: translate(-50%, -10px);
+  z-index: 10;
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid #ffd447;
+  color: #ffd447;
+  padding: 0.5rem 0.9rem;
+  border-radius: 6px;
+  font-size: 0.65rem;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.eg-rotate-hint.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
 #eg-canvas {
@@ -141,6 +184,7 @@
 .eg-screen {
   position: absolute;
   inset: 4px;
+  z-index: 20;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -152,6 +196,7 @@
   color: #fff;
   padding: 1.5rem;
   box-sizing: border-box;
+  overflow-y: auto;
 }
 
 .eg-screen.hidden {
@@ -224,6 +269,11 @@
   display: flex;
 }
 
+/* Verhindert, dass das D-Pad Popup-Buttons (Intro/Game Over/Win) überdeckt und Taps blockiert */
+.eg-screen-wrap:has(.eg-screen:not(.hidden)) .eg-touch-controls {
+  display: none;
+}
+
 .eg-dpad {
   pointer-events: auto;
   display: grid;
@@ -273,5 +323,30 @@
 @media (max-width: 600px) {
   .eg-screen h2 {
     font-size: 1.1rem;
+  }
+}
+
+@media (max-height: 420px) {
+  .eg-screen {
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .eg-screen h2 {
+    font-size: 0.85rem;
+  }
+
+  .eg-screen p,
+  .eg-controls-list {
+    font-size: 0.7rem;
+  }
+
+  .eg-screen-actions button {
+    font-size: 0.6rem;
+    padding: 0.5rem 0.8rem;
+  }
+
+  .eg-hud {
+    font-size: 0.65rem;
   }
 }
