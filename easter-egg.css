@@ -46,6 +46,7 @@
   box-sizing: border-box;
   --eg-topbar-h: 44px;
   --eg-controls-h: 0px;
+  --eg-toast-h: 40px;
 }
 
 .eg-overlay.hidden {
@@ -64,18 +65,30 @@
 .eg-screen-wrap {
   position: relative;
   aspect-ratio: 16 / 9;
-  width: min(94vw, 960px, (94dvh - var(--eg-topbar-h) - var(--eg-controls-h)) * 16 / 9);
+  width: min(94vw, 960px, (94dvh - var(--eg-topbar-h) - var(--eg-controls-h) - var(--eg-toast-h)) * 16 / 9);
   height: auto;
   font-family: 'Press Start 2P', 'Sora', monospace;
 }
 
+/* Eigene Zeile UNTER dem Canvas für Aufsammel-Meldungen, damit sie das
+   Spielgeschehen nie überdecken (galt vorher als Overlay auf dem Canvas). */
+.eg-toast-row {
+  width: min(94vw, 960px);
+  min-height: var(--eg-toast-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
 /* Auf Mobile nimmt das Spiel den kompletten Bildschirm ein (kein Rand/Backdrop sichtbar).
-   Topbar- und Touch-Controls-Höhe werden vom dvh-Budget abgezogen, damit nichts überläuft
-   und beide Leisten außerhalb der eigentlichen Spielfläche bleiben. */
+   Topbar-, Toast- und Touch-Controls-Höhe werden vom dvh-Budget abgezogen, damit nichts
+   überläuft und alle drei Leisten außerhalb der eigentlichen Spielfläche bleiben. */
 @media (max-width: 700px), (max-height: 500px) {
   .eg-overlay {
     padding: 0;
     gap: 0;
+    --eg-toast-h: 34px;
   }
 
   .eg-topbar {
@@ -84,8 +97,12 @@
     box-sizing: border-box;
   }
 
+  .eg-toast-row {
+    width: 100vw;
+  }
+
   .eg-screen-wrap {
-    width: min(100vw, (100dvh - var(--eg-topbar-h) - var(--eg-controls-h)) * 16 / 9);
+    width: min(100vw, (100dvh - var(--eg-topbar-h) - var(--eg-controls-h) - var(--eg-toast-h)) * 16 / 9);
   }
 
   .eg-overlay.has-touch-controls {
@@ -97,12 +114,10 @@
     border-width: 2px;
   }
 
-  /* Kompakter & am Rand, damit Aufsammel-Popups die Spielfläche nicht verdecken */
   .eg-toast {
-    top: 0.4rem;
     padding: 0.3rem 0.6rem;
     font-size: 0.55rem;
-    max-width: 80%;
+    max-width: 90%;
   }
 
   .eg-hud {
@@ -197,10 +212,8 @@
 }
 
 .eg-toast {
-  position: absolute;
-  top: 3rem;
-  left: 50%;
-  transform: translate(-50%, -8px);
+  position: static;
+  transform: translateY(-4px);
   background: rgba(0, 0, 0, 0.75);
   border: 2px solid #ffd447;
   color: #ffd447;
@@ -218,7 +231,7 @@
 
 .eg-toast.show {
   opacity: 1;
-  transform: translate(-50%, 0);
+  transform: translateY(0);
 }
 
 .eg-screen {

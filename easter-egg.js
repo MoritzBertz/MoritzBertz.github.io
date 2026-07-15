@@ -210,7 +210,6 @@
           <div class="eg-hearts" id="eg-hearts"></div>
           <div class="eg-inventory" id="eg-inventory"></div>
         </div>
-        <div class="eg-toast" id="eg-toast"></div>
         <div class="eg-rotate-hint" id="eg-rotate-hint">🔄 Für optimales Spielerlebnis: Gerät ins Querformat drehen!</div>
 
         <div class="eg-screen hidden" id="eg-screen-intro">
@@ -242,6 +241,10 @@
             <button type="button" data-action="exit">Verlassen</button>
           </div>
         </div>
+      </div>
+
+      <div class="eg-toast-row">
+        <div class="eg-toast" id="eg-toast"></div>
       </div>
 
       <div class="eg-touch-controls" id="eg-touch-controls">
@@ -683,7 +686,9 @@
     }
 
     updateTraffic(reduceMotion ? 0 : 1 / 18);
-    vehicles.forEach((v) => drawVehicle(ctx, v, layout, isNight));
+    // Hintere Fahrspur (dir=-1) wird immer zuerst gezeichnet, damit sie stets
+    // hinter Fahrzeugen auf der vorderen Spur (dir=1) liegt.
+    [...vehicles].sort((a, b) => a.dir - b.dir).forEach((v) => drawVehicle(ctx, v, layout, isNight));
 
     if (!reduceMotion) {
       scrollFar += 4 / 18;
