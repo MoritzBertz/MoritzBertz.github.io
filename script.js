@@ -11,63 +11,11 @@ function toggleDarkMode() {
   darkModeButton.textContent = isDarkMode ? 'Light Theme' : 'Dark Theme';
   localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
 
-  const timelineDots = document.querySelectorAll('.timeline-item .timeline-dot');
-  const timelineLabels = document.querySelectorAll('.timeline-item .timeline-label');
-  timelineDots.forEach(dot => {
-    dot.style.background = isDarkMode ? '#00bcd4' : 'hsl(29, 89%, 43%)';
-    dot.style.transition = 'transform 0.3s ease, background-color 0.3s ease';
-    resetAnimation(dot);
-  });
-  timelineLabels.forEach(label => {
-    label.style.color = isDarkMode ? '#00bcd4' : 'hsl(29, 89%, 43%)';
-    label.style.transition = 'color 0.3s ease';
-    resetAnimation(label);
-  });
-
   const modalContent = document.querySelector('.modal-content');
   if (modalContent) {
     modalContent.style.backgroundColor = isDarkMode ? '#111' : '#ffffff';
     modalContent.style.color = isDarkMode ? '#fff' : '#000';
   }
-}
-
-function resetAnimation(element) {
-  element.style.animation = 'none';
-  void element.offsetWidth; // Trigger reflow to reset the animation
-  element.style.animation = '';
-}
-
-// ========================= //
-// Tech List (Grundlagen-Section)
-// ========================= //
-function initializeTechList() {
-  const techListItems = document.querySelectorAll('.tech-list li');
-  const techTitle = document.getElementById('tech-title');
-  const techDetails = document.getElementById('tech-details');
-
-  const techDescriptions = {
-    itGrundlagen: `Ich habe ein solides Fundament in den IT-Basics aufgebaut. Dazu gehörten Themen wie die Funktionsweise von Betriebssystemen (Windows 10/11, Windows Server 2022, Linux Ubuntu), Dateisysteme (NTFS, FAT32), Virtualisierung mit Hyper-V, sowie der Aufbau von Client-Server-Strukturen. Besonders hilfreich war der Umgang mit PowerShell zur grundlegenden Systemsteuerung sowie das Verständnis der ITIL-Grundlagen zur Strukturierung von IT-Diensten.`,
-    netzwerk: `Ich habe Netzwerke geplant, eingerichtet und erste Fehleranalysen durchgeführt. In Übungen habe ich IP-Adressierung, Subnetting und VLAN-Konzepte mit Switches und Routern simuliert, u. a. mit Packet Tracer. Auch DHCP- und DNS-Dienste habe ich mit Windows Server 2022 eingerichtet. Mit Tools wie Wireshark konnte ich den Netzwerkverkehr analysieren. Die praktische Umsetzung des OSI-Modells und die Konfiguration kleiner LAN-Strukturen gehören jetzt zu meinem Repertoire.`,
-    sicherheit: `Mein Einstieg in die IT-Sicherheit erfolgte über Benutzerrechte, Gruppenrichtlinien (GPOs) und das Prinzip der minimalen Berechtigungen. Ich habe gelernt, wie man mit Windows Defender, BitLocker und Firewall-Regeln grundlegende Schutzmaßnahmen etabliert. Auch Themen wie Zwei-Faktor-Authentifizierung, Verschlüsselung (TLS/SSL) und Datenschutz nach DSGVO habe ich behandelt. Tools wie SecPol.msc und AD-Gruppenrichtlinien kamen regelmäßig zum Einsatz.`,
-    programmieren: `Ich habe erste Automatisierungsskripte mit PowerShell geschrieben, z. B. für das Anlegen von Benutzerkonten oder das Erstellen von Backup-Routinen. In Python konnte ich kleinere Programme mit if-Bedingungen, Schleifen und Funktionen schreiben. Auch JavaScript habe ich verwendet – zunächst im Kontext einfacher Webseiteninteraktion (DOM-Manipulation). Visual Studio Code war dabei meine zentrale Entwicklungsumgebung. Git habe ich für Versionskontrolle in kleinen Projekten ausprobiert.`,
-    datenbanken: `Ich habe relationale Datenbanken wie MySQL und Microsoft SQL Server kennengelernt. Erste Erfahrungen sammelte ich mit dem Anlegen von Tabellen, dem Setzen von Primär- und Fremdschlüsseln sowie dem Schreiben einfacher SQL-Abfragen (SELECT, JOIN, INSERT). Mit phpMyAdmin und SSMS konnte ich Datenbanken grafisch verwalten. Zusätzlich habe ich gelernt, wie man Backups erstellt, Benutzerrechte verwaltet und Datenbankmodelle dokumentiert – z. B. mit MySQL Workbench.`
-  };
-
-  techListItems.forEach(item => {
-    item.addEventListener('click', () => {
-      techListItems.forEach(i => i.classList.remove('active'));
-      item.classList.add('active');
-
-      const techKey = item.getAttribute('data-tech');
-      techTitle.textContent = item.textContent;
-      techDetails.textContent = techDescriptions[techKey] || "Keine Beschreibung verfügbar.";
-    });
-  });
-
-  const firstTechKey = techListItems[0].getAttribute('data-tech');
-  techListItems[0].classList.add('active');
-  techTitle.textContent = techListItems[0].textContent;
-  techDetails.textContent = techDescriptions[firstTechKey] || "Keine Beschreibung verfügbar.";
 }
 
 // ========================= //
@@ -341,36 +289,6 @@ function initializeProjectCards() {
 }
 
 // ========================= //
-// Timeline (Meilensteine)
-// ========================= //
-function initializeTimeline() {
-  const timelineItems = document.querySelectorAll('.timeline-item');
-  const modalEl = document.getElementById('timelineModal');
-  if (!modalEl || timelineItems.length === 0) return;
-
-  const modal = new bootstrap.Modal(modalEl);
-  const modalTitle = document.getElementById('timelineModalLabel');
-  const modalBody = document.getElementById('timelineModalBody');
-
-  timelineItems.forEach(item => {
-    item.addEventListener('click', () => {
-      const year = item.getAttribute('data-year');
-      const title = item.getAttribute('data-title');
-      const description = item.getAttribute('data-description');
-
-      modalTitle.textContent = `${year} – ${title}`;
-      modalBody.textContent = description;
-      modal.show();
-    });
-  });
-
-  const timelineDots = document.querySelectorAll('.timeline-item .timeline-dot');
-  modalEl.addEventListener('hidden.bs.modal', () => {
-    timelineDots.forEach(dot => resetAnimation(dot));
-  });
-}
-
-// ========================= //
 // Umschulungsverlauf (Scroll-Reveal)
 // ========================= //
 function initializeAusbildungReveal() {
@@ -422,14 +340,12 @@ function initializeDarkModeState() {
 // ========================= //
 document.addEventListener('DOMContentLoaded', () => {
   initializeDarkModeState();
-  initializeTechList();
   initializeSkillBars();
   initializeSkillBarDetails();
   initializeSkillLabels();
   initializeParagraphSlider();
   initializeContactForm();
   initializeProjectCards();
-  initializeTimeline();
   initializeAusbildungReveal();
   initializeNavScroll();
 });

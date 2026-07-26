@@ -41,7 +41,7 @@ body {
   caret-color: transparent; /* Versteckt den blinkenden Text-Cursor */
 }
 
-h1, h2, h3, .mainheader, .profile-heading, .tech-description h3 {
+h1, h2, h3, .mainheader, .profile-heading {
   font-family: 'Sora', 'Segoe UI', sans-serif;
   letter-spacing: -0.01em;
 }
@@ -49,6 +49,93 @@ h1, h2, h3, .mainheader, .profile-heading, .tech-description h3 {
 section > h2, .ausbildung-section h2 {
   font-size: 2rem;
   font-weight: 800;
+}
+
+/* ========================= */
+/* Cloud/Terminal-Look: wiederverwendbare Bausteine */
+/* ========================= */
+.mono {
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+}
+
+/* Kleines Kicker-Label über Section-Überschriften, z.B. "// about" */
+.section-eyebrow {
+  display: block;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  margin-bottom: 0.4rem;
+}
+
+/* Terminal-Fenster-Chrome: dunkles Panel mit Titelleiste (rot/gelb/grün + Dateiname).
+   Bewusst immer dunkel gehalten (auch im Light Mode), da das dem Terminal-/Code-Editor-
+   Motiv entspricht, das man aus IDEs kennt. */
+.terminal-window {
+  background: rgba(8, 12, 18, 0.92);
+  border: 1px solid rgba(var(--accent-rgb), 0.35);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+}
+
+.terminal-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.8rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.25);
+}
+
+.terminal-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.terminal-dot.red { background: #ff5f56; }
+.terminal-dot.yellow { background: #ffbd2e; }
+.terminal-dot.green { background: #27c93f; }
+
+.terminal-filename {
+  margin-left: 0.5rem;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.terminal-body {
+  padding: 1rem 1.2rem;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  color: #d3e6ea;
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+/* Sehr dezente Grid-Textur als Hintergrund-Layer für einzelne Sections.
+   Kindelemente brauchen position:relative + z-index:1, um darüber zu liegen. */
+.grid-texture {
+  position: relative;
+}
+
+.grid-texture::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(var(--accent-rgb), 0.05) 0px, rgba(var(--accent-rgb), 0.05) 1px, transparent 1px, transparent 42px),
+    repeating-linear-gradient(90deg, rgba(var(--accent-rgb), 0.05) 0px, rgba(var(--accent-rgb), 0.05) 1px, transparent 1px, transparent 42px);
+  mask-image: linear-gradient(180deg, transparent, rgba(0,0,0,0.9) 15%, rgba(0,0,0,0.9) 85%, transparent);
+}
+
+.grid-texture > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* ========================= */
@@ -128,6 +215,19 @@ header::before {
   font-weight: 800;
 }
 
+.header-whoami {
+  margin-top: 0.8rem;
+  width: min(100%, 480px);
+  text-align: left;
+}
+
+.header-whoami .terminal-body {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 0.78rem;
+}
+
 @media (max-width: 768px) {
   header {
     min-height: 45vh;
@@ -144,6 +244,10 @@ header::before {
 
   .subtitle {
     font-size: 1.1rem;
+  }
+
+  .header-whoami .terminal-body {
+    font-size: 0.68rem;
   }
 }
 /* ========================= */
@@ -683,46 +787,13 @@ body.dark .scroll-content {
 
 
 /* ========================= */
-/* Timeline-Styles */
+/* Modal-Content (genutzt von den Projekt-Modals: Doku, Architektur, AD-Tool) */
 /* ========================= */
-.timeline {
-  list-style: none;
-  padding: 0;
-}
-
-.timeline li {
-  margin-bottom: 0.8rem;
-}
-
-.timeline span {
-  font-weight: bold;
-  color: var(--accent);
-}
 .modal-content {
   background-color: var(--accent); /* Match modal background to theme */
   color: var(--text); /* Match modal text color to theme */
   transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
 }
-.theme-close-button {
-  color: var(--text);
-  border: none;
-  font-size: 1.25rem;
-  opacity: 0.8;
-  transition: opacity 0.2s ease, color 0.3s ease;
-}
-.theme-close-button:hover {
-  opacity: 1;
-  background-color: hsl(29, 89%, 53%); /* Leicht hellere Akzentfarbe */
-}
-/* Grundstil des Close-Buttons im Modal */
-.modal-content .btn-close {
-  border: none;
-  box-shadow: none;
-  padding: 0.5rem;
-  opacity: 0.7;
-  transition: filter 0.3s ease, opacity 0.2s ease;
-}
-
 
 /* ========================= */
 /* Formular-Styles */
@@ -959,193 +1030,92 @@ body.dark .static-menu ul {
   overflow-y: auto;
 }
 
-.tech-card h3 {
-  background-color: var(--accent);
-  color: white;
-  padding: 0.5rem 1rem;
-  margin: -2rem -2rem 1rem -2rem;
-}
-
-.detail-list {
-  list-style: none;
-  padding: 0;
-  margin-top: 1rem;
-}
-
-.detail-list li {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  margin: 0.5rem 0;
-}
-
-detail-list li.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-#tech-carousel .row {
-  display: flex;
-  align-items: center; /* Align items vertically in the center */
-}
-
-#tech-carousel .col-md-6 p {
-  margin-top: 0; /* Remove unnecessary margin */
-}
-
-#tech-carousel .col-md-6 p {
-  margin-top: 1.5rem; /* Adjust margin to align with the h2 header */
-}
-
-#tech-carousel .col-md-6 {
-  padding: 1rem;
-}
-
-#tech-carousel p {
-  font-size: 1rem;
-  line-height: 1.5;
-  color: var(--text);
-}
-
-
-
-@keyframes slideInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-50px); /* Start weiter oben */
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0); /* Endposition */
-  }
-}
-
-#tech-carousel .col-md-6 p {
-  opacity: 1;
-  transform: none;
-}
-
-#tech-carousel .col-md-6 p.visible {
-  animation: none;
-  opacity: 1;
-  transform: none;
-}
-
-#tech-carousel .col-md-6 p {
-  animation: slideInDown 1s ease-out; /* Dauer der Animation verlängert */
-  opacity: 0; /* Startzustand */
-  transform: translateY(-50px); /* Startposition */
-}
-
-#tech-carousel .col-md-6 p.visible {
-  animation: slideInDown 1s ease-out; /* Animation anwenden */
-  opacity: 1; /* Sichtbar machen */
-  transform: translateY(0); /* Endposition */
-}
-
-/* Timeline Styles */
-
-.timeline-container {
-  display: flex;
-  overflow-x: auto;
-  position: relative;
-  padding: 2rem 0;
-  border-top: 3px solid var(--accent);
-  gap: 3rem;
-  scroll-snap-type: x mandatory;
-  white-space: nowrap; /* Verhindert den Umbruch der Elemente */
-}
-
-.timeline-item {
-  flex: 0 0 auto;
-  position: relative;
-  text-align: center;
-  scroll-snap-align: center;
-  cursor: pointer;
-  display: inline-block; /* Stellt sicher, dass die Elemente in einer Reihe bleiben */
-}
-
-.timeline-dot {
-  width: 20px;
-  height: 20px;
-  background: var(--accent);
-  border-radius: 50%;
+/* ========================= */
+/* Vertikale Timeline (Berufserfahrung) */
+/* ========================= */
+.vtimeline {
+  max-width: 760px;
   margin: 0 auto;
-  position: relative;
-  top: -10px;
-  z-index: 2;
-  transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transition for transform and background */
+  padding: 1rem 1rem 0 1rem;
 }
 
-.timeline-item:hover .timeline-dot {
-  transform: scale(2); /* Smooth scaling effect */
+.vtimeline-item {
+  display: flex;
+  gap: 1.25rem;
+  align-items: stretch;
 }
 
-.timeline-item:hover .timeline-label {
-  color: var(--accent); /* Ensure hover color matches the theme */
+.vtimeline-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 16px;
 }
 
-body.dark .timeline-item:hover .timeline-dot {
-  background: var(--accent); /* Ensure correct accent color in dark mode */
-}
-
-body.dark .timeline-item:hover .timeline-label {
-  color: var(--accent); /* Ensure correct accent color in dark mode */
-}
-
-
-.timeline-label {
-  margin-top: 1rem;
-  font-weight: bold;
-  max-width: 120px;
-  margin-inline: auto;
-}
-
-.timeline-item:hover .timeline-label {
-  color: var(--accent);
-}
-
-.timeline-container::-webkit-scrollbar {
-  height: 8px; /* Height of the scrollbar */
-}
-
-.timeline-container::-webkit-scrollbar-thumb {
-  background: var(--accent); /* Default color of the scrollbar thumb */
-  border-radius: 4px; /* Rounded corners */
-  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
-}
-
-.timeline-container::-webkit-scrollbar-thumb:hover {
-  background: hsl(29, 89%, 53%); /* Slightly lighter color on hover */
-}
-
-.timeline-container::-webkit-scrollbar-track {
-  background: transparent; /* Keeps the track background transparent */
-}
-
-.timeline-container::-webkit-scrollbar {
-  height: 8px;
-}
-
-.timeline-container::-webkit-scrollbar-thumb {
+.vtimeline-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
   background: var(--accent);
-  border-radius: 4px;
+  box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.2);
+  margin-top: 1.5rem;
+  flex-shrink: 0;
 }
 
-.timeline-container::-webkit-scrollbar-track {
-  background: transparent;
+.vtimeline-line {
+  width: 2px;
+  flex: 1;
+  background: rgba(var(--accent-rgb), 0.3);
+  margin: 4px 0;
 }
 
-body.dark .timeline-item:hover .timeline-dot {
-  background: var(--accent) !important; /* Ensure correct accent color in dark mode */
+.vtimeline-content {
+  flex: 1;
+  margin-bottom: 1.75rem;
+  min-width: 0; /* erlaubt Textumbruch in Flex-Kindern statt Überlauf */
+  transition: box-shadow 0.25s ease;
 }
 
-body.dark .timeline-item:hover .timeline-label {
-  color: var(--accent) !important; /* Ensure correct accent color in dark mode */
+.vtimeline-content:hover {
+  box-shadow: 0 0 0 2px var(--accent), 0 14px 34px rgba(0, 0, 0, 0.35);
 }
 
-body.dark .timeline-container::-webkit-scrollbar-thumb:hover {
-  background: var(--accent) !important; /* Ensure correct hover color for scrollbar in dark mode */
+.vtimeline-period {
+  font-size: 0.75rem;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+
+.vtimeline-title {
+  font-family: 'Sora', 'Segoe UI', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #fff;
+  margin-bottom: 0.15rem;
+}
+
+.vtimeline-org {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.55);
+  margin-bottom: 0.7rem;
+}
+
+.vtimeline-desc {
+  font-size: 0.78rem;
+  line-height: 1.65;
+  color: #c3dade;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .vtimeline-marker {
+    width: 12px;
+  }
+
+  .vtimeline-title {
+    font-size: 0.9rem;
+  }
 }
 
 #about .btn-arrow {
@@ -1172,15 +1142,13 @@ body.dark #about .btn-arrow:hover {
   background-color: #5fecff; /* Slightly lighter than the accent color */
   transform: scale(1.1); /* Slight zoom effect */
 }
-#about .btn-arrow svg,
-#tech-carousel .btn-arrow svg {
+#about .btn-arrow svg {
   width: 100%; /* Ensure SVG scales properly */
   height: 100%;
   fill: currentColor; /* Inherit the button's text color */
 }
 
-#about .btn-arrow svg,
-#tech-carousel .btn-arrow svg {
+#about .btn-arrow svg {
   width: 20px; /* Adjust SVG size */
   height: 20px;
   fill: white; /* Match the button text color */
@@ -1211,127 +1179,8 @@ body.dark #about .btn-arrow:hover {
   display: block; 
   text-align: left; 
 }
-/* Tech List Styles */
-.tech-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.tech-list li {
-  font-size: 1.2rem;
-  padding: 1rem;
-  margin: 0.5rem 0;
-  background-color: var(--bg);
-  color: var(--text);
-  border: 1px solid var(--accent);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
-
-.tech-list li:hover {
-  transform: translateX(10px);
-  box-shadow: 0 0 15px var(--accent);
-}
-
-.tech-list li.active {
-  background-color: var(--accent);
-  color: white;
-  transform: translateX(10px);
-  box-shadow: 0 0 15px var(--accent);
-}
-
-/* Remove the internal effect */
-.tech-list li::before {
-  display: none;
-}
-
-/* Tech Description Styles */
-.tech-description {
-  background-color: var(--bg);
-  color: var(--text);
-  border-radius: 15px;
-  border: 1px solid var(--accent);
-  box-shadow: 0 0 20px var(--accent);
-  transition: box-shadow 0.3s ease;
-  height: 100%;
-  min-height: 500px;
-}
-
-.tech-description-content {
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.tech-description h3 {
-  margin: 0 0 1.5rem 0;
-  color: var(--accent);
-  text-align: center;
-  font-size: 1.8rem;
-}
-
-.tech-description-text {
-  flex-grow: 1;
-}
-
-.tech-description p {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin: 0;
-  color: var(--text);
-  opacity: 1 !important;
-  transform: none !important;
-  animation: none !important;
-  transition: none !important;
-}
-
-.tech-description:hover {
-  box-shadow: 0 0 35px var(--accent);
-}
-
-/* Dark mode adjustments */
-body.dark .tech-description {
-  box-shadow: 0 0 20px var(--accent);
-}
-
-body.dark .tech-description:hover {
-  box-shadow: 0 0 35px var(--accent);
-}
-
-/* Ensure the tech-carousel section has proper stacking context */
-#tech-carousel {
-  position: relative;
-  z-index: 1;
-}
-
-/* Ensure the container has proper stacking context */
-#tech-carousel .container {
-  position: relative;
-  z-index: 1;
-}
-
-/* Skills and Tech Sections Container */
-.skills-tech-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-}
-
 /* Align section headings */
-#skills h2,
-#tech-carousel h2 {
+#skills h2 {
   margin-top: 0;
   margin-bottom: 1.5rem;
   font-size: 1.8rem;
@@ -1343,42 +1192,13 @@ body.dark .tech-description:hover {
   padding: 0;
 }
 
-#tech-carousel {
-  padding: 0;
-  grid-column: 1 / -1; /* Make tech section span full width */
-}
-
-#tech-carousel .container {
-  padding: 0;
-}
-
-#tech-carousel .row {
-  margin: 0;
-}
-
 /* Responsive adjustments */
 @media (max-width: 1200px) {
-  .skills-tech-container {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-  
-  #skills, #tech-carousel {
+  #skills {
     max-width: 800px;
     margin: 0 auto;
   }
 }
-
-#tech-carousel h2 {
-  text-align: left;
-  margin-bottom: 2rem;
-}
-
-/* Remove the text-center class from the h2 */
-#tech-carousel h2.text-center {
-  text-align: left;
-}
-
 
 .skill-detail-item::before {
   content: "🔹";
@@ -1821,6 +1641,20 @@ body.dark .close-btn:hover {
 .featured-card-container .card-face {
   border: 2px solid var(--accent);
   box-shadow: 0 0 25px rgba(var(--accent-rgb), 0.35);
+}
+
+.card-terminal-titlebar {
+  margin: -1rem -1rem 1rem -1rem;
+  border-radius: 0;
+}
+
+.cloud-note {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--accent);
+  border-left: 3px solid var(--accent);
+  padding-left: 0.75rem;
+  margin: 1rem 0 !important;
 }
 
 .featured-actions {

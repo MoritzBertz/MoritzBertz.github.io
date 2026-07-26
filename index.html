@@ -7,7 +7,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=Press+Start+2P&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Bootstrap CSS -->
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
@@ -46,9 +46,22 @@
   </script>
   <header>
     <div class="header-content">
-      <span class="header-badge">IHK-zertifiziert · Fachinformatiker Systemintegration</span>
+      <span class="header-badge">IHK-zertifiziert · Infrastructure Automation &amp; IaC</span>
       <h1 class="mainheader">Moritz Bertz</h1>
-      <p class="subtitle">Kreativer Problemlöser • Tech Enthusiast</p>
+      <p class="subtitle">Infrastructure Automation • Cloud-Ready • Terraform &amp; PowerShell</p>
+      <div class="terminal-window header-whoami">
+        <div class="terminal-titlebar">
+          <span class="terminal-dot red"></span>
+          <span class="terminal-dot yellow"></span>
+          <span class="terminal-dot green"></span>
+          <span class="terminal-filename">whoami.sh</span>
+        </div>
+        <pre class="terminal-body">$ whoami
+name  = "Moritz Bertz"
+role  = "Junior Cloud &amp; Infrastructure Engineer"
+stack = ["Terraform", "PowerShell", "Active Directory", "GitLab CI/CD"]
+focus = "Infrastructure as Code – cloud-agnostisch"</pre>
+      </div>
     </div>
   </header>
 
@@ -63,7 +76,6 @@
       <li><a href="#timeline">Berufserfahrung</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#ausbildung">Umschulung</a></li>
-      <li><a href="#tech-carousel">Grundlagen</a></li>
       <li><a href="#projects">Projekte</a></li>
       <li><a href="#contact">Kontakt</a></li>
       <li><a href="javascript:void(0);" onclick="toggleDarkMode()">Dark Theme</a></li>
@@ -110,82 +122,179 @@
     </div>
   </section>
   <section id="timeline" class="mt-5">
+    <span class="section-eyebrow text-center">// experience</span>
     <h2 class="text-center mb-4">Berufserfahrung</h2>
-    <div class="timeline-container">
-  
-      <!-- Bereits vorhandene Meilensteine -->
-      <div class="timeline-item" data-year="09.02.2026 – 07.07.2026" data-title="Praktikum – WIIT AG Limburgerhof" data-description="Praktikum im Rahmen der IHK-Umschulung: Applikationsmanagement & Vendor-Koordination, 1st-/2nd-Level-Support mit Eskalationsmanagement, Active-Directory-Administration – hier entstand auch das IHK-Abschlussprojekt zur automatisierten IaC-Bereitstellungspipeline.">
-        <div class="timeline-dot"></div>
-        <div class="timeline-label">02 – 07/2026<br><small>Praktikum – WIIT AG</small></div>
+    <div class="vtimeline">
+
+      <div class="vtimeline-item">
+        <div class="vtimeline-marker"><div class="vtimeline-dot"></div><div class="vtimeline-line"></div></div>
+        <div class="vtimeline-content terminal-window">
+          <div class="terminal-titlebar"><span class="terminal-dot red"></span><span class="terminal-dot yellow"></span><span class="terminal-dot green"></span><span class="terminal-filename">2026_wiit-ag.log</span></div>
+          <div class="terminal-body">
+            <div class="vtimeline-period">02/2026 – 07/2026</div>
+            <div class="vtimeline-title">Praktikum (IHK-Umschulung)</div>
+            <div class="vtimeline-org">WIIT AG · Limburgerhof</div>
+            <p class="vtimeline-desc">Applikationsmanagement & Vendor-Koordination, 1st-/2nd-Level-Support mit Eskalationsmanagement, Active-Directory-Administration – hier entstand auch das IHK-Abschlussprojekt zur automatisierten IaC-Bereitstellungspipeline.</p>
+          </div>
+        </div>
       </div>
 
-      <div class="timeline-item" data-year="08.10.2025 – 12.01.2026" data-title="Praktikum – Mindnet Speyer" data-description="Praktikum im Rahmen der IHK-Umschulung: Planung und Durchführung vollständiger Client-Rollouts und Hardware-Migrationen (medizinisches Umfeld), Aufbau und Netzwerkintegration einer On-Premises-Infrastruktur (Server, NAS-Storage, Backup-Lösungen).">
-        <div class="timeline-dot"></div>
-        <div class="timeline-label">10/2025 – 01/2026<br><small>Praktikum – Mindnet</small></div>
+      <div class="vtimeline-item">
+        <div class="vtimeline-marker"><div class="vtimeline-dot"></div><div class="vtimeline-line"></div></div>
+        <div class="vtimeline-content terminal-window">
+          <div class="terminal-titlebar"><span class="terminal-dot red"></span><span class="terminal-dot yellow"></span><span class="terminal-dot green"></span><span class="terminal-filename">2025_mindnet.log</span></div>
+          <div class="terminal-body">
+            <div class="vtimeline-period">10/2025 – 01/2026</div>
+            <div class="vtimeline-title">Praktikum (IHK-Umschulung)</div>
+            <div class="vtimeline-org">Mindnet · Speyer</div>
+            <p class="vtimeline-desc">Planung und Durchführung vollständiger Client-Rollouts und Hardware-Migrationen (medizinisches Umfeld), Aufbau und Netzwerkintegration einer On-Premises-Infrastruktur (Server, NAS-Storage, Backup-Lösungen).</p>
+          </div>
+        </div>
       </div>
 
-      <div class="timeline-item" data-year="2024 – 2026" data-title="Umschulung – GFN Mannheim" data-description="Umschulung zum Fachinformatiker für Systemintegration bei der GFN (Standort Mannheim): Netzwerkadministration, IT-Sicherheit, Azure, Linux u.v.m. Am 07.07.2026 erfolgreich abgeschlossen (IHK-Abschluss bestanden).">
-        <div class="timeline-dot"></div>
-        <div class="timeline-label">2024 – 2026<br><small>GFN – Umschulung</small></div>
+      <div class="vtimeline-item">
+        <div class="vtimeline-marker"><div class="vtimeline-dot"></div><div class="vtimeline-line"></div></div>
+        <div class="vtimeline-content terminal-window">
+          <div class="terminal-titlebar"><span class="terminal-dot red"></span><span class="terminal-dot yellow"></span><span class="terminal-dot green"></span><span class="terminal-filename">2024_gfn.log</span></div>
+          <div class="terminal-body">
+            <div class="vtimeline-period">2024 – 2026</div>
+            <div class="vtimeline-title">Umschulung zum Fachinformatiker Systemintegration</div>
+            <div class="vtimeline-org">GFN · Mannheim</div>
+            <p class="vtimeline-desc">Netzwerkadministration, IT-Sicherheit, Azure, Linux u.v.m. Am 07.07.2026 erfolgreich abgeschlossen (IHK-Abschluss bestanden).</p>
+          </div>
+        </div>
       </div>
 
-      <div class="timeline-item" data-year="2022 – 2023" data-title="Express Handy Reparatur" data-description="Reparaturen, Kundenberatung, Inventarverwaltung, IT-Service für Kleingeräte.">
-        <div class="timeline-dot"></div>
-        <div class="timeline-label">2022 – 2023<br><small>EDV Reparateur</small></div>
-      </div>
-  
-      <!-- Hinzugefügte Meilensteine -->
-      <div class="timeline-item" data-year="2022" data-title="Servicekraft – Alex Ludwigshafen" data-description="Servicekraft, Kellner und Barkeeper im Alex Ludwigshafen.">
-        <div class="timeline-dot"></div>
-        <div class="timeline-label">2022<br><small>Alex Ludwigshafen</small></div>
-      </div>
-  
-      <div class="timeline-item" data-year="2021 – 2022" data-title="Servicekraft – O'Reilly's Irish Pub" data-description="Servicekraft, Kellner und Barkeeper im O'Reilly's Irish Pub.">
-        <div class="timeline-dot"></div>
-        <div class="timeline-label">2021 – 2022<br><small>O'Reilly's Irish Pub</small></div>
+      <div class="vtimeline-item">
+        <div class="vtimeline-marker"><div class="vtimeline-dot"></div><div class="vtimeline-line"></div></div>
+        <div class="vtimeline-content terminal-window">
+          <div class="terminal-titlebar"><span class="terminal-dot red"></span><span class="terminal-dot yellow"></span><span class="terminal-dot green"></span><span class="terminal-filename">2022_express-handy.log</span></div>
+          <div class="terminal-body">
+            <div class="vtimeline-period">2022 – 2023</div>
+            <div class="vtimeline-title">EDV-Kleingeräte-Reparateur</div>
+            <div class="vtimeline-org">Express Handy Reparatur · Ludwigshafen</div>
+            <p class="vtimeline-desc">Reparaturen, Kundenberatung, Inventarverwaltung, IT-Service für Kleingeräte.</p>
+          </div>
+        </div>
       </div>
 
-      <div class="timeline-item" data-year="2017 – 2018" data-title="Game & Multimedia Design" data-description="SRH Heidelberg: Photoshop, Webentwicklung, Designgrundlagen, Teamprojekte.">
-        <div class="timeline-dot"></div>
-        <div class="timeline-label">2017 – 2018<br><small>SRH Heidelberg</small></div>
+      <div class="vtimeline-item">
+        <div class="vtimeline-marker"><div class="vtimeline-dot"></div><div class="vtimeline-line"></div></div>
+        <div class="vtimeline-content terminal-window">
+          <div class="terminal-titlebar"><span class="terminal-dot red"></span><span class="terminal-dot yellow"></span><span class="terminal-dot green"></span><span class="terminal-filename">2022_alex.log</span></div>
+          <div class="terminal-body">
+            <div class="vtimeline-period">2022</div>
+            <div class="vtimeline-title">Servicekraft / Kellner / Barkeeper</div>
+            <div class="vtimeline-org">Alex · Ludwigshafen</div>
+            <p class="vtimeline-desc">Servicekraft, Kellner und Barkeeper im Alex Ludwigshafen.</p>
+          </div>
+        </div>
       </div>
 
-      <div class="timeline-item" data-year="2017" data-title="Praktikum – Rechnerhaus GmbH" data-description="Praktikum als Webentwickler bei der Rechnerhaus GmbH in Lampertheim.">
-        <div class="timeline-dot"></div>
-        <div class="timeline-label">2017<br><small>Rechnerhaus GmbH</small></div>
+      <div class="vtimeline-item">
+        <div class="vtimeline-marker"><div class="vtimeline-dot"></div><div class="vtimeline-line"></div></div>
+        <div class="vtimeline-content terminal-window">
+          <div class="terminal-titlebar"><span class="terminal-dot red"></span><span class="terminal-dot yellow"></span><span class="terminal-dot green"></span><span class="terminal-filename">2021_oreillys.log</span></div>
+          <div class="terminal-body">
+            <div class="vtimeline-period">2021 – 2022</div>
+            <div class="vtimeline-title">Servicekraft / Kellner / Barkeeper</div>
+            <div class="vtimeline-org">O'Reilly's Irish Pub</div>
+            <p class="vtimeline-desc">Servicekraft, Kellner und Barkeeper im O'Reilly's Irish Pub.</p>
+          </div>
+        </div>
       </div>
-  
-      <div class="timeline-item" data-year="2016 – 2017" data-title="Berufsvorbereitende Bildungsmaßnahme" data-description="Teilnahme an einer berufsvorbereitenden Bildungsmaßnahme am Wichern Institut Ludwigshafen.">
-        <div class="timeline-dot"></div>
-        <div class="timeline-label">2016 – 2017<br><small>Wichern Institut</small></div>
+
+      <div class="vtimeline-item">
+        <div class="vtimeline-marker"><div class="vtimeline-dot"></div><div class="vtimeline-line"></div></div>
+        <div class="vtimeline-content terminal-window">
+          <div class="terminal-titlebar"><span class="terminal-dot red"></span><span class="terminal-dot yellow"></span><span class="terminal-dot green"></span><span class="terminal-filename">2017_srh.log</span></div>
+          <div class="terminal-body">
+            <div class="vtimeline-period">2017 – 2018</div>
+            <div class="vtimeline-title">Ausbildung Game & Multimedia Design</div>
+            <div class="vtimeline-org">SRH · Heidelberg</div>
+            <p class="vtimeline-desc">Photoshop, Webentwicklung, Designgrundlagen, Teamprojekte.</p>
+          </div>
+        </div>
       </div>
-  
-      <div class="timeline-item" data-year="2007" data-title="Praktikum – Ciba/BASF Lampertheim" data-description="Praktikum als Chemikant bei Ciba/BASF in Lampertheim.">
-        <div class="timeline-dot"></div>
-        <div class="timeline-label">2007<br><small>Ciba/BASF Lampertheim</small></div>
+
+      <div class="vtimeline-item">
+        <div class="vtimeline-marker"><div class="vtimeline-dot"></div><div class="vtimeline-line"></div></div>
+        <div class="vtimeline-content terminal-window">
+          <div class="terminal-titlebar"><span class="terminal-dot red"></span><span class="terminal-dot yellow"></span><span class="terminal-dot green"></span><span class="terminal-filename">2017_rechnerhaus.log</span></div>
+          <div class="terminal-body">
+            <div class="vtimeline-period">2017</div>
+            <div class="vtimeline-title">Praktikum Webentwickler</div>
+            <div class="vtimeline-org">Rechnerhaus GmbH · Lampertheim</div>
+            <p class="vtimeline-desc">Praktikum als Webentwickler bei der Rechnerhaus GmbH in Lampertheim.</p>
+          </div>
+        </div>
       </div>
-  
+
+      <div class="vtimeline-item">
+        <div class="vtimeline-marker"><div class="vtimeline-dot"></div><div class="vtimeline-line"></div></div>
+        <div class="vtimeline-content terminal-window">
+          <div class="terminal-titlebar"><span class="terminal-dot red"></span><span class="terminal-dot yellow"></span><span class="terminal-dot green"></span><span class="terminal-filename">2016_wichern.log</span></div>
+          <div class="terminal-body">
+            <div class="vtimeline-period">2016 – 2017</div>
+            <div class="vtimeline-title">Berufsvorbereitende Bildungsmaßnahme</div>
+            <div class="vtimeline-org">Wichern Institut · Ludwigshafen</div>
+            <p class="vtimeline-desc">Teilnahme an einer berufsvorbereitenden Bildungsmaßnahme am Wichern Institut Ludwigshafen.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="vtimeline-item">
+        <div class="vtimeline-marker"><div class="vtimeline-dot"></div></div>
+        <div class="vtimeline-content terminal-window">
+          <div class="terminal-titlebar"><span class="terminal-dot red"></span><span class="terminal-dot yellow"></span><span class="terminal-dot green"></span><span class="terminal-filename">2007_ciba-basf.log</span></div>
+          <div class="terminal-body">
+            <div class="vtimeline-period">2007</div>
+            <div class="vtimeline-title">Praktikum Chemikant</div>
+            <div class="vtimeline-org">Ciba/BASF · Lampertheim</div>
+            <p class="vtimeline-desc">Praktikum als Chemikant bei Ciba/BASF in Lampertheim.</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
-  
-  <!-- Modal für Details -->
-  <div class="modal fade" id="timelineModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="timelineModalLabel"></h5>
-          <button type="button" class="btn theme-close-button" data-bs-dismiss="modal" aria-label="Schließen">
-            <i class="bi bi-x-lg"></i>
-          </button>
-
-        </div>
-        <div class="modal-body" id="timelineModalBody"></div>
-      </div>
-    </div>
-  </div>
-  <section id="skills">
+  <section id="skills" class="grid-texture">
+    <span class="section-eyebrow">// core-skills</span>
     <h2>Erlernte Skills</h2>
     <div class="skills-container">
+      <div class="skill">
+        <div class="mobile-tooltip">Klick mich</div>
+        <span>Automatisierung & IaC</span>
+        <div class="bar" data-percent="80" data-skill="iac">
+          <div>80%</div>
+        </div>
+        <div class="skill-details">
+          <ul>
+            <li>Infrastructure as Code mit OpenTofu/Terraform</li>
+            <li>PowerShell-Skripting & Automatisierung</li>
+            <li>GitLab CI/CD-Pipelines (GitOps)</li>
+            <li>Cloudbase-Init / Zero-Touch-Deployment</li>
+            <li>Versionskontrolle & Rollback-Strategien</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="skill">
+        <div class="mobile-tooltip">Klick mich</div>
+        <span>Cloud & Virtualisierung</span>
+        <div class="bar" data-percent="75" data-skill="cloud">
+          <div>75%</div>
+        </div>
+        <div class="skill-details">
+          <ul>
+            <li>Proxmox VE, Hyper-V, VMware</li>
+            <li>Windows Server 2022/2025</li>
+            <li>Golden Images & Template-Verwaltung (Sysprep)</li>
+            <li>Docker</li>
+          </ul>
+        </div>
+      </div>
+
       <div class="skill">
         <div class="mobile-tooltip">Klick mich</div>
         <span>HTML/CSS</span>
@@ -267,39 +376,6 @@
             <li>Router & Switch Setup</li>
             <li>Monitoring & Analyse (PRTG, Wireshark, Syslog)</li>
             <li>Network Troubleshooting</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="skill">
-        <div class="mobile-tooltip">Klick mich</div>
-        <span>Automatisierung & IaC</span>
-        <div class="bar" data-percent="80" data-skill="iac">
-          <div>80%</div>
-        </div>
-        <div class="skill-details">
-          <ul>
-            <li>Infrastructure as Code mit OpenTofu/Terraform</li>
-            <li>PowerShell-Skripting & Automatisierung</li>
-            <li>GitLab CI/CD-Pipelines (GitOps)</li>
-            <li>Cloudbase-Init / Zero-Touch-Deployment</li>
-            <li>Versionskontrolle & Rollback-Strategien</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="skill">
-        <div class="mobile-tooltip">Klick mich</div>
-        <span>Cloud & Virtualisierung</span>
-        <div class="bar" data-percent="75" data-skill="cloud">
-          <div>75%</div>
-        </div>
-        <div class="skill-details">
-          <ul>
-            <li>Proxmox VE, Hyper-V, VMware</li>
-            <li>Windows Server 2022/2025</li>
-            <li>Golden Images & Template-Verwaltung (Sysprep)</li>
-            <li>Docker</li>
           </ul>
         </div>
       </div>
@@ -391,6 +467,7 @@
     </div>
   </section>
 <section id="ausbildung" class="ausbildung-section">
+  <span class="section-eyebrow text-center">// education</span>
   <h2>Umschulungsverlauf & Meilensteine</h2>
   <p class="ausbildung-status">✅ Abgeschlossen am 07.07.2026 – Fachinformatiker für Systemintegration (IHK), bestanden.</p>
   <div class="ausbildungsverlauf">
@@ -424,36 +501,9 @@
     </div>
   </div>
 </section>
- <section id="tech-carousel" class="mt-5">
-  <h2 class="text-center mb-4">Grundlagen</h2>
-  <div class="container">
-    <div class="row">
-      <!-- Linke Spalte: Liste der Technologien -->
-      <div class="col-md-6">
-        <ul class="tech-list">
-          <li data-tech="itGrundlagen">IT-Grundlagen</li>
-          <li data-tech="netzwerk">Netzwerktechnik</li>
-          <li data-tech="sicherheit">IT-Sicherheit</li>
-          <li data-tech="programmieren">Programmierung</li>
-          <li data-tech="datenbanken">Datenbanken</li>
-        </ul>
-      </div>
-      <!-- Rechte Spalte: Beschreibung -->
-      <div class="col-md-6">
-        <div class="tech-description">
-          <div class="tech-description-content">
-            <h3 id="tech-title">Technologie</h3>
-            <div class="tech-description-text">
-              <p id="tech-details">Klicke auf ein Thema, um mehr zu erfahren.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
   <section id="projects" class="mt-5">
+    <span class="section-eyebrow text-center">// projects</span>
     <h2 class="text-center mb-4">Projekte</h2>
     <p class="text-center mb-4">Hier sind einige meiner Projekte, die ich während meiner Ausbildung und in meiner Freizeit umgesetzt habe.</p>
     <div class="container">
@@ -471,6 +521,12 @@
               </div>
               <div class="card-face card-back">
                 <div class="scroll-content" id="scrollBoxFeatured">
+                  <div class="terminal-titlebar card-terminal-titlebar">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                    <span class="terminal-filename">deploy-pipeline.tf</span>
+                  </div>
                   <h3>Automatisierte Bereitstellungspipeline (IaC & Cloud-Init)</h3>
                   <p>Abschlussprüfung Teil 2 bei der WIIT AG: Realisierung einer vollständig automatisierten Zero-Touch-Bereitstellung für Windows-Server-Instanzen mittels Infrastructure as Code, statt der bisherigen manuellen Vorlagen-Duplizierung (~3h pro Server).</p>
                   <ul>
@@ -492,6 +548,7 @@
                     <li>Proxmox VE, OpenTofu/Terraform, Cloudbase-Init</li>
                     <li>GitLab CI/CD, PowerShell, Active Directory</li>
                   </ul>
+                  <p class="cloud-note">💡 Terraform/OpenTofu ist Cloud-Provider-agnostisch – dieselbe IaC-Methodik lässt sich direkt auf AWS, Azure oder GCP übertragen.</p>
                   <div class="featured-actions">
                     <button onclick="openAbschlussModal(event)">Architektur & Projekt-Timeline ansehen</button>
                     <button onclick="openDokuModal(event)">Projektdokumentation ansehen</button>
@@ -750,6 +807,7 @@
   </section>
 
   <section id="contact">
+    <span class="section-eyebrow text-center">// contact</span>
     <h2>Kontakt</h2>
     <form id="contact-form" action="https://formspree.io/f/xanoovvn" method="POST">
       <input type="text" name="name" id="name" placeholder="Name" required />
