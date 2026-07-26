@@ -23,6 +23,8 @@ Zwei parallele Variablen-Familien in `stylesheet.css`, beide über `:root` (Ligh
 
 **Nie mehr:** eigene hartcodierte Orange-Töne (`hsl(29,89%,...)`, `rgb(255,140,0)`) — überall durch `var(--accent)`-Äquivalente (`hsl(192,100%,...)`, `rgba(0,188,212,...)`) ersetzt.
 
+**`--grid-texture-opacity`:** eigene Variable (`:root`/`body.dark`) für die Deckkraft der `.grid-texture::before`-Punkt-/Linienraster. Light Mode braucht einen deutlich höheren Wert (`0.16`) als Dark Mode (`0.09`), da dieselbe Cyan-Linie auf Weiß viel schwächer wirkt als auf Dunkel — beim Nachjustieren immer **beide** Modi per Screenshot vergleichen, nicht nur den einen, an dem gerade gearbeitet wird.
+
 ## Typografie
 
 - **`JetBrains Mono`** — für alles, was wie Code/Terminal aussieht (Standard-Font der meisten Komponenten).
@@ -40,7 +42,7 @@ Jede Hauptsektion hat **genau eine** Überschrift im Code-Kommentar-Stil, keine 
 
 **Linksbündig statt zentriert:** `.section-eyebrow` ist standardmäßig `text-align: left` und sitzt auf Höhe des Fenster-Inhalts darunter (kein `text-center` mehr in der HTML-Klasse). Sections, deren eigentlicher Inhalt schmaler als die Section selbst und unabhängig zentriert ist (`#skills` → `.accordion-list{max-width:800px}`, `#contact` → `#contact-form{max-width:600px}`), brauchen dafür eine eigene `#id .section-eyebrow{max-width:...; margin:0 auto; text-align:left;}`-Regel, damit beide Kanten bündig sind — **Achtung:** bestehende `#skills h2`/`#contact h2`-Regeln setzen dort selbst `text-align:center` mit Element+ID-Spezifität; die eigene Override-Regel muss `text-align: left` deshalb explizit wiederholen, sonst gewinnt die alte Regel. Auf Mobile (`@media max-width:768px`) wird wieder zentriert, wie alles andere dort auch.
 
-Nav-Label und Section-Header müssen denselben Begriff tragen (Nav zeigt `/experience` als Pfad, Header `// Experience` als Kommentar — gleiches Wort, unterschiedliche Formatierung ist ok). Aktuelle Reihenfolge (Nav **und** DOM müssen übereinstimmen): **About (im Header) → Experience → Education → Projects → Skills → Contact**. About ist keine eigene scrollbare Section mehr — der Nav-Link `/about` zeigt auf `<header id="about">` (siehe CRT-Monitor-Abschnitt unten).
+Nav-Label und Section-Header müssen denselben Begriff tragen (Nav zeigt `/experience` als Pfad, Header `// Experience` als Kommentar — gleiches Wort, unterschiedliche Formatierung ist ok). Aktuelle Reihenfolge (Nav **und** DOM müssen übereinstimmen): **About (im Header) → Experience → Education → Skills → Projects → Contact**. About ist keine eigene scrollbare Section mehr — der Nav-Link `/about` zeigt auf `<header id="about">` (siehe CRT-Monitor-Abschnitt unten). Skills/Projects sitzen als kompaktes Duo nebeneinander (siehe `.skills-projects-row` unten) — Skills links, Projects rechts, deshalb auch in der Nav in dieser Reihenfolge.
 
 ## Komponentenmuster
 
@@ -73,6 +75,19 @@ Sitzt **direkt im Header** (linke Spalte, ersetzt das frühere `whoami.sh`-Fenst
 Jede "Seite" (`renderMenu()`/`renderAbout()`/`renderStack()`/`renderContact()`/`startScan()`) leert den Screen komplett (`clearScreen()`) und baut neu — kein Diffing nötig, da die Inhalte kurz sind. Statische Seiten setzen am Ende explizit `screen.scrollTop = 0` (nicht dem Auto-Scroll-ans-Ende aus `addLine()`/`addNode()` überlassen, das ist nur für den live mitlaufenden Scan gedacht — sonst zeigt eine Seite, die länger als die feste Screen-Höhe ist, beim Aufruf sofort das Ende statt den Anfang). `startScan()` läuft über dieselbe Timer-Queue wie vorher (Pacing-Konstanten `FAST`/`TABLE`/`PAUSE`/`QUICK`), `clearScreen()` räumt alle offenen Timer UND `requestAnimationFrame`-IDs ab (`scanTimers`/`scanRafs`-Arrays) — Escape/Power-Button müssen jederzeit, auch mitten im Scan, sofort zurück ins Menü kommen.
 
 Der Power-On-Flash + die Boot-Sequenz (`playBootSequence()`, zeichenweises Eintippen der Boot-Zeilen per `requestAnimationFrame`, wie beim alten `whoami`-Boot) laufen einmal beim Init (Monitor ist ja jetzt sofort sichtbar, kein Scroll-Trigger nötig) und zusätzlich jedes Mal, wenn `powerOn()` nach einem `powerOff()` erneut aufgerufen wird. `powerOff()`/`powerOn()` sind ein **echter Ein-/Aus-Schalter** (nicht nur "zurück zum Menü"): Aus-Klick spielt eine `crt-power-off`-Kollaps-Animation (Bild → waagrechte Linie → Punkt → schwarz, Spiegelbild von `crt-power-on`), setzt `.powered-off` (Screen-Inhalt/Input per `visibility:hidden` ausgeblendet, LED gedimmt), Ein-Klick spielt Power-On + Boot-Sequenz erneut ab.
+
+**Header-Grid-Aufteilung (`.header-content`):** Monitor bekommt den ganzen Restplatz (`minmax(0,1fr)`), die `current_status.yml`-Card eine **feste** schmale Spalte (`minmax(220px,260px)`) statt eines fr-Anteil-Verhältnisses — so bleibt sie garantiert ein schlanker Streifen, unabhängig davon, wie breit der Header insgesamt ist. Eigener Zwischen-Breakpoint bei `960px` (zusätzlich zum allgemeinen `768px`-Mobile-Umbruch), da eine feste 220–260px-Spalte sich sonst im Bereich 768–1160px unbrauchbar schmal neben den Monitor quetschen würde.
+
+### Status-Card (`current_status.yml`, `initializeStatusCardReveal()`)
+Inhalt nach Recruiter-Relevanz sortiert (Headline → Status-Badge → Stack-Chips → Verfügbarkeit/Location → Sprachen gedämpft → CV-Button), komplett aus `ABOUT_ME` befüllt (kein zweites Datenmodell — `ABOUT_ME.stack` ist dieselbe Quelle wie der CRT-`renderStack()`-Screen). Chips nutzen bewusst die bestehende `.git-badge`-Komponente statt einer eigenen Chip-Klasse (ein Tag-Look für die ganze Seite). Badge/Dot-Puls nutzt das bereits vorhandene `status-pulse`-Keyframe (dasselbe wie `.status-dot`/`.k8s-live-dot`).
+
+### Gemeinsame Zeilen-Reinflug-Animation (`.reveal-line`, `revealLines()`)
+`.crt-line` und `.reveal-line` teilen sich dasselbe `@keyframes crt-line-fade-in` (Opacity + leichter `translateY`). Zwei Nutzungsarten für denselben visuellen Effekt, je nachdem ob der Inhalt live über die Zeit aufgebaut wird oder schon komplett im DOM steht:
+- **CRT-Screen**: Elemente werden nacheinander per `setTimeout` angehängt (`addLine()`/`addNode()`), jedes bekommt beim Einfügen automatisch die Animation.
+- **Statische Blöcke** (Status-Card): alle Kind-Elemente stehen schon im DOM, `revealLines(elements, stepMs)` (in `script.js`, oben bei den globalen Helpers) vergibt nur gestaffelte `animation-delay`-Werte (`i * stepMs`) und respektiert `prefers-reduced-motion` (Animation aus, `opacity:1` sofort). Bei neuen Komponenten mit "Zeile für Zeile einfliegen"-Optik: `revealLines()` wiederverwenden statt eine dritte Timing-Variante zu bauen.
+
+### Skills + Projects nebeneinander (`.skills-projects-row`)
+`#skills` und `#projects` bleiben echte `<section>`-Elemente mit eigener ID (Scroll-Spy/`scrollIntoView` unverändert), stecken aber als Flex-Kinder in einem gemeinsamen `.skills-projects-row`-Wrapper (Skills `flex:1.15`, Projects `flex:1`, beide `max-width:none;margin:0`, da die globalen `section{}`/`#skills{}`/`#projects{}`-Breiten-Regeln hier gezielt überschrieben werden müssen). Projects zeigt in dieser Spalte nur den kompakten Launcher (`.ide-launcher-hint` wird container-basiert ausgeblendet, `.skills-projects-row .ide-launcher-hint{display:none}`) — der Klick öffnet weiterhin denselben `.ide-window-overlay`, keine zweite Explorer-Variante. Unter `960px` (bzw. `1100px` für dieses Wrapper-Paar) stapeln beide wieder untereinander (`flex-direction:column`). **DOM-Reihenfolge** bestimmt die visuelle Links-Rechts-Reihenfolge in Flex-Row — wer zuerst im HTML steht, steht links.
 
 ## Icons
 

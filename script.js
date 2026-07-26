@@ -6,7 +6,9 @@ const ABOUT_ME = {
   name: 'Moritz Bertz',
   role: 'Fachinformatiker für Systemintegration',
   focus: ['Netzwerke', 'Automatisierung', 'IaC'],
+  stack: ['Terraform', 'PowerShell', 'Active Directory', 'GitLab CI/CD'],
   status: 'open_to_work',
+  availableFrom: 'sofort',
   location: 'Remote (DE) / Ludwigshafen',
 };
 
@@ -17,6 +19,58 @@ const ABOUT_LINES = [
   'Kommunikativ, kundenorientiert, teamfähig — inkl. 1st-/2nd-Level-Support.',
   'Ziel: sichere, automatisierte Infrastrukturen konsequent weiterdenken.',
 ];
+
+// ========================= //
+// Gemeinsame Zeilen-Reinflug-Animation (.reveal-line / .crt-line teilen sich
+// dasselbe @keyframes crt-line-fade-in) — für Elemente, die bereits alle im
+// DOM stehen und nur nacheinander gestaffelt eingeblendet werden sollen,
+// statt wie im CRT-Screen zeitversetzt per setTimeout angehängt zu werden.
+// ========================= //
+function revealLines(elements, stepMs) {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  elements.forEach((el, i) => {
+    el.classList.add('reveal-line');
+    if (reduceMotion) {
+      el.style.animation = 'none';
+      el.style.opacity = '1';
+    } else {
+      el.style.animationDelay = (i * stepMs) + 'ms';
+    }
+  });
+}
+
+// ========================= //
+// Status-Card (current_status.yml) — Inhalt aus ABOUT_ME befüllen und mit
+// derselben Zeilen-Reinflug-Optik wie der CRT-Screen einblenden.
+// ========================= //
+function initializeStatusCardReveal() {
+  const body = document.getElementById('statusCardBody');
+  if (!body) return;
+
+  const nameEl = document.getElementById('statusName');
+  const roleEl = document.getElementById('statusRole');
+  const badgeTextEl = document.getElementById('statusBadgeText');
+  const chipsEl = document.getElementById('statusChips');
+  const availableEl = document.getElementById('statusAvailable');
+  const locationEl = document.getElementById('statusLocation');
+
+  if (nameEl) nameEl.textContent = ABOUT_ME.name;
+  if (roleEl) roleEl.textContent = ABOUT_ME.role;
+  if (badgeTextEl) badgeTextEl.textContent = ABOUT_ME.status === 'open_to_work' ? 'open to work' : ABOUT_ME.status;
+  if (availableEl) availableEl.textContent = '"' + ABOUT_ME.availableFrom + '"';
+  if (locationEl) locationEl.textContent = '"' + ABOUT_ME.location + '"';
+
+  if (chipsEl) {
+    ABOUT_ME.stack.forEach((tech) => {
+      const chip = document.createElement('span');
+      chip.className = 'git-badge';
+      chip.textContent = tech;
+      chipsEl.appendChild(chip);
+    });
+  }
+
+  revealLines(Array.from(body.children), 90);
+}
 
 // ========================= //
 // Dark Mode Toggle
@@ -907,7 +961,7 @@ function initializeAboutCrtMonitor() {
   function renderStack() {
     clearScreen();
     addLine('$ cat stack.yml');
-    addLine('stack = ["Terraform", "PowerShell", "Active Directory", "GitLab CI/CD"]', 'crt-dim');
+    addLine('stack = [' + ABOUT_ME.stack.map((s) => '"' + s + '"').join(', ') + ']', 'crt-dim');
     addLine('focus = [' + ABOUT_ME.focus.map((f) => '"' + f + '"').join(', ') + ']', 'crt-dim');
     addBackHint();
     screen.scrollTop = 0;
@@ -1243,4 +1297,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initializePromptBar();
   initializeAboutCrtMonitor();
   initializeHeaderPrompt();
+  initializeStatusCardReveal();
 });

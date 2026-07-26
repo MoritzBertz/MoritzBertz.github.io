@@ -15,6 +15,7 @@ html:has(body.dark) {
   --text: #000000; /* Textfarbe */
   --accent: #00bcd4; /* Akzentfarbe — dieselbe Cyan-Farbe wie im Dark Mode, kein separates Orange mehr */
   --accent-rgb: 0, 188, 212;
+  --grid-texture-opacity: 0.16; /* Light Mode: höher, da Cyan-Linien auf Weiß sonst kaum sichtbar sind */
 }
 
 body.dark {
@@ -23,6 +24,7 @@ body.dark {
   --text: #fff; /* Helle Textfarbe */
   --accent: #00bcd4; /* Akzentfarbe im Dark Mode */
   --accent-rgb: 0, 188, 212; /* RGB-Werte für die Dark Mode Akzentfarbe */
+  --grid-texture-opacity: 0.09; /* Dark Mode: moderater Aufschlag, war schon eher sichtbar als Light */
 }
 h3 {
   font-weight: bold;
@@ -266,8 +268,8 @@ body.dark {
   pointer-events: none;
   z-index: 0;
   background-image:
-    repeating-linear-gradient(0deg, rgba(var(--accent-rgb), 0.05) 0px, rgba(var(--accent-rgb), 0.05) 1px, transparent 1px, transparent 42px),
-    repeating-linear-gradient(90deg, rgba(var(--accent-rgb), 0.05) 0px, rgba(var(--accent-rgb), 0.05) 1px, transparent 1px, transparent 42px);
+    repeating-linear-gradient(0deg, rgba(var(--accent-rgb), var(--grid-texture-opacity)) 0px, rgba(var(--accent-rgb), var(--grid-texture-opacity)) 1px, transparent 1px, transparent 42px),
+    repeating-linear-gradient(90deg, rgba(var(--accent-rgb), var(--grid-texture-opacity)) 0px, rgba(var(--accent-rgb), var(--grid-texture-opacity)) 1px, transparent 1px, transparent 42px);
   mask-image: linear-gradient(180deg, transparent, rgba(0,0,0,0.9) 15%, rgba(0,0,0,0.9) 85%, transparent);
 }
 
@@ -338,10 +340,12 @@ header::before {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  /* Monitor bekommt den gesamten Restplatz, die Card eine feste schmale
+     Spalte (schlanker Streifen statt gleichwertig breiter zweiter Fläche). */
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 260px);
   align-items: start;
   gap: 1.5rem;
-  width: min(100%, 1100px);
+  width: min(100%, 1160px);
   padding: 2.5rem 3rem;
   box-sizing: border-box;
 }
@@ -368,6 +372,79 @@ header::before {
 .yaml-punct { color: var(--ide-text-dim); }
 .yaml-string { color: var(--ide-orange); }
 .yaml-dash { color: var(--ide-cyan); }
+
+/* Status-Card: Reihenfolge nach Recruiter-Relevanz — Headline, Status-Badge,
+   Stack-Chips, Verfügbarkeit/Location, Sprachen (gedämpft), CV-Button. */
+.status-headline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  margin: 0.2rem 0 0.7rem;
+}
+
+.status-name {
+  font-family: 'Sora', 'Segoe UI', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--ide-text);
+}
+
+.status-role {
+  font-size: 0.76rem;
+  color: var(--ide-text-dim);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  align-self: flex-start;
+  margin: 0 0 0.85rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(var(--ide-green-rgb), 0.16);
+  border: 1px solid rgba(var(--ide-green-rgb), 0.5);
+  color: var(--ide-green);
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.status-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ide-green);
+  box-shadow: 0 0 6px var(--ide-green);
+  animation: status-pulse 1.8s ease-in-out infinite;
+}
+
+.status-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0 0 0.9rem;
+}
+
+.status-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin-bottom: 0.7rem;
+}
+
+.status-languages {
+  margin-top: 0.3rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--ide-border);
+  opacity: 0.62;
+  font-size: 0.92em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-badge-dot { animation: none; }
+}
 .yaml-list-item { padding-left: 1.2rem; }
 
 .cv-download-btn {
@@ -393,7 +470,10 @@ header::before {
   color: var(--ide-bg);
 }
 
-@media (max-width: 768px) {
+/* Eigener, höherer Breakpoint als der allgemeine 768px-Mobile-Umbruch: die
+   feste 220–260px-Card würde sich zwischen ~768–1160px unbrauchbar schmal
+   neben den Monitor quetschen, deshalb hier schon früher stapeln. */
+@media (max-width: 960px) {
   .header-content {
     grid-template-columns: 1fr;
   }
@@ -683,6 +763,56 @@ section {
   .bar-wrap { flex: 1 1 100%; justify-content: space-between; }
 
   .skill-bar { flex: 1 1 auto; width: auto; }
+}
+
+/* ========================= */
+/* Skills + Projects nebeneinander (kompaktes Duo statt zwei volle Sections) */
+/* ========================= */
+.skills-projects-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  width: min(100%, 1300px);
+  margin: 2rem auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+/* #skills/#projects bleiben echte <section>s (Scroll-Spy/scrollIntoView
+   unverändert), bekommen aber innerhalb dieser Reihe eigene Flex-Maße statt
+   ihrer sonstigen Einzel-Section-Breiten (die globale section{}-Regel bzw.
+   die eigenen #skills/#projects-Regeln werden hier gezielt überschrieben). */
+.skills-projects-row #skills,
+.skills-projects-row #projects {
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  max-width: none;
+}
+
+.skills-projects-row #skills {
+  flex: 1.15 1 0;
+}
+
+.skills-projects-row #projects {
+  flex: 1 1 0;
+}
+
+/* In der schmalen Projects-Spalte lohnt sich der Hinweistext neben dem
+   Launcher nicht mehr — bewusst container-basiert (nicht viewportbasiert)
+   ausgeblendet, unabhängig von der bestehenden 768px-Mobile-Regel dafür. */
+.skills-projects-row .ide-launcher-hint {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .skills-projects-row {
+    flex-direction: column;
+  }
+  .skills-projects-row #skills,
+  .skills-projects-row #projects {
+    width: 100%;
+  }
 }
 
 /* ========================= */
@@ -2705,7 +2835,12 @@ body.dark .k8s-hud .ide-win-btn:not(.ide-win-close):hover {
   background: rgba(74, 222, 128, 0.12);
 }
 
-.crt-line {
+/* .reveal-line: gemeinsame Zeilen-Reinflug-Optik, geteilt zwischen CRT-Screen
+   (.crt-line, JS-getaktetes Nacheinander-Anhängen) und der Status-Card
+   (initializeStatusCardReveal(), alle Kinder gleichzeitig im DOM, Staffelung
+   nur über animation-delay) — ein Keyframe, zwei Nutzungsarten. */
+.crt-line,
+.reveal-line {
   opacity: 0;
   animation: crt-line-fade-in 200ms ease forwards;
 }
@@ -2857,7 +2992,8 @@ body.dark .k8s-hud .ide-win-btn:not(.ide-win-close):hover {
     animation: none;
     opacity: 0;
   }
-  .crt-line {
+  .crt-line,
+  .reveal-line {
     animation: none;
     opacity: 1;
     transform: none;

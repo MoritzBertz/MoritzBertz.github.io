@@ -74,15 +74,28 @@
             <span class="win-ctrl win-close">&times;</span>
           </div>
         </div>
-        <div class="terminal-body">
+        <div class="terminal-body" id="statusCardBody">
           <div class="yaml-comment"># Recruiter Quick-Facts</div>
-          <div><span class="yaml-key">status</span><span class="yaml-punct">: </span><span class="yaml-string">"Open to Work"</span></div>
-          <div><span class="yaml-key">location</span><span class="yaml-punct">: </span><span class="yaml-string">"Remote (DE) / Ludwigshafen"</span></div>
-          <div><span class="yaml-key">languages</span><span class="yaml-punct">:</span></div>
-          <div class="yaml-list-item"><span class="yaml-dash">-</span> <span class="yaml-string">"DE (Native)"</span></div>
-          <div class="yaml-list-item"><span class="yaml-dash">-</span> <span class="yaml-string">"EN (Fluent)"</span></div>
-          <div class="yaml-list-item"><span class="yaml-dash">-</span> <span class="yaml-string">"PowerShell"</span></div>
-          <div class="yaml-list-item"><span class="yaml-dash">-</span> <span class="yaml-string">"Python"</span></div>
+          <div class="status-headline">
+            <span class="status-name" id="statusName"></span>
+            <span class="status-role" id="statusRole"></span>
+          </div>
+          <div class="status-badge" id="statusBadge">
+            <span class="status-badge-dot" aria-hidden="true"></span>
+            <span id="statusBadgeText"></span>
+          </div>
+          <div class="status-chips" id="statusChips"></div>
+          <div class="status-meta">
+            <div><span class="yaml-key">available</span><span class="yaml-punct">: </span><span class="yaml-string" id="statusAvailable"></span></div>
+            <div><span class="yaml-key">location</span><span class="yaml-punct">: </span><span class="yaml-string" id="statusLocation"></span></div>
+          </div>
+          <div class="status-languages">
+            <div class="yaml-key">languages:</div>
+            <div class="yaml-list-item"><span class="yaml-dash">-</span> <span class="yaml-string">"DE (Native)"</span></div>
+            <div class="yaml-list-item"><span class="yaml-dash">-</span> <span class="yaml-string">"EN (Fluent)"</span></div>
+            <div class="yaml-list-item"><span class="yaml-dash">-</span> <span class="yaml-string">"PowerShell"</span></div>
+            <div class="yaml-list-item"><span class="yaml-dash">-</span> <span class="yaml-string">"Python"</span></div>
+          </div>
           <a class="cv-download-btn" href="assets/cv/Moritz_Bertz_CV.pdf" download>&gt;_ ./download_cv.pdf</a>
         </div>
       </div>
@@ -101,8 +114,8 @@
         <li><a class="nav-link" href="#about" data-target="about"><span class="nav-prefix">&gt;_ </span>/about</a></li>
         <li><a class="nav-link" href="#timeline" data-target="timeline"><span class="nav-prefix">&gt;_ </span>/experience</a></li>
         <li><a class="nav-link" href="#ausbildung" data-target="ausbildung"><span class="nav-prefix">&gt;_ </span>/education</a></li>
-        <li><a class="nav-link" href="#projects" data-target="projects"><span class="nav-prefix">&gt;_ </span>/projects</a></li>
         <li><a class="nav-link" href="#skills" data-target="skills"><span class="nav-prefix">&gt;_ </span>/skills</a></li>
+        <li><a class="nav-link" href="#projects" data-target="projects"><span class="nav-prefix">&gt;_ </span>/projects</a></li>
         <li><a class="nav-link" href="#contact" data-target="contact"><span class="nav-prefix">&gt;_ </span>/contact</a></li>
       </ul>
 
@@ -120,8 +133,8 @@
         <li><a class="nav-link" href="#about" data-target="about"><span class="nav-prefix">&gt;_ </span>/about</a></li>
         <li><a class="nav-link" href="#timeline" data-target="timeline"><span class="nav-prefix">&gt;_ </span>/experience</a></li>
         <li><a class="nav-link" href="#ausbildung" data-target="ausbildung"><span class="nav-prefix">&gt;_ </span>/education</a></li>
-        <li><a class="nav-link" href="#projects" data-target="projects"><span class="nav-prefix">&gt;_ </span>/projects</a></li>
         <li><a class="nav-link" href="#skills" data-target="skills"><span class="nav-prefix">&gt;_ </span>/skills</a></li>
+        <li><a class="nav-link" href="#projects" data-target="projects"><span class="nav-prefix">&gt;_ </span>/projects</a></li>
         <li><a class="nav-link" href="#contact" data-target="contact"><span class="nav-prefix">&gt;_ </span>/contact</a></li>
       </ul>
       <div class="prompt-status-mobile">
@@ -349,6 +362,265 @@
 
   <div class="section-connector" aria-hidden="true"></div>
 
+  <div class="skills-projects-row">
+  <section id="skills" class="grid-texture">
+    <h2 class="section-eyebrow">// Skills</h2>
+    <div class="cli-line"><span class="ide-prompt">~/skills $</span> docker pull core-competencies</div>
+    <div class="accordion-list" id="skillsAccordion">
+
+      <div class="accordion-item">
+        <button type="button" class="accordion-header" aria-expanded="false">
+          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> Automatisierung_IaC</span>
+          <span class="bar-wrap">
+            <span class="skill-bar" data-percent="80"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
+            <span class="skill-percent">80%</span>
+          </span>
+        </button>
+        <div class="accordion-body-wrap">
+          <div class="accordion-body-inner">
+            <div class="log-lines">
+              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">Infrastructure as Code mit OpenTofu/Terraform</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">PowerShell-Skripting &amp; Automatisierung</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">GitLab CI/CD-Pipelines (GitOps)</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Cloudbase-Init / Zero-Touch-Deployment</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Versionskontrolle &amp; Rollback-Strategien</span> ... <span class="log-done">[DONE]</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button type="button" class="accordion-header" aria-expanded="false">
+          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> Cloud_Virtualisierung</span>
+          <span class="bar-wrap">
+            <span class="skill-bar" data-percent="75"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
+            <span class="skill-percent">75%</span>
+          </span>
+        </button>
+        <div class="accordion-body-wrap">
+          <div class="accordion-body-inner">
+            <div class="log-lines">
+              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">Proxmox VE, Hyper-V, VMware</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">Windows Server 2022/2025</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Golden Images &amp; Template-Verwaltung (Sysprep)</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Docker</span> ... <span class="log-done">[DONE]</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button type="button" class="accordion-header" aria-expanded="false">
+          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> HTML_CSS</span>
+          <span class="bar-wrap">
+            <span class="skill-bar" data-percent="83"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
+            <span class="skill-percent">83%</span>
+          </span>
+        </button>
+        <div class="accordion-body-wrap">
+          <div class="accordion-body-inner">
+            <div class="log-lines">
+              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">Responsive Web Design</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">CSS Grid &amp; Flexbox</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">CSS Animations &amp; Transitions</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Semantic HTML5</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Cross-browser Compatibility</span> ... <span class="log-done">[DONE]</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button type="button" class="accordion-header" aria-expanded="false">
+          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> JavaScript</span>
+          <span class="bar-wrap">
+            <span class="skill-bar" data-percent="45"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
+            <span class="skill-percent">45%</span>
+          </span>
+        </button>
+        <div class="accordion-body-wrap">
+          <div class="accordion-body-inner">
+            <div class="log-lines">
+              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">DOM Manipulation</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">Event Handling</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">ES6+ Features</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Async Programming</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Basic API Integration</span> ... <span class="log-done">[DONE]</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button type="button" class="accordion-header" aria-expanded="false">
+          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> PHP</span>
+          <span class="bar-wrap">
+            <span class="skill-bar" data-percent="60"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
+            <span class="skill-percent">60%</span>
+          </span>
+        </button>
+        <div class="accordion-body-wrap">
+          <div class="accordion-body-inner">
+            <div class="log-lines">
+              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">WordPress Development</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">Database Integration</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Form Processing</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Basic Security Practices</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Template Systems</span> ... <span class="log-done">[DONE]</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button type="button" class="accordion-header" aria-expanded="false">
+          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> Linux</span>
+          <span class="bar-wrap">
+            <span class="skill-bar" data-percent="65"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
+            <span class="skill-percent">65%</span>
+          </span>
+        </button>
+        <div class="accordion-body-wrap">
+          <div class="accordion-body-inner">
+            <div class="log-lines">
+              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">System Administration</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">Shell Scripting</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Package Management</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">User Management</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Network Configuration</span> ... <span class="log-done">[DONE]</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button type="button" class="accordion-header" aria-expanded="false">
+          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> Netzwerktechnik</span>
+          <span class="bar-wrap">
+            <span class="skill-bar" data-percent="80"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
+            <span class="skill-percent">80%</span>
+          </span>
+        </button>
+        <div class="accordion-body-wrap">
+          <div class="accordion-body-inner">
+            <div class="log-lines">
+              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">TCP/IP &amp; OSI-Modell</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">VLAN-Konfiguration (Cisco / pfSense / OPNsense)</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Router &amp; Switch Setup</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Monitoring &amp; Analyse (PRTG, Wireshark, Syslog)</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Network Troubleshooting</span> ... <span class="log-done">[DONE]</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button type="button" class="accordion-header" aria-expanded="false">
+          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> Diagnose_Reparatur</span>
+          <span class="bar-wrap">
+            <span class="skill-bar" data-percent="70"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
+            <span class="skill-percent">70%</span>
+          </span>
+        </button>
+        <div class="accordion-body-wrap">
+          <div class="accordion-body-inner">
+            <div class="log-lines">
+              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">Component Testing</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">System Assembly</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Hardware Upgrades</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Performance Optimization</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Diagnostic Tools</span> ... <span class="log-done">[DONE]</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button type="button" class="accordion-header" aria-expanded="false">
+          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> Datenrettung</span>
+          <span class="bar-wrap">
+            <span class="skill-bar" data-percent="60"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
+            <span class="skill-percent">60%</span>
+          </span>
+        </button>
+        <div class="accordion-body-wrap">
+          <div class="accordion-body-inner">
+            <div class="log-lines">
+              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">File Recovery</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">Partition Recovery</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Data Backup Solutions</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Recovery Software</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Data Security</span> ... <span class="log-done">[DONE]</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button type="button" class="accordion-header" aria-expanded="false">
+          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> Bildbearbeitung</span>
+          <span class="bar-wrap">
+            <span class="skill-bar" data-percent="55"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
+            <span class="skill-percent">55%</span>
+          </span>
+        </button>
+        <div class="accordion-body-wrap">
+          <div class="accordion-body-inner">
+            <div class="log-lines">
+              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">Image Retouching</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">Layer Management</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Color Correction</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Basic Design</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Photo Manipulation</span> ... <span class="log-done">[DONE]</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button type="button" class="accordion-header" aria-expanded="false">
+          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> Kundenkommunikation</span>
+          <span class="bar-wrap">
+            <span class="skill-bar" data-percent="85"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
+            <span class="skill-percent">85%</span>
+          </span>
+        </button>
+        <div class="accordion-body-wrap">
+          <div class="accordion-body-inner">
+            <div class="log-lines">
+              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">Technical Support</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">Problem Resolution</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Documentation</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Training &amp; Guidance</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Customer Service</span> ... <span class="log-done">[DONE]</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button type="button" class="accordion-header" aria-expanded="false">
+          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> Englisch</span>
+          <span class="bar-wrap">
+            <span class="skill-bar" data-percent="95"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
+            <span class="skill-percent">95%</span>
+          </span>
+        </button>
+        <div class="accordion-body-wrap">
+          <div class="accordion-body-inner">
+            <div class="log-lines">
+              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">Technical Documentation</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">International Communication</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Business Negotiations</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Project Management</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Cross-cultural Collaboration</span> ... <span class="log-done">[DONE]</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
   <section id="projects" class="mt-5">
     <h2 class="section-eyebrow mb-4">// Projects</h2>
 
@@ -746,265 +1018,7 @@
       </div>
     </div>
   </section>
-
-  <section id="skills" class="grid-texture">
-    <h2 class="section-eyebrow">// Skills</h2>
-    <div class="cli-line"><span class="ide-prompt">~/skills $</span> docker pull core-competencies</div>
-    <div class="accordion-list" id="skillsAccordion">
-
-      <div class="accordion-item">
-        <button type="button" class="accordion-header" aria-expanded="false">
-          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> Automatisierung_IaC</span>
-          <span class="bar-wrap">
-            <span class="skill-bar" data-percent="80"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
-            <span class="skill-percent">80%</span>
-          </span>
-        </button>
-        <div class="accordion-body-wrap">
-          <div class="accordion-body-inner">
-            <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">Infrastructure as Code mit OpenTofu/Terraform</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">PowerShell-Skripting &amp; Automatisierung</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">GitLab CI/CD-Pipelines (GitOps)</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Cloudbase-Init / Zero-Touch-Deployment</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Versionskontrolle &amp; Rollback-Strategien</span> ... <span class="log-done">[DONE]</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <button type="button" class="accordion-header" aria-expanded="false">
-          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> Cloud_Virtualisierung</span>
-          <span class="bar-wrap">
-            <span class="skill-bar" data-percent="75"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
-            <span class="skill-percent">75%</span>
-          </span>
-        </button>
-        <div class="accordion-body-wrap">
-          <div class="accordion-body-inner">
-            <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">Proxmox VE, Hyper-V, VMware</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">Windows Server 2022/2025</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Golden Images &amp; Template-Verwaltung (Sysprep)</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Docker</span> ... <span class="log-done">[DONE]</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <button type="button" class="accordion-header" aria-expanded="false">
-          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> HTML_CSS</span>
-          <span class="bar-wrap">
-            <span class="skill-bar" data-percent="83"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
-            <span class="skill-percent">83%</span>
-          </span>
-        </button>
-        <div class="accordion-body-wrap">
-          <div class="accordion-body-inner">
-            <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">Responsive Web Design</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">CSS Grid &amp; Flexbox</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">CSS Animations &amp; Transitions</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Semantic HTML5</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Cross-browser Compatibility</span> ... <span class="log-done">[DONE]</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <button type="button" class="accordion-header" aria-expanded="false">
-          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> JavaScript</span>
-          <span class="bar-wrap">
-            <span class="skill-bar" data-percent="45"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
-            <span class="skill-percent">45%</span>
-          </span>
-        </button>
-        <div class="accordion-body-wrap">
-          <div class="accordion-body-inner">
-            <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">DOM Manipulation</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">Event Handling</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">ES6+ Features</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Async Programming</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Basic API Integration</span> ... <span class="log-done">[DONE]</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <button type="button" class="accordion-header" aria-expanded="false">
-          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> PHP</span>
-          <span class="bar-wrap">
-            <span class="skill-bar" data-percent="60"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
-            <span class="skill-percent">60%</span>
-          </span>
-        </button>
-        <div class="accordion-body-wrap">
-          <div class="accordion-body-inner">
-            <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">WordPress Development</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">Database Integration</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Form Processing</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Basic Security Practices</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Template Systems</span> ... <span class="log-done">[DONE]</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <button type="button" class="accordion-header" aria-expanded="false">
-          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> Linux</span>
-          <span class="bar-wrap">
-            <span class="skill-bar" data-percent="65"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
-            <span class="skill-percent">65%</span>
-          </span>
-        </button>
-        <div class="accordion-body-wrap">
-          <div class="accordion-body-inner">
-            <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">System Administration</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">Shell Scripting</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Package Management</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">User Management</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Network Configuration</span> ... <span class="log-done">[DONE]</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <button type="button" class="accordion-header" aria-expanded="false">
-          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> Netzwerktechnik</span>
-          <span class="bar-wrap">
-            <span class="skill-bar" data-percent="80"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
-            <span class="skill-percent">80%</span>
-          </span>
-        </button>
-        <div class="accordion-body-wrap">
-          <div class="accordion-body-inner">
-            <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">TCP/IP &amp; OSI-Modell</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">VLAN-Konfiguration (Cisco / pfSense / OPNsense)</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Router &amp; Switch Setup</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Monitoring &amp; Analyse (PRTG, Wireshark, Syslog)</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Network Troubleshooting</span> ... <span class="log-done">[DONE]</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <button type="button" class="accordion-header" aria-expanded="false">
-          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> Diagnose_Reparatur</span>
-          <span class="bar-wrap">
-            <span class="skill-bar" data-percent="70"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
-            <span class="skill-percent">70%</span>
-          </span>
-        </button>
-        <div class="accordion-body-wrap">
-          <div class="accordion-body-inner">
-            <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">Component Testing</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">System Assembly</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Hardware Upgrades</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Performance Optimization</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Diagnostic Tools</span> ... <span class="log-done">[DONE]</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <button type="button" class="accordion-header" aria-expanded="false">
-          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> Datenrettung</span>
-          <span class="bar-wrap">
-            <span class="skill-bar" data-percent="60"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
-            <span class="skill-percent">60%</span>
-          </span>
-        </button>
-        <div class="accordion-body-wrap">
-          <div class="accordion-body-inner">
-            <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">File Recovery</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">Partition Recovery</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Data Backup Solutions</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Recovery Software</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Data Security</span> ... <span class="log-done">[DONE]</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <button type="button" class="accordion-header" aria-expanded="false">
-          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> Bildbearbeitung</span>
-          <span class="bar-wrap">
-            <span class="skill-bar" data-percent="55"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
-            <span class="skill-percent">55%</span>
-          </span>
-        </button>
-        <div class="accordion-body-wrap">
-          <div class="accordion-body-inner">
-            <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">Image Retouching</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">Layer Management</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Color Correction</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Basic Design</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Photo Manipulation</span> ... <span class="log-done">[DONE]</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <button type="button" class="accordion-header" aria-expanded="false">
-          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> Kundenkommunikation</span>
-          <span class="bar-wrap">
-            <span class="skill-bar" data-percent="85"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
-            <span class="skill-percent">85%</span>
-          </span>
-        </button>
-        <div class="accordion-body-wrap">
-          <div class="accordion-body-inner">
-            <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">Technical Support</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">Problem Resolution</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Documentation</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Training &amp; Guidance</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Customer Service</span> ... <span class="log-done">[DONE]</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <button type="button" class="accordion-header" aria-expanded="false">
-          <span class="module-name"><span class="accordion-icon">[+]</span> <span class="yaml-key">module</span><span class="yaml-punct">:</span> Englisch</span>
-          <span class="bar-wrap">
-            <span class="skill-bar" data-percent="95"><span class="skill-bar-track"><span class="skill-bar-fill"></span></span></span>
-            <span class="skill-percent">95%</span>
-          </span>
-        </button>
-        <div class="accordion-body-wrap">
-          <div class="accordion-body-inner">
-            <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">Technical Documentation</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">International Communication</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Business Negotiations</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Project Management</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Cross-cultural Collaboration</span> ... <span class="log-done">[DONE]</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
+  </div>
   <section id="contact">
     <h2 class="section-eyebrow">// Contact</h2>
     <form id="contact-form" action="https://formspree.io/f/xanoovvn" method="POST">
