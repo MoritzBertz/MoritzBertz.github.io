@@ -345,7 +345,18 @@ header::before {
   align-items: start;
   gap: 1.5rem;
   width: min(100%, 1160px);
-  padding: 2.5rem 3rem;
+  /* Zusätzlich zur justify-content:center vom <header>-Flex-Parent: margin:
+     0 auto als zweiter, unabhängiger Zentrierungs-Mechanismus (Auto-Margins
+     auf einem Flex-Item gewinnen ohnehin gegen justify-content, schaden also
+     nicht, falls Letzteres aus irgendeinem Grund nicht greift). Bei sehr
+     breiten Viewports lag .header-content sonst sichtbar linksbündig statt
+     zentriert — Ursache nicht abschließend gefunden, das hier behebt es
+     unabhängig davon. */
+  margin: 0 auto;
+  /* Horizontales Padding bewusst symmetrisch (war 3rem beidseitig, jetzt
+     4.5rem) — dadurch ist der Abstand CRT-links = Quick-Facts-rechts per
+     Konstruktion identisch, nicht nur zufällig gleich. */
+  padding: 2.5rem 4.5rem;
   box-sizing: border-box;
 }
 
@@ -915,7 +926,23 @@ section {
 .ide-launcher .terminal-body {
   flex: 1;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.2rem;
+  overflow: hidden;
+}
+
+/* Getippte "Boot"-Zeilen vor der load-projects-Bestätigung — gleiche
+   Zeichen-für-Zeichen-Tipp-Optik wie playBootSequence() im CRT-Monitor,
+   nur hier statisch im Launcher statt im CRT-Screen. */
+.ide-launcher-lines {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ide-text-dim);
+}
+
+.ide-launch-trigger[hidden] {
+  display: none;
 }
 
 .ide-launcher-hint {
@@ -2718,7 +2745,11 @@ body.dark .k8s-hud .ide-win-btn:not(.ide-win-close):hover {
 
 .crt-monitor--inline {
   width: min(100%, 820px);
-  margin: 0 auto;
+  /* Bewusst kein margin:auto (war zentriert) — soll linksbündig an der
+     Spalten-/Padding-Kante hängen, sonst wäre der Abstand zum linken Rand
+     größer als der zum Quick-Facts-Rand rechts, sobald die Spalte breiter
+     als der gedeckelte Monitor ist. */
+  margin: 0;
 }
 
 @media (min-width: 961px) {
@@ -2862,11 +2893,26 @@ body.dark .k8s-hud .ide-win-btn:not(.ide-win-close):hover {
   gap: 0.5rem;
   padding: 0.5rem 1.8rem 0.9rem;
   border-top: 1px solid rgba(74, 222, 128, 0.15);
+  /* Eigene, leicht angehobene Fläche für die Eingabezeile — vorher optisch
+     nicht von einer normalen Ausgabezeile zu unterscheiden, dadurch war
+     unklar, dass man hier tippen kann. */
+  background: rgba(74, 222, 128, 0.05);
 }
 
 .crt-input-prompt {
   color: var(--crt-phosphor);
   font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  animation: crt-prompt-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes crt-prompt-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crt-input-prompt { animation: none; }
 }
 
 .crt-terminal-input {
@@ -2883,6 +2929,7 @@ body.dark .k8s-hud .ide-win-btn:not(.ide-win-close):hover {
 
 .crt-terminal-input::placeholder {
   color: var(--crt-phosphor-mut);
+  opacity: 1;
 }
 
 .crt-menu-item {

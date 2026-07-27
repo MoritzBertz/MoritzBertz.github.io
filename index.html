@@ -25,9 +25,9 @@
   <meta name="color-scheme" content="light dark" />
   <title>Mein Portfolio</title>
   <!-- Benutzerdefinierte CSS-Datei -->
-  <link rel="stylesheet" href="stylesheet.css" />
+  <link rel="stylesheet" href="stylesheet.css?v=3" />
   <!-- Benutzerdefinierte JavaScript-Datei -->
-  <script defer src="script.js"></script>
+  <script defer src="script.js?v=2"></script>
   <!-- Bootstrap Icons -->
   <link 
     href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" 
@@ -53,7 +53,7 @@
             <div class="crt-screen-content" id="crtScreen"></div>
             <div class="crt-input-row">
               <span class="crt-input-prompt" aria-hidden="true">&gt;</span>
-              <input type="text" class="crt-terminal-input" id="crtTerminalInput" autocomplete="off" spellcheck="false" aria-label="CRT-Terminal-Eingabe (Menüpunkt eingeben, z. B. 'about' oder '1')" />
+              <input type="text" class="crt-terminal-input" id="crtTerminalInput" autocomplete="off" spellcheck="false" placeholder="type a command... (z. B. 'help')" aria-label="CRT-Terminal-Eingabe (Menüpunkt eingeben, z. B. 'about' oder '1')" />
             </div>
           </div>
           <div class="crt-nameplate-row">
@@ -642,8 +642,9 @@
           </div>
         </div>
         <div class="terminal-body">
-          <button type="button" class="ide-launch-trigger" id="ideLaunchTrigger">
-            <span class="ide-prompt">$</span> load projects<span class="ide-launch-cursor" aria-hidden="true"></span>
+          <div class="ide-launcher-lines" id="ideLauncherLines" aria-hidden="true"></div>
+          <button type="button" class="ide-launch-trigger" id="ideLaunchTrigger" hidden>
+            <span class="ide-prompt">$</span> load projects?<span class="ide-launch-cursor" aria-hidden="true"></span>
           </button>
         </div>
       </div>

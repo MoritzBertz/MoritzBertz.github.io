@@ -425,6 +425,78 @@ function initializeVsCodeExplorer() {
 }
 
 // ========================= //
+// Launcher-Boot-Sequenz: tippt ein paar Fake-Zeilen ins launcher.sh-Terminal,
+// bevor die "load projects?"-Bestätigung erscheint — gleiche Zeichen-für-
+// Zeichen-Technik wie playBootSequence() im CRT-Monitor (rAF statt
+// setInterval, respektiert prefers-reduced-motion).
+// ========================= //
+function initializeLauncherBoot() {
+  const linesEl = document.getElementById('ideLauncherLines');
+  const trigger = document.getElementById('ideLaunchTrigger');
+  if (!linesEl || !trigger) return;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const BOOT_LINES = [
+    { text: '$ ls -la ./projects', cls: '' },
+    { text: 'drwxr-xr-x  8 folders found', cls: 'ide-punct' },
+    { text: '$ checking dependencies...', cls: '' },
+    { text: '[OK] explorer module ready', cls: 'ide-ok' },
+  ];
+
+  function revealTrigger() {
+    trigger.hidden = false;
+    trigger.focus({ preventScroll: true });
+  }
+
+  if (reduceMotion) {
+    BOOT_LINES.forEach(({ text, cls }) => {
+      const div = document.createElement('div');
+      div.className = 'ide-line' + (cls ? ' ' + cls : '');
+      div.textContent = text;
+      linesEl.appendChild(div);
+    });
+    revealTrigger();
+    return;
+  }
+
+  const CHAR_MS = 14;
+  const LINE_GAP_MS = 220;
+  let lineIndex = 0;
+
+  function typeNextLine() {
+    if (lineIndex >= BOOT_LINES.length) {
+      setTimeout(revealTrigger, LINE_GAP_MS);
+      return;
+    }
+    const { text, cls } = BOOT_LINES[lineIndex];
+    const div = document.createElement('div');
+    div.className = 'ide-line' + (cls ? ' ' + cls : '');
+    linesEl.appendChild(div);
+    let charIndex = 0;
+    let start = null;
+    function frame(ts) {
+      if (start === null) start = ts;
+      const elapsed = ts - start;
+      const target = Math.min(text.length, Math.floor(elapsed / CHAR_MS));
+      if (target > charIndex) {
+        charIndex = target;
+        div.textContent = text.slice(0, charIndex);
+      }
+      if (charIndex < text.length) {
+        requestAnimationFrame(frame);
+      } else {
+        lineIndex++;
+        setTimeout(typeNextLine, LINE_GAP_MS);
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  typeNextLine();
+}
+
+// ========================= //
 // Projekt-Sektion: Launcher-Terminal öffnet das VS-Code-Fenster als Overlay
 // ========================= //
 function initializeProjectsLauncher() {
@@ -1294,6 +1366,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeContactForm();
   initializeVsCodeExplorer();
   initializeProjectsLauncher();
+  initializeLauncherBoot();
   initializeGitTimeline();
   initializeK8sTopology();
   initializePromptBar();
