@@ -23,7 +23,7 @@ Zwei parallele Variablen-Familien in `stylesheet.css`, beide über `:root` (Ligh
 
 **Nie mehr:** eigene hartcodierte Orange-Töne (`hsl(29,89%,...)`, `rgb(255,140,0)`) — überall durch `var(--accent)`-Äquivalente (`hsl(192,100%,...)`, `rgba(0,188,212,...)`) ersetzt.
 
-**`--grid-texture-opacity`:** eigene Variable (`:root`/`body.dark`) für die Deckkraft der `.grid-texture::before`-Punkt-/Linienraster. Light Mode braucht einen deutlich höheren Wert (`0.16`) als Dark Mode (`0.09`), da dieselbe Cyan-Linie auf Weiß viel schwächer wirkt als auf Dunkel — beim Nachjustieren immer **beide** Modi per Screenshot vergleichen, nicht nur den einen, an dem gerade gearbeitet wird.
+**`--grid-texture-opacity`:** eigene Variable (`:root`/`body.dark`) für die Deckkraft des `body::before`-Punkt-/Linienrasters. Läuft als **fixer, seitenweiter Hintergrund-Layer** (`position:fixed; z-index:-1`) hinter der gesamten Seite, nicht mehr nur hinter `#skills` (frühere `.grid-texture`-Klasse, per Section aktiviert, ist entfallen — der Effekt braucht dafür kein `position:relative`/`z-index` mehr auf Section-Inhalten, ein negativer z-index auf dem fixed Pseudo-Element reicht). Light Mode braucht einen deutlich höheren Wert (`0.16`) als Dark Mode (`0.09`), da dieselbe Cyan-Linie auf Weiß viel schwächer wirkt als auf Dunkel — beim Nachjustieren immer **beide** Modi per Screenshot vergleichen, nicht nur den einen, an dem gerade gearbeitet wird.
 
 ## Typografie
 
@@ -76,7 +76,9 @@ Jede "Seite" (`renderMenu()`/`renderAbout()`/`renderStack()`/`renderContact()`/`
 
 Der Power-On-Flash + die Boot-Sequenz (`playBootSequence()`, zeichenweises Eintippen der Boot-Zeilen per `requestAnimationFrame`, wie beim alten `whoami`-Boot) laufen einmal beim Init (Monitor ist ja jetzt sofort sichtbar, kein Scroll-Trigger nötig) und zusätzlich jedes Mal, wenn `powerOn()` nach einem `powerOff()` erneut aufgerufen wird. `powerOff()`/`powerOn()` sind ein **echter Ein-/Aus-Schalter** (nicht nur "zurück zum Menü"): Aus-Klick spielt eine `crt-power-off`-Kollaps-Animation (Bild → waagrechte Linie → Punkt → schwarz, Spiegelbild von `crt-power-on`), setzt `.powered-off` (Screen-Inhalt/Input per `visibility:hidden` ausgeblendet, LED gedimmt), Ein-Klick spielt Power-On + Boot-Sequenz erneut ab.
 
-**Header-Grid-Aufteilung (`.header-content`):** Monitor bekommt den ganzen Restplatz (`minmax(0,1fr)`), die `current_status.yml`-Card eine **feste** schmale Spalte (`minmax(220px,260px)`) statt eines fr-Anteil-Verhältnisses — so bleibt sie garantiert ein schlanker Streifen, unabhängig davon, wie breit der Header insgesamt ist. Eigener Zwischen-Breakpoint bei `960px` (zusätzlich zum allgemeinen `768px`-Mobile-Umbruch), da eine feste 220–260px-Spalte sich sonst im Bereich 768–1160px unbrauchbar schmal neben den Monitor quetschen würde.
+**Header-Grid-Aufteilung (`.header-content`):** Monitor bekommt den ganzen Restplatz (`minmax(0,1fr)`), die `current_status.yml`-Card eine **feste** Spalte (`minmax(440px,520px)` — doppelt so breit wie die ursprünglichen `220–260px`) statt eines fr-Anteil-Verhältnisses. Eigener Zwischen-Breakpoint bei `960px` (zusätzlich zum allgemeinen `768px`-Mobile-Umbruch), da eine feste Spalte sich sonst im Bereich 768–1160px unbrauchbar schmal neben den Monitor quetschen würde.
+
+**CRT-Monitor-Größe (Desktop only, `@media(min-width:961px)`, bewusst derselbe 960px-Grid-Umbruch wie oben):** `.crt-screen` bekommt dort `height:600px` + `aspect-ratio:4/3` (doppelte Höhe der Basis-Regel `300px`, echte Röhrenmonitor-Optik statt Widescreen), `.crt-monitor--inline` entsprechend `width:min(100%,844px)` (= `800px`-Screen + die `2×22px`-Bezel-Innenabstände, damit das Gehäuse nicht lose neben dem Screen sitzt). `.header-content` bekommt in derselben Query `width:min(100%,1560px)` (statt `1160px`, sonst reicht der Platz für Monitor+verdoppelte Card nicht mehr nebeneinander) und `align-items:center` (statt `start`), damit die jetzt viel höhere Röhre vertikal mittig neben der deutlich niedrigeren Card steht. Unterhalb von 961px (gestapeltes Tablet-/Mobile-Layout) bleiben die alten, kleineren Werte unverändert — dort stehen Monitor und Card ohnehin nicht mehr nebeneinander.
 
 ### Status-Card (`current_status.yml`, `initializeStatusCardReveal()`)
 Inhalt nach Recruiter-Relevanz sortiert (Headline → Status-Badge → Stack-Chips → Verfügbarkeit/Location → Sprachen gedämpft → CV-Button), komplett aus `ABOUT_ME` befüllt (kein zweites Datenmodell — `ABOUT_ME.stack` ist dieselbe Quelle wie der CRT-`renderStack()`-Screen). Chips nutzen bewusst die bestehende `.git-badge`-Komponente statt einer eigenen Chip-Klasse (ein Tag-Look für die ganze Seite). Badge/Dot-Puls nutzt das bereits vorhandene `status-pulse`-Keyframe (dasselbe wie `.status-dot`/`.k8s-live-dot`).
@@ -92,6 +94,70 @@ Inhalt nach Recruiter-Relevanz sortiert (Headline → Status-Badge → Stack-Chi
 ## Icons
 
 `bootstrap-icons` ist bereits eingebunden (`<i class="bi bi-...">`). Für neue VS-Code-artige UI-Elemente (Explorer, Activity Bar, Dateitypen) bevorzugt Bootstrap-Icons-Klassen statt neuer Emoji/SVGs, für visuelle Konsistenz mit dem bereits gebauten Projekt-Explorer.
+
+## Responsive/Mobile-Konventionen (für das Multi-Agent-Redesign)
+
+Analyse-Stand: 24 `@media`-Queries in `stylesheet.css`, Viewport-Meta korrekt gesetzt (`width=device-width, initial-scale=1.0`). Bevor neue Mobile-Regeln geschrieben werden, hier nachlesen — das verhindert, dass mehrere parallel arbeitende Agents widersprüchliche Breakpoints erfinden oder sich gegenseitig überschreiben.
+
+### Grundregel: Media-Query bleibt bei der Komponente
+
+Es gibt **kein separates Mobile-Stylesheet** und soll auch keins geben. Jede `@media`-Regel steht direkt hinter der Basis-Regel der Komponente, die sie anpasst (Beispiel: `.crt-screen{}`-Basis um Zeile 2900, zugehörige `@media(max-width:768px){ .crt-screen{ height:400px } }` direkt danach um Zeile 2976). Neue Mobile-Anpassungen genauso einsortieren — nicht an einer zentralen Stelle sammeln. Das hält Komponenten in sich geschlossen und verhindert, dass zwei Agents dieselbe globale Media-Query-Stelle gleichzeitig bearbeiten.
+
+### Breakpoints sind bewusst pro Komponente gewählt — nicht vereinheitlichen
+
+Es gibt **kein** einzelnes globales Breakpoint-Raster. Aktuell im Einsatz, jeweils dort gesetzt, wo genau dieses eine Layout bricht:
+
+| Breakpoint | Verwendet für |
+|---|---|
+| `768px` | Standard-Phone-Umbruch: Section-Eyebrow, Header, Accordion, IDE-Mobile-Explorer-Button, Prompt-Nav→Burger, CRT-Monitor |
+| `700px` | k8s-Node-Chain (Ausbildung) — bricht als Einzige schon etwas früher |
+| `767px` | IDE-Editor-Container-Grid (Sidebar/Output stapeln) — 1px unter dem Standard, vermutlich historisch, funktional aber gleichwertig zu 768 |
+| `900px` | IDE-Sidebar-Breite (Zwischenstufe) |
+| `960px` | Header-Grid (Monitor + Status-Card) — bewusst eigener Zwischen-Breakpoint, siehe Kommentar bei `.header-content` in STYLEGUIDE.md oben |
+| `1100px` | `.skills-projects-row` (Skills/Projects nebeneinander → gestapelt) |
+| `1200px` | `#skills` Max-Breite |
+
+**Für neue Mobile-Arbeit:** `768px` ist der Standard-Phone-Breakpoint — neue Phone-Anpassungen dort einhängen, außer eine Komponente braucht nachweislich einen eigenen Zwischenwert (wie Header bei 960px). Wenn ein Agent einen neuen eigenen Breakpoint einführt, **muss** ein Kurzkommentar dabeistehen, der begründet, warum der Standardwert nicht reicht (Konvention aus Zeile zum Header-Grid oben) — sonst häufen sich wieder zufällige Werte wie 700/767 an.
+
+**Keine Spacing-/Breakpoint-Custom-Properties einführen** (kein `--bp-mobile`, `--space-md` etc.) — das wäre eine Architekturänderung, die nicht zum bestehenden "harte Werte pro Regel"-Stil passt und quer zu allen bestehenden Regeln stünde. Ausnahme nur nach expliziter Absprache mit dem Nutzer.
+
+### Ownership-Zuschnitt für parallele Agents (nach Selektor-Präfix, nicht nach Zeilenbereich)
+
+Zeilenbereiche verschieben sich bei jeder Änderung — Ownership läuft über CSS-Klassen-/ID-Präfixe und HTML-IDs, die pro Section eindeutig sind:
+
+| Section | Owner-Präfixe (CSS) | HTML-Anker |
+|---|---|---|
+| Header/Nav | `.crt-*`, `.header-*`, `.prompt-bar*`, `.burger-btn`, `.mobile-dropdown`, `.status-*` | `header#about`, `nav.prompt-bar` |
+| Timeline | `.git-*`, `.vtimeline-*` | `#timeline` |
+| Ausbildung | `.k8s-*` (außer `.k8s-hud*`, siehe unten) | `#ausbildung` |
+| Skills | `.accordion-*` | `#skills` |
+| Projects | `.ide-*` (außer die geteilten Basis-Klassen unten) | `#projects` |
+| Contact/Footer | `#contact-form`, `.socials`, `footer`-Regeln | `#contact`, `footer` |
+
+**Geteilt/nur vom Lead-Durchgang anfassen, nicht von einzelnen Section-Agents** (sonst Konflikte, da mehrfach verwendet):
+- `:root`/`body.dark` Farbvariablen (Zeilen 1–155)
+- `section{}`-Basisregel (Padding/Max-Width/`scroll-margin-top`) — Zeile 545
+- `.terminal-window`/`.terminal-titlebar`/`.terminal-tab`/`.terminal-body` (geteiltes Fenster-Grundgerüst, siehe Komponentenmuster oben)
+- `.ide-win-btn`/`.ide-window-controls` (geteilte Fenstersteuerung, wird auch von `.k8s-hud` genutzt)
+- `.modal-overlay`/`.modal-content` Basis (für die drei klassischen Modals)
+- `:where(button:hover)` und generische `button{}`-Regel
+
+**`.skills-projects-row`** ist eine Sonderzone: gehört Skills UND Projects gemeinsam (Flex-Wrapper). Änderungen daran nur im Lead-Merge-Pass, nicht durch den Skills- oder Projects-Agenten allein.
+
+### Touch-Ziele
+
+Interaktive Elemente auf `max-width:768px` brauchen **mindestens 44×44px** effektive Klickfläche (Padding zählt mit). Bekannter Verstoß, den der Header/Nav-Agent beheben sollte: `.burger-btn` hat aktuell nur ~30×24px (Zeile 1783, `padding:0.3rem 0.6rem` bei `font-size:0.9rem`) — Padding erhöhen oder `min-width`/`min-height:44px` setzen, ohne die optische Größe der sichtbaren `[=]`-Glyphe zu verändern.
+
+### Referenzmuster für "Desktop-Layout → Mobile-Layout"
+
+Diese drei bereits gebauten Lösungen sind das Vorbild für neue Anpassungen, nicht neu erfinden:
+- **Fixe Höhe, interner Scroll statt Wachsen:** `.crt-screen` (300px Desktop → 400px Mobile, `overflow-y:auto`) — Vorbild für jedes andere Widget mit fester Boxgröße.
+- **Sidebar → Overlay statt Nebeneinander:** `.ide-sidebar`/`ideMobileExplorerBtn` (Button blendet Sidebar als `.mobile-open`-Overlay ein/aus, schließt bei Außenklick oder Dateiauswahl unter 768px, siehe `script.js` Zeile ~397–421).
+- **Grid/Flex-Row → Stack:** `.editor-container` und `.k8s-node-chain` (`grid-template-columns:1fr` bzw. `flex-direction:column` unter ihrem jeweiligen Breakpoint).
+
+### Testen
+
+Zusätzlich zum bestehenden Verifikations-Workflow unten: mobile Prüfung explizit bei **375px** (kleines Phone), **390px** (iPhone-Standardbreite) und **768px** (Tablet-Grenze) durchführen, nicht nur bei einer Breite — mehrere der o.g. Breakpoints (700/767/768) liegen dicht beieinander und ein einzelner Test-Viewport kann eine Lücke dazwischen verdecken.
 
 ## Bekannte Stolperfallen (aus tatsächlich gefundenen Bugs)
 

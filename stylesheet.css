@@ -255,27 +255,23 @@ body.dark {
 .ide-cmd { color: var(--ide-cyan); }
 .ide-line { min-height: 1.7em; }
 
-/* Sehr dezente Grid-Textur als Hintergrund-Layer für einzelne Sections.
-   Kindelemente brauchen position:relative + z-index:1, um darüber zu liegen. */
-.grid-texture {
-  position: relative;
-}
-
-.grid-texture::before {
+/* Sehr dezente Grid-Textur, als fixer Hintergrund-Layer für die GANZE Seite
+   (vorher nur hinter #skills, über die .grid-texture-Klasse). position:fixed
+   + z-index:-1 statt position:relative/absolute pro Section — dadurch muss
+   kein Section-Inhalt mehr eigens auf position:relative/z-index gesetzt
+   werden, um darüber zu liegen; ein negativer z-index auf einem fixed
+   Pseudo-Element bleibt zuverlässig hinter normal fließendem Inhalt. Wo
+   Sections/Komponenten eine eigene deckende Fläche haben (z.B. das
+   Header-Foto), scheint die Textur ohnehin nicht durch — das ist gewollt. */
+body::before {
   content: "";
-  position: absolute;
+  position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
   background-image:
     repeating-linear-gradient(0deg, rgba(var(--accent-rgb), var(--grid-texture-opacity)) 0px, rgba(var(--accent-rgb), var(--grid-texture-opacity)) 1px, transparent 1px, transparent 42px),
     repeating-linear-gradient(90deg, rgba(var(--accent-rgb), var(--grid-texture-opacity)) 0px, rgba(var(--accent-rgb), var(--grid-texture-opacity)) 1px, transparent 1px, transparent 42px);
-  mask-image: linear-gradient(180deg, transparent, rgba(0,0,0,0.9) 15%, rgba(0,0,0,0.9) 85%, transparent);
-}
-
-.grid-texture > * {
-  position: relative;
-  z-index: 1;
 }
 
 /* ========================= */
@@ -340,14 +336,28 @@ header::before {
   position: relative;
   z-index: 1;
   display: grid;
-  /* Monitor bekommt den gesamten Restplatz, die Card eine feste schmale
-     Spalte (schlanker Streifen statt gleichwertig breiter zweiter Fläche). */
-  grid-template-columns: minmax(0, 1fr) minmax(220px, 260px);
+  /* Card-Spalte auf doppelte Breite gebracht (war minmax(220px,260px)), damit
+     sie neben dem auf 4:3/600px vergrößerten CRT-Monitor nicht mehr wie ein
+     schmaler Streifen wirkt. Gesamt-Breite (unten) entsprechend mit angehoben,
+     sonst quetscht sich der Monitor unter seine 800px-Zielbreite (siehe
+     @media(min-width:961px) unten). */
+  grid-template-columns: minmax(0, 1fr) minmax(440px, 520px);
   align-items: start;
   gap: 1.5rem;
   width: min(100%, 1160px);
   padding: 2.5rem 3rem;
   box-sizing: border-box;
+}
+
+@media (min-width: 961px) {
+  /* Nur im echten Desktop-Nebeneinander (oberhalb des Header-Grid-Umbruchs bei
+     960px, siehe unten): Monitor + Card vertikal mittig zueinander, da die
+     jetzt sehr viel höhere Röhre (750px+) sonst mit align-items:start weit
+     über die deutlich niedrigere Card hinausragen würde. */
+  .header-content {
+    align-items: center;
+    width: min(100%, 1560px);
+  }
 }
 
 .header-whoami {
@@ -784,8 +794,9 @@ section {
    die eigenen #skills/#projects-Regeln werden hier gezielt überschrieben). */
 .skills-projects-row #skills,
 .skills-projects-row #projects {
+  position: relative;
   margin: 0;
-  padding: 0;
+  padding: 4rem 0 0;
   min-width: 0;
   max-width: none;
 }
@@ -796,6 +807,25 @@ section {
 
 .skills-projects-row #projects {
   flex: 1 1 0;
+}
+
+/* Die reine Kaskaden-Lösung (identische margin/padding/font-size auf beiden
+   h2) hat die Höhen in der Praxis NICHT zuverlässig angeglichen. Jetzt
+   stattdessen strukturell erzwungen: beide Überschriften per position:absolute
+   exakt an top:0 ihrer jeweiligen Section gepinnt (der 4rem padding-top oben
+   reserviert dafür den Platz im normalen Fluss) — das ist unabhängig von
+   Flex-/Margin-Eigenheiten innerhalb der Section und kann nicht mehr
+   auseinanderlaufen, weil beide Werte per Definition top:0 sind. */
+.skills-projects-row #skills > h2,
+.skills-projects-row #projects > h2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 2rem;
+  line-height: 1.2;
 }
 
 /* In der schmalen Projects-Spalte lohnt sich der Hinweistext neben dem
@@ -854,8 +884,21 @@ section {
 }
 
 .ide-launcher {
-  max-width: 460px;
-  margin: 0 0 1rem;
+  /* Doppelte Breite/Höhe (war max-width:460px, Höhe vorher rein
+     inhaltsbestimmt ~90px) + 200px Abstand nach oben/links, damit der Kasten
+     nicht direkt an der Skills-Spalte klebt. */
+  width: 920px;
+  max-width: 100%;
+  height: 180px;
+  margin: 200px 0 1rem 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ide-launcher .terminal-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
 }
 
 .ide-launcher-hint {
@@ -2120,20 +2163,8 @@ body.dark .socials img {
 
 
 #about {
-  display: block; 
-  text-align: left; 
-}
-/* Align section headings */
-#skills h2 {
-  margin-top: 0;
-  margin-bottom: 1.5rem;
-  font-size: 1.8rem;
-  line-height: 1.2;
-}
-
-/* Adjust individual section styles */
-#skills {
-  padding: 0;
+  display: block;
+  text-align: left;
 }
 
 /* Responsive adjustments */
@@ -2660,12 +2691,29 @@ body.dark .k8s-hud .ide-win-btn:not(.ide-win-close):hover {
 }
 
 .crt-monitor-outer {
-  perspective: 1400px;
+  /* Perspective/3D-Tilt entfernt (war perspective:1400px) — in Kombination mit
+     .crt-bezels 3D-rotate + .crt-screens overflow:hidden führte das dazu, dass
+     der Klick-Hit-Test der Menü-Buttons in .crt-screen-content gegenüber ihrer
+     sichtbaren Position nach rechts verschoben war (linke Bildschirmhälfte
+     nicht klickbar). Seit die Röhre auf 600px Höhe vergrößert wurde, war der
+     Effekt deutlich stärker sichtbar als vorher bei 300px. */
 }
 
 .crt-monitor--inline {
   width: min(100%, 820px);
   margin: 0 auto;
+}
+
+@media (min-width: 961px) {
+  /* Röhrenmonitor-Optik: 4:3 statt breitem Widescreen, doppelte Bildhöhe
+     (300px -> 600px). 844px = exakt 800px-Screen (600px * 4/3) + die 2x22px
+     Bezel-Innenabstand von .crt-bezel, damit das Gehäuse eng am Screen
+     anliegt statt an der alten 820px-Breitenkappe zu hängen. Bewusst nur ab
+     961px (oberhalb des Header-Grid-Umbruchs) — im gestapelten Tablet-Layout
+     bleibt die alte 300px/16:9-artige Optik, siehe Basis-Regeln oben/unten. */
+  .crt-monitor--inline {
+    width: min(100%, 844px);
+  }
 }
 
 .crt-bezel {
@@ -2674,8 +2722,6 @@ body.dark .k8s-hud .ide-win-btn:not(.ide-win-close):hover {
   border-radius: 18px;
   padding: 22px 22px 14px;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
-  transform: rotateY(5deg) rotateX(1.5deg);
-  transform-style: preserve-3d;
 }
 
 .crt-screen {
@@ -2689,6 +2735,14 @@ body.dark .k8s-hud .ide-win-btn:not(.ide-win-close):hover {
     inset 0 0 90px 20px rgba(0, 0, 0, 0.85),
     inset 0 0 40px 4px rgba(74, 222, 128, 0.08);
   height: 300px;
+}
+
+@media (min-width: 961px) {
+  .crt-screen {
+    height: 600px;
+    aspect-ratio: 4 / 3; /* Röhrenmonitor-Seitenverhältnis; hält die Breite mit,
+      falls die Höhe hier künftig nochmal angepasst wird. */
+  }
 }
 
 .crt-sheen {
@@ -2962,14 +3016,10 @@ body.dark .k8s-hud .ide-win-btn:not(.ide-win-close):hover {
 }
 
 @media (max-width: 768px) {
-  .crt-monitor-outer {
-    perspective: none;
-  }
   .crt-monitor--inline {
     width: 100%;
   }
   .crt-bezel {
-    transform: none;
     border-radius: 12px;
     padding: 14px 14px 10px;
   }
