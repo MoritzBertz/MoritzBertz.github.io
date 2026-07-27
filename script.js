@@ -863,6 +863,11 @@ function initializePromptBar() {
       e.preventDefault();
       target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
       closeMobileDropdown();
+      // Sofort wieder unfokussieren: sonst bleibt der Link nach dem Klick
+      // fokussiert und :focus/:focus-visible faerbt den Text weiterhin ein,
+      // auch nachdem man weitergescrollt ist (per CSS allein liess sich das
+      // nicht zuverlaessig abstellen).
+      link.blur();
     });
   });
 
