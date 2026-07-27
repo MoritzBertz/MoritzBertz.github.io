@@ -980,32 +980,29 @@ section {
   }
 }
 
-/* Vergrößerte Breite/Höhe + Abstand nach oben/links, damit der Kasten nicht
-   direkt an der Skills-Spalte klebt — ergibt nur Sinn, wenn Skills/Projects
-   tatsächlich nebeneinanderstehen. Bewusst eigener Zwischen-Breakpoint statt
-   des Standard-768px-Werts: er spiegelt genau die Grenze, ab der
-   .skills-projects-row von gestapelt (<=1100px) auf nebeneinander (>1100px)
-   wechselt (siehe .skills-projects-row-Regel weiter oben) — darunter ist der
-   Kasten die volle Breite der gestapelten Projects-Spalte und "nicht direkt
-   an Skills kleben" ist kein sinnvolles Konzept mehr. Ohne diese Media-Query
-   riss width:920px + margin-left:200px die Box auf Mobile weit über den
-   Viewport hinaus (realer, gefundener Bug).
-   Zweiter, beim Lead-Review gefundener Bug: die Projects-Spalte in
-   .skills-projects-row ist durch flex:1 1 0 selbst bei voller 1300px-Zeilenbreite
-   auf ca. 575px gedeckelt (bei 1101px Zeilenbreite auf ca. 482px) — width:920px
-   + margin-left:200px hätte dort IMMER über die Spalte hinausgeragt, auf jeder
-   normalen Desktop-Fensterbreite, nicht nur auf sehr breiten Monitoren.
-   max-width:calc(100% - 4rem) hält die Box innerhalb der Spalte (920px bleibt
-   als Zielbreite stehen, wird hier aber nie erreicht), margin-left von 200px
-   auf 4rem reduziert, damit auch bei ~482px Spaltenbreite noch sichtbarer Platz
-   für die Box übrig bleibt (margin-top:200px unverändert, da rein vertikal und
-   nicht überlaufgefährdet). */
+/* Vergrößerte Breite, wenn Skills/Projects nebeneinanderstehen (Bewusst
+   eigener Zwischen-Breakpoint statt des Standard-768px-Werts: er spiegelt
+   genau die Grenze, ab der .skills-projects-row von gestapelt (<=1100px)
+   auf nebeneinander (>1100px) wechselt, siehe .skills-projects-row-Regel
+   weiter oben).
+   Oben bündig mit der "// Projects"-Überschrift statt der früheren
+   200px-Top-Margin (war ein expliziter, mittlerweile verworfener
+   Abstands-Wunsch) — 2.25rem gleicht den Versatz aus, den #skills bis zum
+   ersten Skill-Bar hat (.cli-line-Zeile + deren margin-bottom + das
+   Top-Padding von .accordion-list, zusammen ca. 36px), damit der Launcher
+   auf derselben Höhe wie der erste Skill-Bar in der Nachbarspalte startet.
+   Die Projects-Spalte in .skills-projects-row ist durch flex:1 1 0 selbst
+   bei voller 1300px-Zeilenbreite auf ca. 575px gedeckelt (bei 1101px
+   Zeilenbreite auf ca. 482px) — max-width:calc(100% - 4rem) hält die Box
+   innerhalb der Spalte (920px bleibt als Zielbreite stehen, wird hier aber
+   nie erreicht), margin-left:4rem sorgt weiterhin für sichtbaren Abstand zu
+   Skills. */
 @media (min-width: 1101px) {
   .ide-launcher {
     width: 920px;
     max-width: calc(100% - 4rem);
     height: 180px;
-    margin: 200px 0 1rem 4rem;
+    margin: 2.25rem 0 1rem 4rem;
   }
 }
 
