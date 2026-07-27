@@ -842,6 +842,13 @@ section {
   display: none;
 }
 
+/* Nur sichtbar, wenn Skills/Projects gestapelt sind (siehe Breakpoint unten)
+   — im Nebeneinander auf Desktop ergibt ein vertikaler Connector zwischen den
+   Spalten keinen Sinn. */
+.skills-projects-connector {
+  display: none;
+}
+
 @media (max-width: 1100px) {
   .skills-projects-row {
     flex-direction: column;
@@ -849,6 +856,9 @@ section {
   .skills-projects-row #skills,
   .skills-projects-row #projects {
     width: 100%;
+  }
+  .skills-projects-connector {
+    display: block;
   }
 }
 
