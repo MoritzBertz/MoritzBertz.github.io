@@ -803,6 +803,13 @@ section {
 
 .skills-projects-row #skills {
   flex: 1.15 1 0;
+  /* #skills ist von Haus aus display:flex (für den Fall, dass es als volle
+     Einzel-Section läuft) — in dieser Reihe unnötig (cli-line/accordion-list
+     zentrieren sich selbst über margin:auto) und war vermutlich die Ursache
+     dafür, dass die absolut positionierte h2 hier anders saß als in #projects
+     (schlichtes Block-Element). Auf block zurückgesetzt, damit beide Spalten
+     strukturell identisch sind. */
+  display: block;
 }
 
 .skills-projects-row #projects {
