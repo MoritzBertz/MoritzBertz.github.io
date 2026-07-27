@@ -529,8 +529,12 @@ header::before {
     padding: 6.5rem 1rem 3rem;
   }
 
+  /* Zusammen mit dem 1rem(16px) horizontalen header-Padding oben ergibt
+     0.875rem(14px) hier in Summe ~30px Abstand zum Bildschirmrand für den
+     CRT-Monitor (der auf Mobile width:100% seiner Spalte ist, siehe
+     .crt-monitor--inline) — vorher in Summe 44px, wirkte unnötig schmal. */
   .header-content {
-    padding: 1.5rem 1.75rem;
+    padding: 1.5rem 0.875rem;
   }
 }
 /* ========================= */
@@ -629,7 +633,8 @@ section {
 .accordion-item {
   background: var(--ide-bg);
   border: 1px solid var(--ide-border);
-  border-radius: 8px;
+  /* Keine runden Ecken (war border-radius:8px) — auf ausdrücklichen Wunsch,
+     gilt für Desktop und Mobile gleichermaßen, da das die Basisregel ist. */
   overflow: hidden;
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
@@ -779,19 +784,40 @@ section {
 }
 
 @media (max-width: 768px) {
-  .accordion-list { padding: 1rem 0.5rem; }
+  .accordion-list {
+    padding: 1rem 0.5rem;
+    /* War 0.75rem (Basisregel) — insgesamt etwas kompaktere Zeilenabstände. */
+    gap: 0.5rem;
+  }
 
   .accordion-header {
     flex-wrap: wrap;
     row-gap: 0.6rem;
-    padding: 0.9rem;
+    /* Kompaktere Zeilenhöhe (war 0.9rem rundherum). */
+    padding: 0.65rem 0.9rem;
   }
 
-  .module-name { flex: 1 1 100%; white-space: normal; }
+  .module-name {
+    flex: 1 1 100%;
+    white-space: normal;
+    /* 15% kleiner als die 0.85rem-Basisgröße. */
+    font-size: 0.72rem;
+  }
 
   .bar-wrap { flex: 1 1 100%; justify-content: space-between; }
 
   .skill-bar { flex: 1 1 auto; width: auto; }
+
+  /* 15% kleiner als die jeweilige Basisgröße (0.78rem), nur auf Mobile. */
+  .skill-percent,
+  .log-line {
+    font-size: 0.66rem;
+  }
+
+  .skill-bar::before,
+  .skill-bar::after {
+    font-size: 0.72rem;
+  }
 }
 
 /* ========================= */
@@ -1691,31 +1717,48 @@ body.dark footer {
   background: #222; /* gleicher Hintergrund wie #contact-form textarea im Dark Mode */
 }
 
-/* Social Media Icons */
+/* Social-Media-Icons — kleine, dezent umrandete "Terminal-Chips" statt
+   nackter, freischwebender SVGs. Grund für den Umbau: Die alten Icons waren
+   in Light Mode per filter:brightness(0) schwarz eingefärbt — auf dem
+   dunklen Teal-Footer-Hintergrund ein Kontrast-Bug (schwarz auf dunkel),
+   das war das "sieht scheiße aus". Jetzt in beiden Themes einheitlich Cyan
+   (dieselbe --accent-Farbe wie überall sonst auf der Seite), dezenter
+   Rahmen + Hover-Glow als kleiner Terminal-Anklang, ohne den Footer optisch
+   zu überladen. 44x44px Klickbox direkt in der Basis-Regel (kein separater
+   Mobile-Only-Fall mehr nötig). */
+.socials {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.socials a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  background: rgba(34, 211, 238, 0.08);
+  border-radius: 6px;
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
+}
+
+.socials a:hover,
+.socials a:focus-visible {
+  border-color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.18);
+  transform: translateY(-2px);
+}
+
 .socials img {
-  width: 24px;
-  margin: 0 0.5rem;
-  filter: brightness(0); /* Makes icons black in light mode */
-  transition: filter 0.3s ease;
-}
-
-/* Dark mode adjustments for social icons */
-body.dark .socials img {
-  filter: brightness(0) invert(1) sepia(1) saturate(1000%) hue-rotate(170deg); /* Makes icons cyan in dark mode */
-}
-
-@media (max-width: 768px) {
-  /* 44x44 Touch-Ziel (STYLEGUIDE Touch-Ziele) — die <a> um jedes Social-Icon
-     hatte bisher gar keine eigene Klickfläche (nur die 24px-Bildgröße selbst
-     war klickbar). inline-flex + min-width/min-height vergrößert nur die
-     Klickbox, die sichtbare Icon-Größe (.socials img, 24px) bleibt gleich. */
-  .socials a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 44px;
-    min-height: 44px;
-  }
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  /* Immer Cyan (--accent-Äquivalent), unabhängig vom Theme — vorher schwarz
+     in Light Mode, siehe Kommentar oben. */
+  filter: brightness(0) invert(1) sepia(1) saturate(1000%) hue-rotate(170deg);
 }
 
 /* ========================= */
@@ -3313,10 +3356,13 @@ body.dark .k8s-hud .ide-win-btn:not(.ide-win-close):hover {
   }
   .crt-screen-content {
     padding: 1.1rem 1.2rem 0.8rem;
-    font-size: 0.83rem;
+    font-size: 0.72rem;
   }
   .crt-input-row {
     padding: 0.45rem 1.2rem 0.75rem;
+  }
+  .crt-terminal-input {
+    font-size: 0.72rem;
   }
   /* Nameplate-Zeile (LED + "BERTZ-IAC 1284" + Statusbar + Power-Button) sitzt
      in der schmalen .crt-bezel-Innenbreite (bei 375px Viewport nur noch
