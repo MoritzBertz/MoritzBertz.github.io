@@ -1278,6 +1278,20 @@ function initializeAboutCrtMonitor() {
     termInput.setSelectionRange(pos, pos);
   }
 
+  // Ein Befehl, zwei Wege dorthin: Text tippen + Enter (siehe termInput
+  // weiter unten) oder direkt eine Zahlentaste drücken (siehe der globale
+  // Listener am Ende der Funktion) — beide rufen dasselbe runCommand() auf,
+  // damit die Zuordnung nur an einer Stelle gepflegt werden muss.
+  function runCommand(cmd) {
+    if (cmd === '1' || cmd === 'about') renderAbout();
+    else if (cmd === '2' || cmd === 'stack') renderStack();
+    else if (cmd === '3' || cmd === 'contact') renderContact();
+    else if (cmd === '4' || cmd === 'scan' || cmd === 'nmap' || cmd === 'nmap bertz-iac.dev') startScan();
+    else if (cmd === '0' || cmd === 'menu' || cmd === 'back') renderMenu();
+    else if (cmd === 'help') addLine("verfuegbare befehle: about, stack, contact, scan, menu, help", 'crt-mut');
+    else addLine('command not found: ' + cmd + " (type 'help')", 'crt-error');
+  }
+
   termInput.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowUp') {
       e.preventDefault();
@@ -1301,13 +1315,24 @@ function initializeAboutCrtMonitor() {
     draftInput = '';
     if (!cmd) return;
     if (commandHistory[commandHistory.length - 1] !== cmd) commandHistory.push(cmd);
-    if (cmd === '1' || cmd === 'about') renderAbout();
-    else if (cmd === '2' || cmd === 'stack') renderStack();
-    else if (cmd === '3' || cmd === 'contact') renderContact();
-    else if (cmd === '4' || cmd === 'scan' || cmd === 'nmap' || cmd === 'nmap bertz-iac.dev') startScan();
-    else if (cmd === '0' || cmd === 'menu' || cmd === 'back') renderMenu();
-    else if (cmd === 'help') addLine("verfuegbare befehle: about, stack, contact, scan, menu, help", 'crt-mut');
-    else addLine('command not found: ' + cmd + " (type 'help')", 'crt-error');
+    runCommand(cmd);
+  });
+
+  // Direkte Zahlen-Hotkeys (0-4): lösen die Menüpunkte sofort aus, ganz ohne
+  // ins Eingabefeld zu klicken/tippen + Enter — wie Tastenkürzel in einem
+  // echten TUI. Nur wenn gerade kein anderes Text-/Eingabefeld auf der Seite
+  // fokussiert ist (sonst würde z.B. Tippen im Kontaktformular oder eine "1"
+  // mitten in einem längeren, ins CRT-Feld getippten Wort die Navigation
+  // auslösen statt normalen Text einzugeben).
+  const NUMBER_HOTKEYS = ['0', '1', '2', '3', '4'];
+  document.addEventListener('keydown', (e) => {
+    if (!poweredOn) return;
+    if (!NUMBER_HOTKEYS.includes(e.key)) return;
+    const active = document.activeElement;
+    const isTyping = active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable);
+    if (isTyping) return;
+    e.preventDefault();
+    runCommand(e.key);
   });
 
   document.addEventListener('keydown', (e) => {
