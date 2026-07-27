@@ -1723,11 +1723,14 @@ footer {
   color: white;
 }
 
-/* Copyright-Zeile: unten links statt zentriert, 4px kleiner als der Rest
-   (Browser-Standard ~16px -> 12px). */
+/* Copyright-Zeile: zentriert (erbt von footer{text-align:center}), 4px
+   kleiner als der Rest (Browser-Standard ~16px -> 12px). Dünner, heller
+   Trennstrich darüber statt einfach nur Abstand zu den Social-Icons. */
 footer p {
-  text-align: left;
   font-size: 12px;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 body.dark footer {
@@ -1911,6 +1914,16 @@ body.dark footer {
   color: var(--prompt-nav-inactive);
   white-space: nowrap;
   transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+/* Ohne das übernimmt der Browser seine Standard-:visited-Farbe, sobald ein
+   Nav-Link einmal angeklickt wurde — dadurch blieb er dauerhaft (auch nach
+   dem Wegscrollen, unabhängig vom echten .active-Zustand) in einer
+   abweichenden Farbe (praktisch reine Textfarbe, also weiß im Dark Mode /
+   schwarz im Light Mode) hängen, statt wie ein nie angeklickter Link
+   auszusehen. */
+.nav-link:visited {
+  color: var(--prompt-nav-inactive);
 }
 
 .nav-link:hover,
