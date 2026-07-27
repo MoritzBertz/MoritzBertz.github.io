@@ -656,6 +656,34 @@ function initializeGitTimeline() {
 }
 
 // ========================= //
+// Mobile: Git-Log-Liste als Burger-Toggle statt permanent sichtbarer Liste
+// ========================= //
+function initializeGitLogMobileToggle() {
+  const sidebar = document.querySelector('#timeline .editor-sidebar');
+  const toggleBtn = document.getElementById('gitLogMobileToggle');
+  const toggleText = document.getElementById('gitLogMobileToggleText');
+  if (!sidebar || !toggleBtn) return;
+
+  function setOpen(isOpen) {
+    sidebar.classList.toggle('mobile-open', isOpen);
+    toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    if (toggleText) toggleText.textContent = isOpen ? 'Liste schließen' : 'Weitere Stationen';
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    setOpen(!sidebar.classList.contains('mobile-open'));
+  });
+
+  // Mobile: Auswahl eines Commits klappt die Liste wieder zu (gleiches Muster
+  // wie ideMobileExplorerBtn/.ide-sidebar in initializeVsCodeExplorer()).
+  sidebar.querySelectorAll('.git-commit').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (window.innerWidth <= 767) setOpen(false);
+    });
+  });
+}
+
+// ========================= //
 // Education: Kubernetes Cluster Topology — Pod Inspector HUD
 // ========================= //
 function initializeK8sTopology() {
@@ -1027,6 +1055,11 @@ function initializeAboutCrtMonitor() {
   function renderAbout() {
     clearScreen();
     addLine('$ cat about.txt');
+    const photo = document.createElement('img');
+    photo.src = 'images/profile-pic.jpg';
+    photo.alt = 'Foto von Moritz Bertz';
+    photo.className = 'crt-about-photo';
+    addNode(photo);
     ABOUT_LINES.forEach((line) => addLine(line));
     addBackHint();
     screen.scrollTop = 0;
@@ -1368,6 +1401,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeProjectsLauncher();
   initializeLauncherBoot();
   initializeGitTimeline();
+  initializeGitLogMobileToggle();
   initializeK8sTopology();
   initializePromptBar();
   initializeAboutCrtMonitor();

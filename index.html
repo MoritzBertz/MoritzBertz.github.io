@@ -150,6 +150,9 @@
       <div class="editor-container">
         <div class="editor-sidebar">
           <div class="editor-sidebar-header">GIT LOG</div>
+          <button type="button" class="git-log-mobile-toggle" id="gitLogMobileToggle" aria-expanded="false" aria-controls="gitLogList">
+            <i class="bi bi-list" aria-hidden="true"></i> <span id="gitLogMobileToggleText">Weitere Stationen</span>
+          </button>
           <ol class="git-log-list" id="gitLogList" aria-label="Berufserfahrung als Commit-Historie, mit Pfeiltasten navigierbar">
             <li>
               <button type="button" class="git-commit"
@@ -162,7 +165,7 @@
                 data-diff="+ Added: Active-Directory-Support Skills"
                 data-desc="1st-/2nd-Level-Support und Servermanagement im Applikationsbetrieb, Active-Directory-Administration und Eskalationsmanagement. Hier entstand auch das IHK-Abschlussprojekt zur automatisierten IaC-Bereitstellungspipeline für Windows-Server-Instanzen.">
                 <span class="git-commit-dot" aria-hidden="true"></span>
-                <span class="git-commit-date">2/2026 – 7/2026</span>
+                <span class="git-commit-date">2/2026<span class="git-commit-date-end"> – 7/2026</span></span>
                 <span class="git-commit-hash">commit 7a9b4c2</span>
                 <span class="git-commit-file">2026_wiit-ag.log</span>
               </button>
@@ -178,7 +181,7 @@
                 data-diff="+ Added: Hardware-Rollout &amp; NAS-Skills"
                 data-desc="Planung und Durchführung vollständiger Hardware-Rollouts und Client-Migrationen im medizinischen Umfeld. Aufbau und Netzwerkintegration einer On-Premises-Infrastruktur inklusive NAS-Storage und Backup-Lösungen.">
                 <span class="git-commit-dot" aria-hidden="true"></span>
-                <span class="git-commit-date">10/2025 – 1/2026</span>
+                <span class="git-commit-date">10/2025<span class="git-commit-date-end"> – 1/2026</span></span>
                 <span class="git-commit-hash">commit 3f61e08</span>
                 <span class="git-commit-file">2025_mindnet.log</span>
               </button>
@@ -194,7 +197,7 @@
                 data-diff="+ Added: Fachinformatiker-Abschluss (IHK)"
                 data-desc="Netzwerkadministration, IT-Sicherheit, Azure, Linux u.v.m. Am 07.07.2026 erfolgreich abgeschlossen (IHK-Abschluss bestanden).">
                 <span class="git-commit-dot" aria-hidden="true"></span>
-                <span class="git-commit-date">7/2024 – 7/2026</span>
+                <span class="git-commit-date">7/2024<span class="git-commit-date-end"> – 7/2026</span></span>
                 <span class="git-commit-hash">commit 9d2c771</span>
                 <span class="git-commit-file">2024_gfn.log</span>
               </button>
@@ -210,7 +213,7 @@
                 data-diff="+ Added: Hardware-Diagnose-Skills"
                 data-desc="Reparaturen, Kundenberatung, Inventarverwaltung, IT-Service für Kleingeräte.">
                 <span class="git-commit-dot" aria-hidden="true"></span>
-                <span class="git-commit-date">2022 – 2023</span>
+                <span class="git-commit-date">2022<span class="git-commit-date-end"> – 2023</span></span>
                 <span class="git-commit-hash">commit 5b8e340</span>
                 <span class="git-commit-file">2022_express-handy.log</span>
               </button>
@@ -242,7 +245,7 @@
                 data-diff="+ Added: Belastbarkeit unter Druck"
                 data-desc="Servicekraft, Kellner und Barkeeper im O'Reilly's Irish Pub.">
                 <span class="git-commit-dot" aria-hidden="true"></span>
-                <span class="git-commit-date">2021 – 2022</span>
+                <span class="git-commit-date">2021<span class="git-commit-date-end"> – 2022</span></span>
                 <span class="git-commit-hash">commit 1c73bd5</span>
                 <span class="git-commit-file">2021_oreillys.log</span>
               </button>
@@ -382,11 +385,11 @@
         <div class="accordion-body-wrap">
           <div class="accordion-body-inner">
             <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">Infrastructure as Code mit OpenTofu/Terraform</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">PowerShell-Skripting &amp; Automatisierung</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">GitLab CI/CD-Pipelines (GitOps)</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Cloudbase-Init / Zero-Touch-Deployment</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Versionskontrolle &amp; Rollback-Strategien</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:0">&gt; pulling: <span class="log-name">Infrastructure as Code mit OpenTofu/Terraform</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling: <span class="log-name">PowerShell-Skripting &amp; Automatisierung</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling: <span class="log-name">GitLab CI/CD-Pipelines (GitOps)</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling: <span class="log-name">Cloudbase-Init / Zero-Touch-Deployment</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:4">&gt; pulling: <span class="log-name">Versionskontrolle &amp; Rollback-Strategien</span> ... <span class="log-done">[DONE]</span></div>
             </div>
           </div>
         </div>
@@ -403,10 +406,10 @@
         <div class="accordion-body-wrap">
           <div class="accordion-body-inner">
             <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">Proxmox VE, Hyper-V, VMware</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">Windows Server 2022/2025</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Golden Images &amp; Template-Verwaltung (Sysprep)</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Docker</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:0">&gt; pulling: <span class="log-name">Proxmox VE, Hyper-V, VMware</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling: <span class="log-name">Windows Server 2022/2025</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling: <span class="log-name">Golden Images &amp; Template-Verwaltung (Sysprep)</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling: <span class="log-name">Docker</span> ... <span class="log-done">[DONE]</span></div>
             </div>
           </div>
         </div>
@@ -423,11 +426,11 @@
         <div class="accordion-body-wrap">
           <div class="accordion-body-inner">
             <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">Responsive Web Design</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">CSS Grid &amp; Flexbox</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">CSS Animations &amp; Transitions</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Semantic HTML5</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Cross-browser Compatibility</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:0">&gt; pulling: <span class="log-name">Responsive Web Design</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling: <span class="log-name">CSS Grid &amp; Flexbox</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling: <span class="log-name">CSS Animations &amp; Transitions</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling: <span class="log-name">Semantic HTML5</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:4">&gt; pulling: <span class="log-name">Cross-browser Compatibility</span> ... <span class="log-done">[DONE]</span></div>
             </div>
           </div>
         </div>
@@ -444,11 +447,11 @@
         <div class="accordion-body-wrap">
           <div class="accordion-body-inner">
             <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">DOM Manipulation</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">Event Handling</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">ES6+ Features</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Async Programming</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Basic API Integration</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:0">&gt; pulling: <span class="log-name">DOM Manipulation</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling: <span class="log-name">Event Handling</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling: <span class="log-name">ES6+ Features</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling: <span class="log-name">Async Programming</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:4">&gt; pulling: <span class="log-name">Basic API Integration</span> ... <span class="log-done">[DONE]</span></div>
             </div>
           </div>
         </div>
@@ -465,11 +468,11 @@
         <div class="accordion-body-wrap">
           <div class="accordion-body-inner">
             <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">WordPress Development</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">Database Integration</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Form Processing</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Basic Security Practices</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Template Systems</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:0">&gt; pulling: <span class="log-name">WordPress Development</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling: <span class="log-name">Database Integration</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling: <span class="log-name">Form Processing</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling: <span class="log-name">Basic Security Practices</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:4">&gt; pulling: <span class="log-name">Template Systems</span> ... <span class="log-done">[DONE]</span></div>
             </div>
           </div>
         </div>
@@ -486,11 +489,11 @@
         <div class="accordion-body-wrap">
           <div class="accordion-body-inner">
             <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">System Administration</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">Shell Scripting</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Package Management</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">User Management</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Network Configuration</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:0">&gt; pulling: <span class="log-name">System Administration</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling: <span class="log-name">Shell Scripting</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling: <span class="log-name">Package Management</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling: <span class="log-name">User Management</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:4">&gt; pulling: <span class="log-name">Network Configuration</span> ... <span class="log-done">[DONE]</span></div>
             </div>
           </div>
         </div>
@@ -507,11 +510,11 @@
         <div class="accordion-body-wrap">
           <div class="accordion-body-inner">
             <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">TCP/IP &amp; OSI-Modell</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">VLAN-Konfiguration (Cisco / pfSense / OPNsense)</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Router &amp; Switch Setup</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Monitoring &amp; Analyse (PRTG, Wireshark, Syslog)</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Network Troubleshooting</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:0">&gt; pulling: <span class="log-name">TCP/IP &amp; OSI-Modell</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling: <span class="log-name">VLAN-Konfiguration (Cisco / pfSense / OPNsense)</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling: <span class="log-name">Router &amp; Switch Setup</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling: <span class="log-name">Monitoring &amp; Analyse (PRTG, Wireshark, Syslog)</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:4">&gt; pulling: <span class="log-name">Network Troubleshooting</span> ... <span class="log-done">[DONE]</span></div>
             </div>
           </div>
         </div>
@@ -528,11 +531,11 @@
         <div class="accordion-body-wrap">
           <div class="accordion-body-inner">
             <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">Component Testing</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">System Assembly</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Hardware Upgrades</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Performance Optimization</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Diagnostic Tools</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:0">&gt; pulling: <span class="log-name">Component Testing</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling: <span class="log-name">System Assembly</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling: <span class="log-name">Hardware Upgrades</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling: <span class="log-name">Performance Optimization</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:4">&gt; pulling: <span class="log-name">Diagnostic Tools</span> ... <span class="log-done">[DONE]</span></div>
             </div>
           </div>
         </div>
@@ -549,11 +552,11 @@
         <div class="accordion-body-wrap">
           <div class="accordion-body-inner">
             <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">File Recovery</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">Partition Recovery</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Data Backup Solutions</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Recovery Software</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Data Security</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:0">&gt; pulling: <span class="log-name">File Recovery</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling: <span class="log-name">Partition Recovery</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling: <span class="log-name">Data Backup Solutions</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling: <span class="log-name">Recovery Software</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:4">&gt; pulling: <span class="log-name">Data Security</span> ... <span class="log-done">[DONE]</span></div>
             </div>
           </div>
         </div>
@@ -570,11 +573,11 @@
         <div class="accordion-body-wrap">
           <div class="accordion-body-inner">
             <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">Image Retouching</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">Layer Management</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Color Correction</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Basic Design</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Photo Manipulation</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:0">&gt; pulling: <span class="log-name">Image Retouching</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling: <span class="log-name">Layer Management</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling: <span class="log-name">Color Correction</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling: <span class="log-name">Basic Design</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:4">&gt; pulling: <span class="log-name">Photo Manipulation</span> ... <span class="log-done">[DONE]</span></div>
             </div>
           </div>
         </div>
@@ -591,11 +594,11 @@
         <div class="accordion-body-wrap">
           <div class="accordion-body-inner">
             <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">Technical Support</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">Problem Resolution</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Documentation</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Training &amp; Guidance</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Customer Service</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:0">&gt; pulling: <span class="log-name">Technical Support</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling: <span class="log-name">Problem Resolution</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling: <span class="log-name">Documentation</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling: <span class="log-name">Training &amp; Guidance</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:4">&gt; pulling: <span class="log-name">Customer Service</span> ... <span class="log-done">[DONE]</span></div>
             </div>
           </div>
         </div>
@@ -612,11 +615,11 @@
         <div class="accordion-body-wrap">
           <div class="accordion-body-inner">
             <div class="log-lines">
-              <div class="log-line" style="--i:0">&gt; pulling layer: <span class="log-name">Technical Documentation</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:1">&gt; pulling layer: <span class="log-name">International Communication</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:2">&gt; pulling layer: <span class="log-name">Business Negotiations</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:3">&gt; pulling layer: <span class="log-name">Project Management</span> ... <span class="log-done">[DONE]</span></div>
-              <div class="log-line" style="--i:4">&gt; pulling layer: <span class="log-name">Cross-cultural Collaboration</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:0">&gt; pulling: <span class="log-name">Technical Documentation</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:1">&gt; pulling: <span class="log-name">International Communication</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:2">&gt; pulling: <span class="log-name">Business Negotiations</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:3">&gt; pulling: <span class="log-name">Project Management</span> ... <span class="log-done">[DONE]</span></div>
+              <div class="log-line" style="--i:4">&gt; pulling: <span class="log-name">Cross-cultural Collaboration</span> ... <span class="log-done">[DONE]</span></div>
             </div>
           </div>
         </div>

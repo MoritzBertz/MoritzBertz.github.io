@@ -907,6 +907,20 @@ section {
   flex-direction: column;
 }
 
+@media (max-width: 768px) {
+  /* Mittig statt linksbündig (Hint-Text daneben ist hier ohnehin
+     ausgeblendet, also gibt es nichts mehr, an dem sich der Kasten links
+     ausrichten müsste) und größer als die 460px-Kompaktgröße, damit er auf
+     dem schmalen Mobile-Viewport präsenter wirkt statt wie ein schmaler
+     Streifen. */
+  .ide-launcher {
+    max-width: 600px;
+    width: 92%;
+    margin: 0 auto 1rem;
+    min-height: 140px;
+  }
+}
+
 /* Vergrößerte Breite/Höhe + Abstand nach oben/links, damit der Kasten nicht
    direkt an der Skills-Spalte klebt — ergibt nur Sinn, wenn Skills/Projects
    tatsächlich nebeneinanderstehen. Bewusst eigener Zwischen-Breakpoint statt
@@ -2071,6 +2085,12 @@ body.dark .socials img {
   padding: 0 1.1rem 0.7rem;
 }
 
+/* Burger-Toggle für die Git-Log-Liste — nur auf Mobile sichtbar (siehe
+   @media max-width:767px unten), auf Desktop nie gerendert. */
+.git-log-mobile-toggle {
+  display: none;
+}
+
 /* Schnurgerade, vertikale Git-Historie-Linie hinter den Commit-Punkten */
 .git-log-list {
   position: relative;
@@ -2283,6 +2303,46 @@ body.dark .socials img {
   .vtimeline-desc {
     font-size: 0.75rem;
   }
+
+  /* Burger-Toggle: Git-Log-Liste ist standardmäßig eingeklappt, Klick auf den
+     Button (initializeGitLogMobileToggle() in script.js) blendet sie als
+     Liste ein/aus, statt permanent Platz unter dem Inhalt zu belegen. */
+  .git-log-mobile-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    width: 100%;
+    margin: 0 0 0.5rem;
+    padding: 0.7rem 1.1rem;
+    font-family: 'JetBrains Mono', 'Consolas', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--ide-text);
+    background: none;
+    border: none;
+    border-top: 1px solid var(--ide-border);
+    border-bottom: 1px solid var(--ide-border);
+    cursor: pointer;
+    min-height: 44px;
+    box-sizing: border-box;
+  }
+
+  .git-log-list {
+    display: none;
+  }
+
+  .editor-sidebar.mobile-open .git-log-list {
+    display: block;
+  }
+
+  /* Kompaktere Commit-Zeile auf Mobile: Hash-Zeile weg (Dateiname rückt dadurch
+     automatisch direkt unter das Datum, da .git-commit ein Flex-Column ist),
+     Datumsbereich auf den Startwert gekürzt — Desktop bleibt unangetastet,
+     da .git-commit-hash/.git-commit-date-end nur hier ausgeblendet werden. */
+  .git-commit-hash,
+  .git-commit-date-end {
+    display: none;
+  }
 }
 
 
@@ -2467,7 +2527,10 @@ body.dark .modal-content {
 }
 .ausbildung-section {
   padding: 3rem 1rem;
-  background: var(--bg);
+  /* Kein eigenes background mehr (war var(--bg), also blickdicht) — das
+     verdeckte die seitenweite Grid-Textur (body::before) genau in dieser
+     Section, während alle anderen Sections (kein eigenes background) sie
+     durchscheinen lassen. */
   color: var(--text);
 }
 
@@ -2963,6 +3026,22 @@ body.dark .k8s-hud .ide-win-btn:not(.ide-win-close):hover {
   line-height: 1.85;
   font-size: 0.92rem;
   overflow-y: auto;
+}
+
+/* Profilfoto, das renderAbout() unter "$ cat about.txt" einfügt — kleines,
+   gerahmtes Thumbnail statt großem Bild, damit es wie ein eingebetteter
+   Dateianhang im Terminal wirkt statt den Screen zu sprengen. Leichter
+   Grayscale/Kontrast-Filter für den monochromen Phosphor-Look, Foto bleibt
+   aber erkennbar (kein volles Duotone). */
+.crt-about-photo {
+  display: block;
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border: 1px solid var(--crt-phosphor-mut);
+  border-radius: 4px;
+  margin: 0.4rem 0 0.9rem;
+  filter: grayscale(0.35) contrast(1.05) sepia(0.15) hue-rotate(60deg);
 }
 
 .crt-input-row {
