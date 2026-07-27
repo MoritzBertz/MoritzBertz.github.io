@@ -340,7 +340,7 @@ header::before {
      sie neben dem auf 4:3/600px vergrößerten CRT-Monitor nicht mehr wie ein
      schmaler Streifen wirkt. Gesamt-Breite (unten) entsprechend mit angehoben,
      sonst quetscht sich der Monitor unter seine 800px-Zielbreite (siehe
-     @media(min-width:961px) unten). */
+     @media(min-width:1480px) unten). */
   grid-template-columns: minmax(0, 1fr) minmax(440px, 520px);
   align-items: start;
   gap: 1.5rem;
@@ -360,9 +360,9 @@ header::before {
   box-sizing: border-box;
 }
 
-@media (min-width: 961px) {
+@media (min-width: 1480px) {
   /* Nur im echten Desktop-Nebeneinander (oberhalb des Header-Grid-Umbruchs bei
-     960px, siehe unten): Monitor + Card vertikal mittig zueinander, da die
+     1479px, siehe unten): Monitor + Card vertikal mittig zueinander, da die
      jetzt sehr viel höhere Röhre (750px+) sonst mit align-items:start weit
      über die deutlich niedrigere Card hinausragen würde. */
   .header-content {
@@ -493,8 +493,16 @@ header::before {
 
 /* Eigener, höherer Breakpoint als der allgemeine 768px-Mobile-Umbruch: die
    feste 220–260px-Card würde sich zwischen ~768–1160px unbrauchbar schmal
-   neben den Monitor quetschen, deshalb hier schon früher stapeln. */
-@media (max-width: 960px) {
+   neben den Monitor quetschen, deshalb hier schon früher stapeln.
+   Bewusst auf 1479px angehoben (war 960px): die 4:3/600px-Monitor-Vergrößerung
+   unten braucht mindestens ~1452px Gesamtbreite (844px Monitor + 440px
+   Card-Minimum + 24px Gap + 144px Padding), sonst quetscht die Grid-Spalte
+   den Monitor auf eine viel schmalere Breite, während seine Höhe fix bei
+   600px bleibt — daraus resultierte ein verzerrter, mit der Card
+   überlappender Monitor auf Tablet-Breiten wie 966px (echter, gefundener
+   Bug). Unterhalb 1480px jetzt lieber gestapelt (mit der kleinen,
+   unvergrößerten Monitor-Variante) als zusammengequetscht. */
+@media (max-width: 1479px) {
   .header-content {
     grid-template-columns: 1fr;
   }
@@ -503,7 +511,12 @@ header::before {
 @media (max-width: 768px) {
   header {
     min-height: 45vh;
-    padding: 3rem 1rem;
+    /* Top-Padding von 3rem auf 6.5rem angehoben: .prompt-bar ist
+       position:fixed (top:20px, ~65px Eigenhöhe auf Mobile durch den
+       44px-Burger-Button) und liegt mit z-index:1000 über allem — bei nur
+       3rem(48px) Header-Padding begann der CRT-Monitor darunter, wodurch die
+       fixe Nav-Leiste sein oberes Stück sichtbar abschnitt. */
+    padding: 6.5rem 1rem 3rem;
   }
 
   .header-content {
@@ -2281,16 +2294,15 @@ body.dark .socials img {
     grid-template-columns: 1fr;
   }
 
-  /* Inhalt (aktueller Commit) zuerst, Git-Log-Liste danach: sonst muss man auf
-     Mobile erst an ~6 Commit-Einträgen vorbeiscrollen, bevor irgendein Inhalt
-     sichtbar ist. Reines visuelles Reflow via `order` - DOM/JS (initializeGitTimeline()'
-     Klick-/Scroll-Spy-Logik) bleibt unangetastet. */
-  .editor-main {
-    order: 1;
-  }
-
+  /* Toggle-Leiste steht über dem Inhalt (natürliche DOM-Reihenfolge:
+     .editor-sidebar kommt vor .editor-main im HTML, kein order mehr nötig).
+     Die Liste selbst bleibt Standard eingeklappt und legt sich beim Öffnen
+     als Overlay über den Inhalt (position:absolute weiter unten), statt ihn
+     wie vorher nach unten zu verschieben — analog zum bestehenden
+     Burger-Menü (.mobile-dropdown) und dem IDE-Explorer-Overlay
+     (.ide-sidebar.mobile-open). */
   .editor-sidebar {
-    order: 2;
+    position: relative;
     border-right: none;
     border-bottom: 1px solid var(--ide-border);
   }
@@ -2306,7 +2318,8 @@ body.dark .socials img {
 
   /* Burger-Toggle: Git-Log-Liste ist standardmäßig eingeklappt, Klick auf den
      Button (initializeGitLogMobileToggle() in script.js) blendet sie als
-     Liste ein/aus, statt permanent Platz unter dem Inhalt zu belegen. */
+     Overlay ein/aus, statt permanent Platz zu belegen oder den Inhalt
+     darunter zu verschieben. */
   .git-log-mobile-toggle {
     display: flex;
     align-items: center;
@@ -2331,8 +2344,25 @@ body.dark .socials img {
     display: none;
   }
 
+  /* position:absolute statt nur display:block — dadurch wächst
+     .editor-sidebar beim Öffnen nicht in der Höhe und der Inhalt
+     (.editor-main) darunter bleibt an Ort und Stelle stehen, die Liste legt
+     sich stattdessen als schwebendes Panel darüber (gleiches Muster wie
+     .ide-sidebar.mobile-open). */
   .editor-sidebar.mobile-open .git-log-list {
     display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    max-height: 60vh;
+    overflow-y: auto;
+    background: var(--ide-bg-elevated);
+    border: 1px solid var(--ide-border);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
   }
 
   /* Kompaktere Commit-Zeile auf Mobile: Hash-Zeile weg (Dateiname rückt dadurch
@@ -2864,6 +2894,23 @@ body.dark .k8s-hud .ide-win-btn:not(.ide-win-close):hover {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
+@media (max-width: 768px) {
+  /* Architektur-/Timeline-Bilder wirkten auf Mobile winzig: .modal-content
+     ist 90% der Viewport-Breite, davon fraß .image-modal-scrolls 2rem
+     Padding auf jeder Seite (64px von z.B. 337px bei 375px Breite) einen
+     großen Teil weg — für ein Detail-Diagramm zu wenig Platz. Modal auf
+     Mobile fast bildschirmfüllend, Innenpadding reduziert, damit die Bilder
+     so groß wie möglich dargestellt werden. */
+  .modal-content {
+    width: 97%;
+    height: 94%;
+  }
+
+  .image-modal-scroll {
+    padding: 1rem;
+  }
+}
+
 /* ========================= */
 /* CRT-Monitor / "Live-Pentest" Easter Egg */
 /* Eigener, bewusst NICHT theme-reaktiver Token-Satz (physische Hardware-Optik) */
@@ -2896,13 +2943,16 @@ body.dark .k8s-hud .ide-win-btn:not(.ide-win-close):hover {
   margin: 0;
 }
 
-@media (min-width: 961px) {
+@media (min-width: 1480px) {
   /* Röhrenmonitor-Optik: 4:3 statt breitem Widescreen, doppelte Bildhöhe
      (300px -> 600px). 844px = exakt 800px-Screen (600px * 4/3) + die 2x22px
      Bezel-Innenabstand von .crt-bezel, damit das Gehäuse eng am Screen
-     anliegt statt an der alten 820px-Breitenkappe zu hängen. Bewusst nur ab
-     961px (oberhalb des Header-Grid-Umbruchs) — im gestapelten Tablet-Layout
-     bleibt die alte 300px/16:9-artige Optik, siehe Basis-Regeln oben/unten. */
+     anliegt statt an der alten 820px-Breitenkappe zu hängen. Bewusst erst ab
+     1480px (oberhalb des Header-Grid-Umbruchs, siehe dort) statt schon ab
+     961px — darunter reicht die Spalte nicht für die volle 844px-Breite,
+     was zu einem verzerrten/mit der Card überlappenden Monitor führte
+     (gefundener Bug bei 966px). Im gestapelten Tablet-Layout bleibt die alte
+     300px/16:9-artige Optik, siehe Basis-Regeln oben/unten. */
   .crt-monitor--inline {
     width: min(100%, 844px);
   }
@@ -2929,7 +2979,7 @@ body.dark .k8s-hud .ide-win-btn:not(.ide-win-close):hover {
   height: 300px;
 }
 
-@media (min-width: 961px) {
+@media (min-width: 1480px) {
   .crt-screen {
     height: 600px;
     aspect-ratio: 4 / 3; /* Röhrenmonitor-Seitenverhältnis; hält die Breite mit,

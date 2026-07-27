@@ -681,6 +681,14 @@ function initializeGitLogMobileToggle() {
       if (window.innerWidth <= 767) setOpen(false);
     });
   });
+
+  // Klick außerhalb der offenen Liste schließt sie wieder (gleiches Muster
+  // wie beim .ide-sidebar-Overlay).
+  document.addEventListener('click', (e) => {
+    if (window.innerWidth > 767) return;
+    if (!sidebar.classList.contains('mobile-open')) return;
+    if (!sidebar.contains(e.target)) setOpen(false);
+  });
 }
 
 // ========================= //
