@@ -985,24 +985,25 @@ section {
    genau die Grenze, ab der .skills-projects-row von gestapelt (<=1100px)
    auf nebeneinander (>1100px) wechselt, siehe .skills-projects-row-Regel
    weiter oben).
-   Oben bündig mit der "// Projects"-Überschrift statt der früheren
-   200px-Top-Margin (war ein expliziter, mittlerweile verworfener
-   Abstands-Wunsch) — 2.25rem gleicht den Versatz aus, den #skills bis zum
-   ersten Skill-Bar hat (.cli-line-Zeile + deren margin-bottom + das
-   Top-Padding von .accordion-list, zusammen ca. 36px), damit der Launcher
-   auf derselben Höhe wie der erste Skill-Bar in der Nachbarspalte startet.
+   Oben UND links bündig mit der "// Projects"-Überschrift statt der
+   früheren 200px-Top-/4rem-Left-Margin (beides explizite, mittlerweile
+   verworfene Abstands-Wünsche) — genau wie .accordion-list in #skills
+   flush-left an der "// Skills"-Überschrift hängt. 2.25rem oben gleicht den
+   Versatz aus, den #skills bis zum ersten Skill-Bar hat (.cli-line-Zeile +
+   deren margin-bottom + das Top-Padding von .accordion-list, zusammen ca.
+   36px), damit der Launcher auf derselben Höhe wie der erste Skill-Bar in
+   der Nachbarspalte startet.
    Die Projects-Spalte in .skills-projects-row ist durch flex:1 1 0 selbst
    bei voller 1300px-Zeilenbreite auf ca. 575px gedeckelt (bei 1101px
-   Zeilenbreite auf ca. 482px) — max-width:calc(100% - 4rem) hält die Box
-   innerhalb der Spalte (920px bleibt als Zielbreite stehen, wird hier aber
-   nie erreicht), margin-left:4rem sorgt weiterhin für sichtbaren Abstand zu
-   Skills. */
+   Zeilenbreite auf ca. 482px) — max-width:calc(100% - 0rem), also einfach
+   100%, hält die Box innerhalb der Spalte (920px bleibt als Zielbreite
+   stehen, wird hier aber nie erreicht). */
 @media (min-width: 1101px) {
   .ide-launcher {
     width: 920px;
-    max-width: calc(100% - 4rem);
+    max-width: 100%;
     height: 180px;
-    margin: 2.25rem 0 1rem 4rem;
+    margin: 2.25rem 0 1rem 0;
   }
 }
 
