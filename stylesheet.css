@@ -500,16 +500,6 @@ header::before {
   }
 }
 
-.header-whoami .terminal-body {
-  margin: 0;
-  height: 268px; /* fest statt min-height — ein echtes Fenster ändert seine Größe beim Laden nicht */
-  box-sizing: border-box;
-  overflow: hidden;
-  white-space: pre-wrap;
-  word-break: break-word;
-  font-size: 0.85rem; /* größer als zuvor, jetzt der dominante Inhalt der Karte */
-}
-
 @media (max-width: 768px) {
   header {
     min-height: 45vh;
@@ -518,11 +508,6 @@ header::before {
 
   .header-content {
     padding: 1.5rem 1.75rem;
-  }
-
-  .header-whoami .terminal-body {
-    font-size: 0.74rem;
-    height: 330px;
   }
 }
 /* ========================= */
@@ -912,15 +897,43 @@ section {
 }
 
 .ide-launcher {
-  /* Doppelte Breite/Höhe (war max-width:460px, Höhe vorher rein
-     inhaltsbestimmt ~90px) + 200px Abstand nach oben/links, damit der Kasten
-     nicht direkt an der Skills-Spalte klebt. */
-  width: 920px;
-  max-width: 100%;
-  height: 180px;
-  margin: 200px 0 1rem 200px;
+  /* Kompakte Basis-Maße (Tablet/Mobile UND Fallback vor dem 1101px-Boost
+     unten) — Höhe bewusst inhaltsbestimmt statt fest, damit nichts überläuft
+     oder abgeschnitten wird, egal wie schmal der Viewport ist. */
+  max-width: 460px;
+  width: 100%;
+  margin: 0 0 1rem;
   display: flex;
   flex-direction: column;
+}
+
+/* Vergrößerte Breite/Höhe + Abstand nach oben/links, damit der Kasten nicht
+   direkt an der Skills-Spalte klebt — ergibt nur Sinn, wenn Skills/Projects
+   tatsächlich nebeneinanderstehen. Bewusst eigener Zwischen-Breakpoint statt
+   des Standard-768px-Werts: er spiegelt genau die Grenze, ab der
+   .skills-projects-row von gestapelt (<=1100px) auf nebeneinander (>1100px)
+   wechselt (siehe .skills-projects-row-Regel weiter oben) — darunter ist der
+   Kasten die volle Breite der gestapelten Projects-Spalte und "nicht direkt
+   an Skills kleben" ist kein sinnvolles Konzept mehr. Ohne diese Media-Query
+   riss width:920px + margin-left:200px die Box auf Mobile weit über den
+   Viewport hinaus (realer, gefundener Bug).
+   Zweiter, beim Lead-Review gefundener Bug: die Projects-Spalte in
+   .skills-projects-row ist durch flex:1 1 0 selbst bei voller 1300px-Zeilenbreite
+   auf ca. 575px gedeckelt (bei 1101px Zeilenbreite auf ca. 482px) — width:920px
+   + margin-left:200px hätte dort IMMER über die Spalte hinausgeragt, auf jeder
+   normalen Desktop-Fensterbreite, nicht nur auf sehr breiten Monitoren.
+   max-width:calc(100% - 4rem) hält die Box innerhalb der Spalte (920px bleibt
+   als Zielbreite stehen, wird hier aber nie erreicht), margin-left von 200px
+   auf 4rem reduziert, damit auch bei ~482px Spaltenbreite noch sichtbarer Platz
+   für die Box übrig bleibt (margin-top:200px unverändert, da rein vertikal und
+   nicht überlaufgefährdet). */
+@media (min-width: 1101px) {
+  .ide-launcher {
+    width: 920px;
+    max-width: calc(100% - 4rem);
+    height: 180px;
+    margin: 200px 0 1rem 4rem;
+  }
 }
 
 .ide-launcher .terminal-body {
@@ -999,6 +1012,19 @@ section {
 
 @keyframes ide-cursor-blink {
   50% { opacity: 0; }
+}
+
+/* Touch-Ziel: ohne eigenes Padding kommt .ide-launch-trigger nur auf die
+   reine Textzeilenhöhe (~24px inkl. geerbtem line-height:1.7 von
+   .terminal-body) — unter der 44px-Mindestgröße für Touch. Padding statt
+   fester Höhe, damit die sichtbare "$ load projects?"-Zeile optisch gleich
+   groß bleibt. */
+@media (max-width: 768px) {
+  .ide-launch-trigger {
+    padding: 0.65rem 0;
+    min-height: 44px;
+    box-sizing: border-box;
+  }
 }
 
 /* Halbtransparenter Hintergrund hinter dem geöffneten Fenster; Klick darauf schließt es */
@@ -1641,6 +1667,20 @@ body.dark .socials img {
   filter: brightness(0) invert(1) sepia(1) saturate(1000%) hue-rotate(170deg); /* Makes icons cyan in dark mode */
 }
 
+@media (max-width: 768px) {
+  /* 44x44 Touch-Ziel (STYLEGUIDE Touch-Ziele) — die <a> um jedes Social-Icon
+     hatte bisher gar keine eigene Klickfläche (nur die 24px-Bildgröße selbst
+     war klickbar). inline-flex + min-width/min-height vergrößert nur die
+     Klickbox, die sichtbare Icon-Größe (.socials img, 24px) bleibt gleich. */
+  .socials a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
 /* ========================= */
 /* Prompt-Bar (Hauptnavigation) — "Active Prompt Bar" im Bash-Look */
 /* ========================= */
@@ -1880,6 +1920,12 @@ body.dark .socials img {
   margin: 0;
   cursor: pointer;
   line-height: 1;
+  /* 44x44 Touch-Ziel (STYLEGUIDE Touch-Ziele) — vorher nur ~30x24px effektive
+     Klickfläche. min-width/min-height statt noch mehr Padding, damit die
+     sichtbare [=]-Glyphe optisch gleich groß bleibt, nur die Klickbox wächst. */
+  min-width: 44px;
+  min-height: 44px;
+  justify-content: center;
 }
 
 /* Überschreibt die generische, global auffällige button:hover-Regel (volle
@@ -1899,6 +1945,11 @@ body.dark .socials img {
   border-radius: 10px;
   border: 1px solid var(--prompt-bar-border);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  /* Sicherheitsnetz gegen kurze Viewports (Landscape-Phones): Dropdown wächst
+     mit der Nav-Liste, .prompt-bar ist aber position:fixed und schneidet sonst
+     unten am Viewport-Rand hart ab, statt intern zu scrollen. */
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
 }
 
 .mobile-dropdown[hidden] { display: none; }
@@ -1906,10 +1957,22 @@ body.dark .socials img {
 .prompt-nav-mobile {
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  gap: 0.4rem;
   list-style: none;
   margin: 0 0 1rem;
   padding: 0;
+}
+
+/* Touch-Ziel (STYLEGUIDE Touch-Ziele, 44x44px): die geteilte .nav-link-Basis
+   hat hier keine eigene Padding/Höhe, effektive Klickfläche war nur die
+   Textzeile (~20px). Nur hier scoped (nicht auf der Desktop-.nav-link-Basis),
+   damit `.prompt-nav` (>768px) unangetastet bleibt. Gap oben entsprechend von
+   0.9rem auf 0.4rem reduziert, da die Links jetzt selbst Vertikalraum durch
+   min-height mitbringen — sonst würde die Liste unnötig in die Länge wachsen. */
+.prompt-nav-mobile .nav-link {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
 }
 
 .prompt-status-mobile {
@@ -1918,6 +1981,15 @@ body.dark .socials img {
   gap: 0.6rem;
   padding-top: 0.8rem;
   border-top: 1px solid var(--prompt-bar-border);
+}
+
+/* Touch-Ziel für den Theme-Toggle in der mobilen Status-Zeile — die geteilte
+   .theme-toggle-Basis (0.25rem/0.5rem Padding, 0.7rem Schrift) bleibt für die
+   Desktop-Leiste unangetastet, hier nur für den mobilen Dropdown-Kontext
+   vergrößert. */
+.prompt-status-mobile .theme-toggle {
+  padding: 0.6rem 0.8rem;
+  min-height: 44px;
 }
 
 @media (min-width: 769px) {
@@ -1930,7 +2002,7 @@ body.dark .socials img {
   .ps1-input {
     display: none;
   }
-  .burger-btn { display: inline-flex; align-items: center; }
+  .burger-btn { display: inline-flex; align-items: center; justify-content: center; }
   .prompt-bar-inner { padding: 0.65rem 1rem; }
   .ps1 { font-size: 0.76rem; }
 }
@@ -2189,7 +2261,16 @@ body.dark .socials img {
     grid-template-columns: 1fr;
   }
 
+  /* Inhalt (aktueller Commit) zuerst, Git-Log-Liste danach: sonst muss man auf
+     Mobile erst an ~6 Commit-Einträgen vorbeiscrollen, bevor irgendein Inhalt
+     sichtbar ist. Reines visuelles Reflow via `order` - DOM/JS (initializeGitTimeline()'
+     Klick-/Scroll-Spy-Logik) bleibt unangetastet. */
+  .editor-main {
+    order: 1;
+  }
+
   .editor-sidebar {
+    order: 2;
     border-right: none;
     border-bottom: 1px solid var(--ide-border);
   }
@@ -3097,6 +3178,21 @@ body.dark .k8s-hud .ide-win-btn:not(.ide-win-close):hover {
   }
   .crt-input-row {
     padding: 0.45rem 1.2rem 0.75rem;
+  }
+  /* Nameplate-Zeile (LED + "BERTZ-IAC 1284" + Statusbar + Power-Button) sitzt
+     in der schmalen .crt-bezel-Innenbreite (bei 375px Viewport nur noch
+     ~259px) knapp am Rand ihres Platzbedarfs — ohne Fallback würde das auf
+     sehr schmalen Phones (320-375px) über den Bezel-Rand hinaus umbrechen/
+     überlaufen. Kleinerer Gap + Ellipsis-Fallback statt hartem Clip. */
+  .crt-nameplate-row {
+    gap: 0.4rem;
+  }
+  .crt-nameplate,
+  .crt-statusbar {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 

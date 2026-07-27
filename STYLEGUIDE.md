@@ -146,7 +146,7 @@ Zeilenbereiche verschieben sich bei jeder Änderung — Ownership läuft über C
 
 ### Touch-Ziele
 
-Interaktive Elemente auf `max-width:768px` brauchen **mindestens 44×44px** effektive Klickfläche (Padding zählt mit). Bekannter Verstoß, den der Header/Nav-Agent beheben sollte: `.burger-btn` hat aktuell nur ~30×24px (Zeile 1783, `padding:0.3rem 0.6rem` bei `font-size:0.9rem`) — Padding erhöhen oder `min-width`/`min-height:44px` setzen, ohne die optische Größe der sichtbaren `[=]`-Glyphe zu verändern.
+Interaktive Elemente auf `max-width:768px` brauchen **mindestens 44×44px** effektive Klickfläche (Padding zählt mit). `.burger-btn`, `.socials a`, `.prompt-nav-mobile .nav-link`, `.prompt-status-mobile .theme-toggle` und `.ide-launch-trigger` wurden im Mobile-Redesign-Durchgang bereits per `min-width`/`min-height:44px` (statt mehr Padding, damit die sichtbare Glyphe/Icon-Größe unverändert bleibt) korrigiert — als Vorbild für neue Komponenten. Noch offen (bewusst nicht angefasst, da außerhalb des jeweiligen Section-Scopes oder geteilte/Lead-only-Komponenten): `.crt-menu-item`, `.crt-power-btn`, `.cv-download-btn`, `.k8s-hud .ide-win-btn`.
 
 ### Referenzmuster für "Desktop-Layout → Mobile-Layout"
 
