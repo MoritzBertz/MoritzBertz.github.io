@@ -224,6 +224,16 @@ body.dark {
   color: var(--ide-text-dim);
   border-top: 2px solid transparent;
   white-space: nowrap;
+  /* min-width:0 erlaubt dem Tab, in seiner .terminal-titlebar-Flex-Reihe
+     unter seine Inhaltsbreite zu schrumpfen — ohne das bleibt er auf voller
+     Textbreite und drückt .ide-window-controls (Schließen-Button) über den
+     sichtbaren Rand hinaus, sobald der Dateiname lang ist (z.B. Pod-Inspector-
+     HUD bei den Cluster-Knoten mit langen data-node-Slugs, auf 400px Breite
+     unklickbar). Ellipsis statt Umbruch, wie gewünscht — white-space:nowrap
+     bleibt bestehen, der Text wird nur abgeschnitten, nicht umgebrochen. */
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .terminal-tab::before {
