@@ -937,6 +937,8 @@ function initializeAboutCrtMonitor() {
     addMenuItem('3', 'contact', 'kurz Kontakt aufnehmen', renderContact);
     addMenuItem('4', 'scan', 'nmap bertz-iac.dev', startScan);
     addLine('');
+    addLine("// type 'help' for commands", 'crt-dim');
+    addLine('');
     const warn = document.createElement('button');
     warn.type = 'button';
     warn.className = 'crt-menu-item crt-dim';
