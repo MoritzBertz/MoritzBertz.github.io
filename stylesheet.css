@@ -1713,6 +1713,13 @@ footer {
   color: white;
 }
 
+/* Copyright-Zeile: unten links statt zentriert, 4px kleiner als der Rest
+   (Browser-Standard ~16px -> 12px). */
+footer p {
+  text-align: left;
+  font-size: 12px;
+}
+
 body.dark footer {
   background: #222; /* gleicher Hintergrund wie #contact-form textarea im Dark Mode */
 }
