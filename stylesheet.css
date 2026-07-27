@@ -10,8 +10,8 @@ html:has(body.dark) {
 }
 
 :root {
-  --bg: #ffffff; /* Hintergrundfarbe */
-  --bg-rgb: 255, 255, 255; /* RGB-Werte der Hintergrundfarbe (für Transparenz/Blur) */
+  --bg: #eeeeee; /* Hintergrundfarbe (war #ffffff) */
+  --bg-rgb: 238, 238, 238; /* RGB-Werte der Hintergrundfarbe (für Transparenz/Blur) */
   --text: #000000; /* Textfarbe */
   --accent: #00bcd4; /* Akzentfarbe — dieselbe Cyan-Farbe wie im Dark Mode, kein separates Orange mehr */
   --accent-rgb: 0, 188, 212;
@@ -350,7 +350,7 @@ header::before {
      sie neben dem auf 4:3/600px vergrößerten CRT-Monitor nicht mehr wie ein
      schmaler Streifen wirkt. Gesamt-Breite (unten) entsprechend mit angehoben,
      sonst quetscht sich der Monitor unter seine 800px-Zielbreite (siehe
-     @media(min-width:1480px) unten). */
+     @media(min-width:1560px) unten). */
   grid-template-columns: minmax(0, 1fr) minmax(440px, 520px);
   align-items: start;
   gap: 1.5rem;
@@ -370,11 +370,17 @@ header::before {
   box-sizing: border-box;
 }
 
-@media (min-width: 1480px) {
+@media (min-width: 1560px) {
   /* Nur im echten Desktop-Nebeneinander (oberhalb des Header-Grid-Umbruchs bei
-     1479px, siehe unten): Monitor + Card vertikal mittig zueinander, da die
+     1559px, siehe unten): Monitor + Card vertikal mittig zueinander, da die
      jetzt sehr viel höhere Röhre (750px+) sonst mit align-items:start weit
-     über die deutlich niedrigere Card hinausragen würde. */
+     über die deutlich niedrigere Card hinausragen würde.
+     1560px statt 1480px (2. Anlauf — bei 1496px überlappten Monitor und Card
+     immer noch): 1560px ist exakt der bestehende width:min(100%,1560px)-Deckel
+     von .header-content selbst, also die einzige Breite, bei der garantiert
+     genug Platz für Monitor(844px) + Card(bis 520px) + Gap + Padding da ist,
+     unabhängig davon, wie die Grid-Sizing-Algorithmus die minmax()-Spalte im
+     Detail auflöst. */
   .header-content {
     align-items: center;
     width: min(100%, 1560px);
@@ -504,15 +510,16 @@ header::before {
 /* Eigener, höherer Breakpoint als der allgemeine 768px-Mobile-Umbruch: die
    feste 220–260px-Card würde sich zwischen ~768–1160px unbrauchbar schmal
    neben den Monitor quetschen, deshalb hier schon früher stapeln.
-   Bewusst auf 1479px angehoben (war 960px): die 4:3/600px-Monitor-Vergrößerung
-   unten braucht mindestens ~1452px Gesamtbreite (844px Monitor + 440px
-   Card-Minimum + 24px Gap + 144px Padding), sonst quetscht die Grid-Spalte
-   den Monitor auf eine viel schmalere Breite, während seine Höhe fix bei
-   600px bleibt — daraus resultierte ein verzerrter, mit der Card
-   überlappender Monitor auf Tablet-Breiten wie 966px (echter, gefundener
-   Bug). Unterhalb 1480px jetzt lieber gestapelt (mit der kleinen,
-   unvergrößerten Monitor-Variante) als zusammengequetscht. */
-@media (max-width: 1479px) {
+   War zunächst 960px, dann 1479px (Rechnung: 844px Monitor + 440px
+   Card-Minimum + 24px Gap + 144px Padding = 1452px) — bei 1496px überlappten
+   Monitor und Card aber immer noch (die Grid-Sizing-Rechnung mit der
+   Card exakt am 440px-Minimum trifft in der Praxis offenbar nicht zu, die
+   Card bleibt eher näher an ihrem 520px-Maximum). Jetzt auf 1559px angehoben
+   — exakt unterhalb des width:min(100%,1560px)-Deckels von .header-content
+   selbst, siehe @media(min-width:1560px) oben —, damit unterhalb davon immer
+   die kleine, unvergrößerte Monitor-Variante gestapelt wird statt
+   zusammengequetscht zu werden. */
+@media (max-width: 1559px) {
   .header-content {
     grid-template-columns: 1fr;
   }
@@ -636,6 +643,9 @@ section {
   /* Keine runden Ecken (war border-radius:8px) — auf ausdrücklichen Wunsch,
      gilt für Desktop und Mobile gleichermaßen, da das die Basisregel ist. */
   overflow: hidden;
+  /* Gleicher Schatten wie .terminal-window/.editor-container — fehlte hier,
+     die Skills-Karten wirkten dadurch flacher als der Rest der Seite. */
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
@@ -2140,6 +2150,9 @@ body.dark footer {
   overflow: hidden;
   border: 1px solid var(--ide-border);
   background: var(--ide-bg);
+  /* Gleicher Schatten wie .terminal-window — fehlte hier, wodurch das
+     Experience-Fenster flacher wirkte als alle anderen Fenster der Seite. */
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
 }
 
 .editor-sidebar {
@@ -2484,24 +2497,44 @@ body.dark footer {
   resize: vertical;
 }
 
+/* Terminal-/PowerShell-Befehlszeile statt vollflächigem Akzent-Button — soll
+   wie der Rest der Seite (launcher.sh "$ load projects?", .ide-prompt +
+   .ide-launch-cursor) wirken. margin:0 überschreibt explizit die generische
+   button{margin:0.5rem}-Regel — ohne das war der Button schmaler als
+   input/textarea darüber (die haben keinen Seiten-Margin, der Button per
+   globaler Regel schon, dadurch schrumpfte er relativ zu den Feldern). */
 #contact-form button {
-  background-color: var(--accent);
-  color: white;
-  padding: 1rem;
-  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--ide-bg);
+  color: var(--ide-text);
+  border: 1px solid var(--ide-border);
   border-radius: 6px;
-  font-size: 1rem;
+  padding: 1rem 1.1rem;
+  margin: 0;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 0.95rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+#contact-form button .ide-prompt {
+  color: var(--ide-green);
 }
 
 #contact-form button:hover {
-  background-color: var(--accent);
-  filter: brightness(1.2);
+  border-color: var(--ide-cyan);
+  background: rgba(var(--ide-cyan-rgb), 0.08);
+}
+
+#contact-form button:focus-visible {
+  outline: 2px solid var(--ide-cyan);
+  outline-offset: 2px;
 }
 
 #contact-form button:disabled {
-  background-color: #ccc;
+  opacity: 0.55;
   cursor: not-allowed;
 }
 
@@ -2516,15 +2549,6 @@ body.dark #contact-form textarea {
 body.dark #contact-form input:focus,
 body.dark #contact-form textarea:focus {
   border-color: var(--accent);
-}
-
-body.dark #contact-form button {
-  background-color: var(--accent);
-}
-
-body.dark #contact-form button:hover {
-  background-color: var(--accent);
-  filter: brightness(1.2);
 }
 
 #contact h2 {
@@ -3003,15 +3027,15 @@ body.dark .k8s-hud .ide-win-btn:not(.ide-win-close):hover {
   margin: 0;
 }
 
-@media (min-width: 1480px) {
+@media (min-width: 1560px) {
   /* Röhrenmonitor-Optik: 4:3 statt breitem Widescreen, doppelte Bildhöhe
      (300px -> 600px). 844px = exakt 800px-Screen (600px * 4/3) + die 2x22px
      Bezel-Innenabstand von .crt-bezel, damit das Gehäuse eng am Screen
-     anliegt statt an der alten 820px-Breitenkappe zu hängen. Bewusst erst ab
-     1480px (oberhalb des Header-Grid-Umbruchs, siehe dort) statt schon ab
-     961px — darunter reicht die Spalte nicht für die volle 844px-Breite,
-     was zu einem verzerrten/mit der Card überlappenden Monitor führte
-     (gefundener Bug bei 966px). Im gestapelten Tablet-Layout bleibt die alte
+     anliegt statt an der alten 820px-Breitenkappe zu hängen. Erst ab 1560px
+     (== .header-content-Breitendeckel, siehe dort) statt 961px oder 1480px —
+     beide früheren Werte reichten nicht, die Spalte quetschte den Monitor
+     noch bei 966px bzw. 1496px zusammen (verzerrt, mit der Card
+     überlappend). Im gestapelten Layout darunter bleibt die alte
      300px/16:9-artige Optik, siehe Basis-Regeln oben/unten. */
   .crt-monitor--inline {
     width: min(100%, 844px);
@@ -3039,7 +3063,7 @@ body.dark .k8s-hud .ide-win-btn:not(.ide-win-close):hover {
   height: 300px;
 }
 
-@media (min-width: 1480px) {
+@media (min-width: 1560px) {
   .crt-screen {
     height: 600px;
     aspect-ratio: 4 / 3; /* Röhrenmonitor-Seitenverhältnis; hält die Breite mit,
@@ -3330,6 +3354,13 @@ body.dark .k8s-hud .ide-win-btn:not(.ide-win-close):hover {
   justify-content: center;
   width: 22px;
   height: 22px;
+  /* Ohne das schrumpfte der Button in der engen .crt-nameplate-row auf
+     schmalen Mobile-Breiten mit (Flex-Items sind standardmäßig
+     flex-shrink:1), bis er praktisch verschwand. .crt-nameplate/
+     .crt-statusbar dürfen dafür schrumpfen (siehe deren min-width:0 +
+     Ellipsis weiter unten), der Power-Button soll immer in voller Größe
+     auftauchen. */
+  flex-shrink: 0;
   padding: 0;
   margin-left: 0.4rem;
   background: none;

@@ -194,9 +194,10 @@ function initializeContactForm() {
   contactForm.addEventListener('submit', function (e) {
     e.preventDefault();
     const submitButton = this.querySelector('button[type="submit"]');
+    const originalButtonHTML = submitButton.innerHTML;
 
     submitButton.disabled = true;
-    submitButton.textContent = 'Wird gesendet...';
+    submitButton.textContent = '$ sending...';
     formMsg.textContent = '';
 
     fetch(this.action, {
@@ -219,7 +220,7 @@ function initializeContactForm() {
       })
       .finally(() => {
         submitButton.disabled = false;
-        submitButton.textContent = 'Senden';
+        submitButton.innerHTML = originalButtonHTML;
       });
   });
 }
@@ -870,7 +871,10 @@ function initializePromptBar() {
   // synchron bleiben)
   function setActiveNav(id) {
     navLinks.forEach((link) => {
-      const isActive = link.dataset.target === id;
+      // Der zusammengelegte "/projects & skills"-Link trägt zwei Ziele
+      // (data-target="skills projects"), damit er aktiv bleibt, egal welche
+      // der beiden Sections gerade im Viewport ist.
+      const isActive = link.dataset.target.split(' ').includes(id);
       link.classList.toggle('active', isActive);
       if (isActive) {
         link.setAttribute('aria-current', 'page');
@@ -1259,12 +1263,44 @@ function initializeAboutCrtMonitor() {
     else powerOn();
   }
 
+  // Befehls-Historie fürs Terminal-Gefühl: Pfeil-hoch/-runter blättert wie in
+  // einer echten Shell durch zuvor eingegebene Befehle. historyIndex:-1 heißt
+  // "an der aktuellen Eingabezeile", draftInput hält den Text, den man gerade
+  // tippte, bevor man mit Pfeil-hoch in die Historie gesprungen ist.
+  const commandHistory = [];
+  let historyIndex = -1;
+  let draftInput = '';
+
+  function goToHistory(index) {
+    historyIndex = index;
+    termInput.value = historyIndex === -1 ? draftInput : commandHistory[historyIndex];
+    const pos = termInput.value.length;
+    termInput.setSelectionRange(pos, pos);
+  }
+
   termInput.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (!commandHistory.length) return;
+      if (historyIndex === -1) draftInput = termInput.value;
+      goToHistory(Math.max(0, (historyIndex === -1 ? commandHistory.length : historyIndex) - 1));
+      return;
+    }
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (historyIndex === -1) return;
+      const next = historyIndex + 1;
+      goToHistory(next >= commandHistory.length ? -1 : next);
+      return;
+    }
     if (e.key !== 'Enter') return;
     e.preventDefault();
     const cmd = termInput.value.trim().toLowerCase();
     termInput.value = '';
+    historyIndex = -1;
+    draftInput = '';
     if (!cmd) return;
+    if (commandHistory[commandHistory.length - 1] !== cmd) commandHistory.push(cmd);
     if (cmd === '1' || cmd === 'about') renderAbout();
     else if (cmd === '2' || cmd === 'stack') renderStack();
     else if (cmd === '3' || cmd === 'contact') renderContact();

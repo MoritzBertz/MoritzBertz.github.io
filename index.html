@@ -25,9 +25,9 @@
   <meta name="color-scheme" content="light dark" />
   <title>Mein Portfolio</title>
   <!-- Benutzerdefinierte CSS-Datei -->
-  <link rel="stylesheet" href="stylesheet.css?v=7" />
+  <link rel="stylesheet" href="stylesheet.css?v=8" />
   <!-- Benutzerdefinierte JavaScript-Datei -->
-  <script defer src="script.js?v=3"></script>
+  <script defer src="script.js?v=4"></script>
   <!-- Bootstrap Icons -->
   <link 
     href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" 
@@ -114,8 +114,7 @@
         <li><a class="nav-link" href="#about" data-target="about"><span class="nav-prefix">&gt;_ </span>/about</a></li>
         <li><a class="nav-link" href="#timeline" data-target="timeline"><span class="nav-prefix">&gt;_ </span>/experience</a></li>
         <li><a class="nav-link" href="#ausbildung" data-target="ausbildung"><span class="nav-prefix">&gt;_ </span>/education</a></li>
-        <li><a class="nav-link" href="#skills" data-target="skills"><span class="nav-prefix">&gt;_ </span>/skills</a></li>
-        <li><a class="nav-link" href="#projects" data-target="projects"><span class="nav-prefix">&gt;_ </span>/projects</a></li>
+        <li><a class="nav-link" href="#skills" data-target="skills projects"><span class="nav-prefix">&gt;_ </span>/projects &amp; skills</a></li>
         <li><a class="nav-link" href="#contact" data-target="contact"><span class="nav-prefix">&gt;_ </span>/contact</a></li>
       </ul>
 
@@ -133,8 +132,7 @@
         <li><a class="nav-link" href="#about" data-target="about"><span class="nav-prefix">&gt;_ </span>/about</a></li>
         <li><a class="nav-link" href="#timeline" data-target="timeline"><span class="nav-prefix">&gt;_ </span>/experience</a></li>
         <li><a class="nav-link" href="#ausbildung" data-target="ausbildung"><span class="nav-prefix">&gt;_ </span>/education</a></li>
-        <li><a class="nav-link" href="#skills" data-target="skills"><span class="nav-prefix">&gt;_ </span>/skills</a></li>
-        <li><a class="nav-link" href="#projects" data-target="projects"><span class="nav-prefix">&gt;_ </span>/projects</a></li>
+        <li><a class="nav-link" href="#skills" data-target="skills projects"><span class="nav-prefix">&gt;_ </span>/projects &amp; skills</a></li>
         <li><a class="nav-link" href="#contact" data-target="contact"><span class="nav-prefix">&gt;_ </span>/contact</a></li>
       </ul>
       <div class="prompt-status-mobile">
@@ -290,18 +288,32 @@
     </div>
     <div class="terminal-body k8s-topology-body">
       <ol class="k8s-node-chain" id="k8sNodeChain" aria-label="Bildungsverlauf als Cluster-Knoten, anklickbar für Details">
+        <li class="k8s-node-item active">
+          <button type="button" class="k8s-node"
+            data-node="k8s-node-ihk-sysadmin-2026"
+            data-title="Umschulung zum Fachinformatiker für Systemintegration (IHK)"
+            data-org="GFN Standort Mannheim"
+            data-period="08.07.2024 – 07.07.2026"
+            data-status="Running (Production / Successfully Completed)"
+            data-details="Vollständiger IHK-Abschluss im Systemintegrations-Umfeld, Schwerpunkt auf Cloud, Active Directory, PowerShell und Infrastructure as Code (IaC).">
+            <span class="k8s-node-icon" aria-hidden="true"><i class="bi bi-hexagon-fill"></i></span>
+            <span class="k8s-node-year">2026</span>
+          </button>
+          <span class="k8s-node-label">k8s-node-ihk-sysadmin</span>
+        </li>
+        <li class="k8s-node-connector" aria-hidden="true"></li>
         <li class="k8s-node-item">
           <button type="button" class="k8s-node"
-            data-node="node-foundation-bensheim-2007"
-            data-title="Hauptschulabschluss / Qualifizierender Abschluss"
-            data-org="Geschwister-Scholl-Schule Bensheim"
-            data-period="2007"
-            data-status="Bootstrapped (Legacy Core)"
-            data-details="Solide schulische Grundsteinlegung und Kernfächer.">
-            <span class="k8s-node-icon" aria-hidden="true"><i class="bi bi-box-seam"></i></span>
-            <span class="k8s-node-year">2007</span>
+            data-node="node-gamedev-srh-2018"
+            data-title="Ausbildung zum Game und Multimedia Designer"
+            data-org="SRH Heidelberg"
+            data-period="08/2017 – 09/2018"
+            data-status="Module Deployed"
+            data-details="Webentwicklung (HTML, CSS, JavaScript), objektorientiertes Programmieren, Design-Ästhetik, Farbenlehre, Level-Design und Teamprojekte.">
+            <span class="k8s-node-icon" aria-hidden="true"><i class="bi bi-palette2"></i></span>
+            <span class="k8s-node-year">2018</span>
           </button>
-          <span class="k8s-node-label">node-foundation</span>
+          <span class="k8s-node-label">node-gamedev-srh</span>
         </li>
         <li class="k8s-node-connector" aria-hidden="true"></li>
         <li class="k8s-node-item">
@@ -320,30 +332,16 @@
         <li class="k8s-node-connector" aria-hidden="true"></li>
         <li class="k8s-node-item">
           <button type="button" class="k8s-node"
-            data-node="node-gamedev-srh-2018"
-            data-title="Ausbildung zum Game und Multimedia Designer"
-            data-org="SRH Heidelberg"
-            data-period="08/2017 – 09/2018"
-            data-status="Module Deployed"
-            data-details="Webentwicklung (HTML, CSS, JavaScript), objektorientiertes Programmieren, Design-Ästhetik, Farbenlehre, Level-Design und Teamprojekte.">
-            <span class="k8s-node-icon" aria-hidden="true"><i class="bi bi-palette2"></i></span>
-            <span class="k8s-node-year">2018</span>
+            data-node="node-foundation-bensheim-2007"
+            data-title="Hauptschulabschluss / Qualifizierender Abschluss"
+            data-org="Geschwister-Scholl-Schule Bensheim"
+            data-period="2007"
+            data-status="Bootstrapped (Legacy Core)"
+            data-details="Solide schulische Grundsteinlegung und Kernfächer.">
+            <span class="k8s-node-icon" aria-hidden="true"><i class="bi bi-box-seam"></i></span>
+            <span class="k8s-node-year">2007</span>
           </button>
-          <span class="k8s-node-label">node-gamedev-srh</span>
-        </li>
-        <li class="k8s-node-connector" aria-hidden="true"></li>
-        <li class="k8s-node-item active">
-          <button type="button" class="k8s-node"
-            data-node="k8s-node-ihk-sysadmin-2026"
-            data-title="Umschulung zum Fachinformatiker für Systemintegration (IHK)"
-            data-org="GFN Standort Mannheim"
-            data-period="08.07.2024 – 07.07.2026"
-            data-status="Running (Production / Successfully Completed)"
-            data-details="Vollständiger IHK-Abschluss im Systemintegrations-Umfeld, Schwerpunkt auf Cloud, Active Directory, PowerShell und Infrastructure as Code (IaC).">
-            <span class="k8s-node-icon" aria-hidden="true"><i class="bi bi-hexagon-fill"></i></span>
-            <span class="k8s-node-year">2026</span>
-          </button>
-          <span class="k8s-node-label">k8s-node-ihk-sysadmin</span>
+          <span class="k8s-node-label">node-foundation</span>
         </li>
       </ol>
     </div>
@@ -1038,7 +1036,9 @@
       <input type="text" name="name" id="name" placeholder="Name" required />
       <input type="email" name="email" id="email" placeholder="E-Mail" required />
       <textarea name="message" id="message" placeholder="Nachricht..." required></textarea>
-      <button type="submit">Senden</button>
+      <button type="submit" class="contact-submit-btn">
+        <span class="ide-prompt">PS&gt;</span> Send-Message<span class="ide-launch-cursor" aria-hidden="true"></span>
+      </button>
       <p id="form-msg"></p>
     </form>
   </section>
